@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState } from "react";
+import React, { FC, Fragment, useEffect, useState } from "react";
 import CommentListing from "components/CommentListing/CommentListing";
 import FiveStartIconForRate from "components/FiveStartIconForRate/FiveStartIconForRate";
 import StartRating from "components/StartRating/StartRating";
@@ -7,7 +7,7 @@ import Badge from "shared/Badge/Badge";
 import LikeSaveBtns from "components/LikeSaveBtns";
 import SectionDateRange from "../SectionDateRange";
 import StayDatesRangeInput from "./StayDatesRangeInput";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Amenities_demos, PHOTOS } from "./constant";
 import { Dialog, Transition } from "@headlessui/react";
 import { ArrowRightIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
@@ -18,6 +18,10 @@ import Input from "shared/Input/Input";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import DetailPagetLayout from "../Layout";
 import GuestsInput from "./GuestsInput";
+import axios from "axios";
+import { apiUrl, appName } from "config";
+import { IStayProps } from "data/types";
+import Helmet from "react-helmet";
 
 const StayDetailPageContainer: FC<{}> = () => {
   //
@@ -39,6 +43,25 @@ const StayDetailPageContainer: FC<{}> = () => {
     router(`${thisPathname}/?modal=PHOTO_TOUR_SCROLLABLE`);
   };
 
+  // //
+  const [data, setData] = useState<IStayProps>();
+
+  useEffect(() => {
+    axios.get(apiUrl + `vendor/announcement/1`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      }
+    }).then(res => {
+      if (res.data.success) {
+        setData(res.data.data)
+      }
+    }).catch(err => {
+      console.log("account vendor/announcement error", err);
+    }).finally(() => {
+
+    })
+  }, [])
+
   const renderSection1 = () => {
     return (
       <div className="listingSection__wrap !space-y-6">
@@ -50,26 +73,28 @@ const StayDetailPageContainer: FC<{}> = () => {
 
         {/* 2 */}
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
-          Beach House in Collingwood
+          {data?.title ?? ""}
         </h2>
 
         {/* 3 */}
-        <div className="flex items-center space-x-4">
+        {/* <div className="flex items-center space-x-4">
           <StartRating />
           <span>·</span>
           <span>
             <i className="las la-map-marker-alt"></i>
             <span className="ml-1"> Tokyo, Jappan</span>
           </span>
-        </div>
+        </div> */}
 
         {/* 4 */}
         <div className="flex items-center">
           <Avatar hasChecked sizeClass="h-10 w-10" radius="rounded-full" />
           <span className="ml-2.5 text-neutral-500 dark:text-neutral-400">
-            Hosted by{" "}
+            Müəllif{" "}
             <span className="text-neutral-900 dark:text-neutral-200 font-medium">
-              Kevin Francis
+              <Link to="/account">
+                Kevin Francis
+              </Link>
             </span>
           </span>
         </div>
@@ -82,25 +107,25 @@ const StayDetailPageContainer: FC<{}> = () => {
           <div className="flex items-center space-x-3 ">
             <i className=" las la-user text-2xl "></i>
             <span className="">
-              6 <span className="hidden sm:inline-block">guests</span>
-            </span>
-          </div>
-          <div className="flex items-center space-x-3">
-            <i className=" las la-bed text-2xl"></i>
-            <span className=" ">
-              6 <span className="hidden sm:inline-block">beds</span>
-            </span>
-          </div>
-          <div className="flex items-center space-x-3">
-            <i className=" las la-bath text-2xl"></i>
-            <span className=" ">
-              3 <span className="hidden sm:inline-block">baths</span>
+              {data?.person_count} <span className="hidden sm:inline-block">qonaq sayı</span>
             </span>
           </div>
           <div className="flex items-center space-x-3">
             <i className=" las la-door-open text-2xl"></i>
             <span className=" ">
-              2 <span className="hidden sm:inline-block">bedrooms</span>
+              {data?.room_count} <span className="hidden sm:inline-block">otaq sayı</span>
+            </span>
+          </div>
+          <div className="flex items-center space-x-3">
+            <i className=" las la-bed text-2xl"></i>
+            <span className=" ">
+              {data?.room_count} <span className="hidden sm:inline-block">yataq sayı</span>
+            </span>
+          </div>
+          <div className="flex items-center space-x-3">
+            <i className=" las la-bath text-2xl"></i>
+            <span className=" ">
+              {data?.bathroom_count} <span className="hidden sm:inline-block">hamam sayı</span>
             </span>
           </div>
         </div>
@@ -111,10 +136,10 @@ const StayDetailPageContainer: FC<{}> = () => {
   const renderSection2 = () => {
     return (
       <div className="listingSection__wrap">
-        <h2 className="text-2xl font-semibold">Stay information</h2>
+        <h2 className="text-2xl font-semibold">Ətraflı məlumat</h2>
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         <div className="text-neutral-6000 dark:text-neutral-300">
-          <span>
+          {/* <span>
             Providing lake views, The Symphony 9 Tam Coc in Ninh Binh provides
             accommodation, an outdoor swimming pool, a bar, a shared lounge, a
             garden and barbecue facilities. Complimentary WiFi is provided.
@@ -130,7 +155,9 @@ const StayDetailPageContainer: FC<{}> = () => {
             The Symphony 9 Tam Coc offers a terrace. Both a bicycle rental
             service and a car rental service are available at the accommodation,
             while cycling can be enjoyed nearby.
-          </span>
+          </span> */}
+
+          {data?.content ?? ""}
         </div>
       </div>
     );
@@ -513,12 +540,12 @@ const StayDetailPageContainer: FC<{}> = () => {
         {/* PRICE */}
         <div className="flex justify-between">
           <span className="text-3xl font-semibold">
-            $119
+            {data?.price} ₼
             <span className="ml-1 text-base font-normal text-neutral-500 dark:text-neutral-400">
-              /night
+              /gün
             </span>
           </span>
-          <StartRating />
+          {/* <StartRating /> */}
         </div>
 
         {/* FORM */}
@@ -553,6 +580,10 @@ const StayDetailPageContainer: FC<{}> = () => {
 
   return (
     <div className="nc-ListingStayDetailPage">
+      <Helmet>
+        <title>{data?.title ? `${data.title} | ${appName}` : appName}</title>
+      </Helmet>
+
       {/*  HEADER */}
       <header className="rounded-md sm:rounded-xl">
         <div className="relative grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2">
@@ -571,9 +602,8 @@ const StayDetailPageContainer: FC<{}> = () => {
           {PHOTOS.filter((_, i) => i >= 1 && i < 5).map((item, index) => (
             <div
               key={index}
-              className={`relative rounded-md sm:rounded-xl overflow-hidden ${
-                index >= 3 ? "hidden sm:block" : ""
-              }`}
+              className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? "hidden sm:block" : ""
+                }`}
             >
               <div className="aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5">
                 <img
@@ -591,14 +621,13 @@ const StayDetailPageContainer: FC<{}> = () => {
               />
             </div>
           ))}
-
           <button
             className="absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-neutral-100 text-neutral-500 hover:bg-neutral-200 z-10"
             onClick={handleOpenModalImageGallery}
           >
             <Squares2X2Icon className="w-5 h-5" />
             <span className="ml-2 text-neutral-800 text-sm font-medium">
-              Show all photos
+              Bütün şəkillərə bax
             </span>
           </button>
         </div>

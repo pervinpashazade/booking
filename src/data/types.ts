@@ -67,7 +67,40 @@ export type TwMainColor =
   | "purple"
   | "gray";
 
+export enum ConditionTypes {
+  bad = 1,
+  poor = 2,
+  good = 3,
+  excelent = 4,
+  lux = 4
+}
+
+
 //
+export interface IStayProps {
+  id: number,
+  user: {},
+  user_id: number,
+  city_id: number,
+  category_id: number,
+  category: {},
+  area: number,
+  price: number,
+  currency: string,
+  address: string,
+  room_count: number,
+  bathroom_count: number,
+  person_count: number,
+  is_breakfast: number,
+  breakfast_fee: number,
+  condition: ConditionTypes,
+  title: string,
+  content: string,
+  image: string,
+  is_active: number,
+  is_vip: number,
+}
+
 export interface StayDataType {
   id: string | number;
   author: AuthorType;

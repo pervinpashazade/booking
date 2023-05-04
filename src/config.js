@@ -1,2 +1,2 @@
-export const appName = "AsanTap.az"
+export const appName = "MekanTap.az"
 export const apiUrl = "https://home.ramilhuseynov.com/api/";

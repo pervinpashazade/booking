@@ -18,7 +18,7 @@ const GallerySlider: FC<GallerySliderProps> = ({
   galleryImgs,
   ratioClass = "aspect-w-4 aspect-h-3",
   uniqueID = "uniqueID",
-  href = "/listing-stay-detail",
+  href = "/room",
 }) => {
   const UNIQUE_CLASS = `gallerySlider__${uniqueID}` + useNcId();
 

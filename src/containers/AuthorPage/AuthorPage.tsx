@@ -1,3 +1,4 @@
+import React, { FC, Fragment, useEffect, useState } from "react";
 import { Tab } from "@headlessui/react";
 import CarCard from "components/CarCard/CarCard";
 import CommentListing from "components/CommentListing/CommentListing";
@@ -9,18 +10,42 @@ import {
   DEMO_EXPERIENCES_LISTINGS,
   DEMO_STAY_LISTINGS,
 } from "data/listings";
-import React, { FC, Fragment, useState } from "react";
 import Avatar from "shared/Avatar/Avatar";
 import ButtonSecondary from "shared/Button/ButtonSecondary";
 import SocialsList from "shared/SocialsList/SocialsList";
 import { Helmet } from "react-helmet";
+import { useAppSelector } from "store/store";
+import { apiUrl, appName } from "config";
+import axios from "axios";
+import { IStayProps, StayDataType } from "data/types";
+import ProStayCard from "components/StayCard/ProStayCard";
 
 export interface AuthorPageProps {
   className?: string;
 }
 
 const AuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
-  let [categories] = useState(["Stays", "Experiences", "Car for rent"]);
+  let [categories] = useState(["Elanlarım", "Turlar", "Car for rent"]);
+
+  const user = useAppSelector(store => store.user)
+
+  const [list, setList] = useState<Array<IStayProps>>([])
+
+  useEffect(() => {
+    axios.get(apiUrl + "vendor/announcement", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      }
+    }).then(res => {
+      if (res.data.success) {
+        setList(res.data.data.data)
+      }
+    }).catch(err => {
+      console.log("account vendor/announcement error", err);
+    }).finally(() => {
+
+    })
+  }, [])
 
   const renderSidebar = () => {
     return (
@@ -33,27 +58,32 @@ const AuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
 
         {/* ---- */}
         <div className="space-y-3 text-center flex flex-col items-center">
-          <h2 className="text-3xl font-semibold">Kevin Francis</h2>
-          <StartRating className="!text-base" />
+          <h2 className="text-3xl font-semibold">{user.name ?? ""} {user.surname ?? ""}</h2>
+          {/* <StartRating className="!text-base" /> */}
         </div>
 
         {/* ---- */}
-        <p className="text-neutral-500 dark:text-neutral-400">
+        {/* <p className="text-neutral-500 dark:text-neutral-400">
           Providing lake views, The Symphony 9 Tam Coc in Ninh Binh provides
           accommodation, an outdoor.
-        </p>
+        </p> */}
 
         {/* ---- */}
-        <SocialsList
+        {/* <SocialsList
           className="!space-x-3"
           itemClass="flex items-center justify-center w-9 h-9 rounded-full bg-neutral-100 dark:bg-neutral-800 text-xl"
-        />
+        /> */}
 
         {/* ---- */}
         <div className="border-b border-neutral-200 dark:border-neutral-700 w-14"></div>
 
         {/* ---- */}
-        <div className="space-y-4">
+        <p className="text-neutral-500 dark:text-neutral-400">
+          {user.email ?? ""}
+        </p>
+
+        {/* ---- */}
+        {/* <div className="space-y-4">
           <div className="flex items-center space-x-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -112,7 +142,7 @@ const AuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
               Joined in March 2016
             </span>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   };
@@ -120,14 +150,14 @@ const AuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
   const renderSection1 = () => {
     return (
       <div className="listingSection__wrap">
-        <div>
+        {/* <div>
           <h2 className="text-2xl font-semibold">Kevin Francis's listings</h2>
           <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
             Kevin Francis's listings is very rich, 5 star reviews help him to be
             more branded.
           </span>
         </div>
-        <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
+        <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div> */}
 
         <div>
           <Tab.Group>
@@ -136,11 +166,10 @@ const AuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
                 <Tab key={item} as={Fragment}>
                   {({ selected }) => (
                     <button
-                      className={`flex-shrink-0 block !leading-none font-medium px-5 py-2.5 text-sm sm:text-base sm:px-6 sm:py-3 capitalize rounded-full focus:outline-none ${
-                        selected
-                          ? "bg-secondary-900 text-secondary-50 "
-                          : "text-neutral-500 dark:text-neutral-400 dark:hover:text-neutral-100 hover:text-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                      } `}
+                      className={`flex-shrink-0 block !leading-none font-medium px-5 py-2.5 text-sm sm:text-base sm:px-6 sm:py-3 capitalize rounded-full focus:outline-none ${selected
+                        ? "bg-secondary-900 text-secondary-50 "
+                        : "text-neutral-500 dark:text-neutral-400 dark:hover:text-neutral-100 hover:text-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                        } `}
                     >
                       {item}
                     </button>
@@ -151,6 +180,9 @@ const AuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
             <Tab.Panels>
               <Tab.Panel className="">
                 <div className="mt-8 grid grid-cols-1 gap-6 md:gap-7 sm:grid-cols-2">
+                  {list.map((item) => (
+                    <ProStayCard key={item.id} data={item} />
+                  ))}
                   {DEMO_STAY_LISTINGS.filter((_, i) => i < 4).map((stay) => (
                     <StayCard key={stay.id} data={stay} />
                   ))}
@@ -212,7 +244,7 @@ const AuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
   return (
     <div className={`nc-AuthorPage ${className}`} data-nc-id="AuthorPage">
       <Helmet>
-        <title>Login || Booking React Template</title>
+        <title>Şəxsi kabinet | {appName}</title>
       </Helmet>
       <main className="container mt-12 mb-24 lg:mb-32 flex flex-col lg:flex-row">
         <div className="block flex-grow mb-24 lg:mb-0">
@@ -220,7 +252,7 @@ const AuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
         </div>
         <div className="w-full lg:w-3/5 xl:w-2/3 space-y-8 lg:space-y-10 lg:pl-10 flex-shrink-0">
           {renderSection1()}
-          {renderSection2()}
+          {/* {renderSection2()} */}
         </div>
       </main>
     </div>

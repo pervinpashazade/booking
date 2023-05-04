@@ -6,20 +6,20 @@ import ExperiencesSearchForm from "./(experiences-search-form)/ExperiencesSearch
 import RentalCarSearchForm from "./(car-search-form)/RentalCarSearchForm";
 import FlightSearchForm from "./(flight-search-form)/FlightSearchForm";
 
-export type SearchTab = "Stays" | "Experiences" | "Cars" | "Flights";
+export type SearchTab = "Kirayə" | "Turlar" | "Restoranlar" | "Flights";
 
 export interface HeroSearchFormProps {
   className?: string;
   currentTab?: SearchTab;
-  currentPage?: "Stays" | "Experiences" | "Cars" | "Flights";
+  currentPage?: "Kirayə" | "Turlar" | "Restoranlar" | "Flights";
 }
 
 const HeroSearchForm: FC<HeroSearchFormProps> = ({
   className = "",
-  currentTab = "Stays",
+  currentTab = "Kirayə",
   currentPage,
 }) => {
-  const tabs: SearchTab[] = ["Stays", "Experiences", "Cars", "Flights"];
+  const tabs: SearchTab[] = ["Kirayə", "Turlar", "Restoranlar", "Flights"];
   const [tabActive, setTabActive] = useState<SearchTab>(currentTab);
 
   const renderTab = () => {
@@ -30,11 +30,10 @@ const HeroSearchForm: FC<HeroSearchFormProps> = ({
           return (
             <li
               onClick={() => setTabActive(tab)}
-              className={`flex-shrink-0 flex items-center cursor-pointer text-sm lg:text-base font-medium ${
-                active
+              className={`flex-shrink-0 flex items-center cursor-pointer text-sm lg:text-base font-medium ${active
                   ? ""
                   : "text-neutral-500 hover:text-neutral-700 dark:hover:text-neutral-400"
-              } `}
+                } `}
               key={tab}
             >
               {active && (
@@ -50,11 +49,11 @@ const HeroSearchForm: FC<HeroSearchFormProps> = ({
 
   const renderForm = () => {
     switch (tabActive) {
-      case "Stays":
+      case "Kirayə":
         return <StaySearchForm />;
-      case "Experiences":
+      case "Turlar":
         return <ExperiencesSearchForm />;
-      case "Cars":
+      case "Restoranlar":
         return <RentalCarSearchForm />;
       case "Flights":
         return <FlightSearchForm />;

@@ -14,14 +14,14 @@ interface SolutionItem {
 
 const solutions: SolutionItem[] = [
   {
-    name: "Stays",
+    name: "Kirayə",
     description: "Stays rental description ",
     href: "/listing-stay",
     icon: IconFour,
     active: true,
   },
   {
-    name: "Flights",
+    name:"Flights",
     description: "Flights description",
     href: "/listing-flights",
     icon: IconTwo,
@@ -33,7 +33,7 @@ const solutions: SolutionItem[] = [
     icon: IconOne,
   },
   {
-    name: "Cars",
+    name: "Restoranlar",
     description: "Car rental description",
     href: "/listing-car",
     icon: IconThree,

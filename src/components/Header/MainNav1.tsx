@@ -6,7 +6,7 @@ import ButtonPrimary from "shared/Button/ButtonPrimary";
 import MenuBar from "shared/MenuBar/MenuBar";
 import SwitchDarkMode from "shared/SwitchDarkMode/SwitchDarkMode";
 import HeroSearchForm2MobileFactory from "components/HeroSearchForm2Mobile/HeroSearchForm2MobileFactory";
-import {useAppSelector} from "../../store/store";
+import { useAppSelector } from "../../store/store";
 import AvatarDropdown from "./AvatarDropdown";
 
 export interface MainNav1Props {
@@ -35,7 +35,7 @@ const MainNav1: FC<MainNav1Props> = ({ className = "" }) => {
             <SearchDropdown />
             <div className="px-1" />
             {
-                !isAuth ?
+              !isAuth ?
                 <ButtonPrimary href="/login">Daxil ol</ButtonPrimary>
                 : <AvatarDropdown />
             }

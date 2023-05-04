@@ -8,47 +8,47 @@ import {
   LifebuoyIcon,
 } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Avatar from "shared/Avatar/Avatar";
-import {useAppDispatch} from "../../store/store";
-import {logout} from "../../store/action";
-
-const solutions = [
-  {
-    name: "Account",
-    href: "/account",
-    icon: UserCircleIcon,
-  },
-  {
-    name: "Messages",
-    href: "##",
-    icon: ChatBubbleBottomCenterTextIcon,
-  },
-  {
-    name: "Wishlists",
-    href: "/account-savelists",
-    icon: HeartIcon,
-  },
-  {
-    name: "Booking",
-    href: "##",
-    icon: HomeIcon,
-  },
-];
+import { useAppDispatch } from "../../store/store";
+import { logout } from "../../store/action";
 
 export default function AvatarDropdown() {
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 
-  const solutionsFoot = [
+  const solutions = [
     {
-      name: "Help",
-      href: "##",
-      icon: LifebuoyIcon,
+      name: "Şəxsi kabinet",
+      href: "/account",
+      icon: UserCircleIcon,
     },
+    // {
+    //   name: "Mesajlar",
+    //   href: "##",
+    //   icon: ChatBubbleBottomCenterTextIcon,
+    // },
+    // {
+    //   name: "Favorilər",
+    //   href: "/account-savelists",
+    //   icon: HeartIcon,
+    // },
+    // {
+    //   name: "Booking",
+    //   href: "##",
+    //   icon: HomeIcon,
+    // },
+  ];
+
+  const solutionsFoot = [
+    // {
+    //   name: "Help",
+    //   href: "##",
+    //   icon: LifebuoyIcon,
+    // },
     {
-      name: "Logout",
+      name: "Çıxış",
       href: "##",
       icon: ArrowRightOnRectangleIcon,
       onClick: (e: any) => {

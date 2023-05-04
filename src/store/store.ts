@@ -4,7 +4,7 @@ import thunkMiddleware from 'redux-thunk'
 import reducer from './reducer'
 
 import storage from 'redux-persist/lib/storage';
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 const persistConfig = {
     key: 'root-booking',

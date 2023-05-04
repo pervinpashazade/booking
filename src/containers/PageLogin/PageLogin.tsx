@@ -1,17 +1,17 @@
-import React, {FC, FormEvent, useEffect, useState} from "react";
+import React, { FC, FormEvent, useEffect, useState } from "react";
 import facebookSvg from "images/Facebook.svg";
 import twitterSvg from "images/Twitter.svg";
 import googleSvg from "images/Google.svg";
 import { Helmet } from "react-helmet";
 import Input from "shared/Input/Input";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import axios from "axios";
 import { apiUrl, appName } from "config";
 import { IErrorResponse } from "data/types";
-import {useDispatch} from "react-redux";
-import {useAppDispatch, useAppSelector} from "../../store/store";
-import {login} from "../../store/action";
+import { useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "../../store/store";
+import { login } from "../../store/action";
 
 export interface PageLoginProps {
   className?: string;
@@ -45,12 +45,12 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const formData = new FormData(e.target)
-    const data:{
-        [key:string]:string
-    }={}
+    const data: {
+      [key: string]: string
+    } = {}
     // @ts-ignore
-    for (const [key,value] of formData.entries()) {
-        data[key] = value
+    for (const [key, value] of formData.entries()) {
+      data[key] = value
     }
     if (!data.email) {
       setErrorMessage('Email daxil edin')

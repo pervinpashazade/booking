@@ -11,7 +11,7 @@ export interface LocationStates {
   //
   "/listing-stay"?: {};
   "/listing-stay-map"?: {};
-  "/listing-stay-detail"?: {};
+  "/room"?: {};
   //
   "/listing-experiences"?: {};
   "/listing-experiences-map"?: {};

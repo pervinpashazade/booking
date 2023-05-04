@@ -12,7 +12,7 @@ import ButtonSecondary from "shared/Button/ButtonSecondary";
 import CommonLayout from "./CommonLayout";
 
 const AccountSavelists = () => {
-  let [categories] = useState(["Stays", "Experiences", "Cars"]);
+  let [categories] = useState(["Kirayə", "Turlar", "Restoranlar"]);
 
   const renderSection1 = () => {
     return (

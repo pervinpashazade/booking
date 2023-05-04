@@ -8,6 +8,8 @@ import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import SectionSliderNewCategories from "components/SectionSliderNewCategories/SectionSliderNewCategories";
 import SectionSubscribe2 from "components/SectionSubscribe2/SectionSubscribe2";
 import MobileFooterSticky from "./(components)/MobileFooterSticky";
+import { appName } from "config";
+import Helmet from "react-helmet";
 
 const DetailPagetLayout = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const DetailPagetLayout = ({ children }: { children: ReactNode }) => {
   };
 
   const getImageGalleryListing = () => {
-    if (thisPathname?.includes("/listing-stay-detail")) {
+    if (thisPathname?.includes("/room")) {
       return listingStayImageGallery;
     }
     if (thisPathname?.includes("/listing-car-detail")) {
@@ -37,6 +39,10 @@ const DetailPagetLayout = ({ children }: { children: ReactNode }) => {
 
   return (
     <div className="ListingDetailPage">
+      <Helmet>
+        <title>{appName}</title>
+      </Helmet>
+
       <ListingImageGallery
         isShowModal={modal === "PHOTO_TOUR_SCROLLABLE"}
         onClose={handleCloseModalImageGallery}

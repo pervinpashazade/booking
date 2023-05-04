@@ -13,6 +13,8 @@ import SectionGridCategoryBox from "components/SectionGridCategoryBox/SectionGri
 import SectionBecomeAnAuthor from "components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
 import SectionVideos from "./SectionVideos";
 import SectionClientSay from "components/SectionClientSay/SectionClientSay";
+import { Helmet } from "react-helmet";
+import { appName } from "config";
 
 const DEMO_CATS: TaxonomyType[] = [
   {
@@ -122,6 +124,10 @@ const DEMO_CATS_2: TaxonomyType[] = [
 function PageHome() {
   return (
     <div className="nc-PageHome relative overflow-hidden">
+      <Helmet>
+        <title>Ana səhifə | {appName}</title>
+      </Helmet>
+
       {/* GLASSMOPHIN */}
       <BgGlassmorphism />
 
@@ -142,7 +148,7 @@ function PageHome() {
         {/* SECTION */}
         <div className="relative py-16">
           <BackgroundSection />
-          <SectionGridFeaturePlaces heading="Seçilmiş qalmaq üçün yerlər" />
+          <SectionGridFeaturePlaces heading="Sizin üçün seçilənlər" subHeading="Seçilmiş qalmaq üçün yerlər" />
         </div>
 
         {/* SECTION */}
