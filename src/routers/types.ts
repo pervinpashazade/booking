@@ -65,4 +65,5 @@ export interface Page {
   path: PathName;
   exact?: boolean;
   component: ComponentType<Object>;
+  key?: string;
 }

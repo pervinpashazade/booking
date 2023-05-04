@@ -47,6 +47,7 @@ import ListingStayDetailPage from "containers/ListingDetailPage/listing-stay-det
 import ListingCarDetailPage from "containers/ListingDetailPage/listing-car-detail/ListingCarDetailPage";
 import ListingExperiencesDetailPage from "containers/ListingDetailPage/listing-experiences-detail/ListingExperiencesDetailPage";
 import PageForgotPassword from "containers/PageForgotPassword/PageForgotPassword";
+import {useAppSelector} from "../store/store";
 
 export const pages: Page[] = [
   { path: "/", exact: true, component: PageHome },
@@ -84,7 +85,7 @@ export const pages: Page[] = [
   { path: "/checkout", component: CheckOutPage },
   { path: "/pay-done", component: PayPage },
   //
-  { path: "/author", component: AuthorPage },
+  { path: "/account", component: AuthorPage },
   { path: "/account", component: AccountPage },
   { path: "/account-password", component: AccountPass },
   { path: "/account-savelists", component: AccountSavelists },
@@ -106,10 +107,13 @@ export const pages: Page[] = [
   //
   { path: "/contact", component: PageContact },
   { path: "/about", component: PageAbout },
-  { path: "/signup", component: PageSignUp },
-  { path: "/login", component: PageLogin },
-  { path: "/forgot-pass", component: PageForgotPassword },
-  { path: "/subscription", component: PageSubcription },
+
+    // auth
+  { path: "/signup", component: PageSignUp, key: "auth" },
+  { path: "/login", component: PageLogin, key: "auth" },
+  { path: "/forgot-pass", component: PageForgotPassword, key: "auth" },
+
+  { path: "/subscription", component: PageSubcription},
   //
 ];
 
@@ -119,17 +123,27 @@ const MyRoutes = () => {
     WIN_WIDTH = WIN_WIDTH || window.innerWidth;
   }
 
+  const isAuth = useAppSelector(state => state.isAuth)
+
   return (
     <BrowserRouter>
       <ScrollToTop />
       <SiteHeader />
 
       <Routes>
-        {pages.map(({ component, path }) => {
-          const Component = component;
-          return <Route key={path} element={<Component />} path={path} />;
-        })}
-        <Route element={<Page404 />} />
+        {
+          !isAuth ?
+              pages.map(({ component, path }) => {
+                const Component = component;
+                return <Route key={path} element={<Component />} path={path} />;
+              })
+              :
+              pages.filter(page => page.key !== "auth").map(({ component, path }) => {
+                const Component = component;
+                return <Route key={path} element={<Component />} path={path} />;
+              })
+        }
+        <Route path="*" element={<Page404 />} />
       </Routes>
 
       {WIN_WIDTH < 768 && <FooterNav />}

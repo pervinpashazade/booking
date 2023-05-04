@@ -253,7 +253,7 @@ const ListingExperiencesDetail: FC<{}> = () => {
         {/* == */}
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         <div>
-          <ButtonSecondary href="/author">See host profile</ButtonSecondary>
+          <ButtonSecondary href="/account">See host profile</ButtonSecondary>
         </div>
       </div>
     );

@@ -1,14 +1,17 @@
-import React, { FC, FormEvent, useState } from "react";
+import React, {FC, FormEvent, useEffect, useState} from "react";
 import facebookSvg from "images/Facebook.svg";
 import twitterSvg from "images/Twitter.svg";
 import googleSvg from "images/Google.svg";
 import { Helmet } from "react-helmet";
 import Input from "shared/Input/Input";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import axios from "axios";
 import { apiUrl, appName } from "config";
 import { IErrorResponse } from "data/types";
+import {useDispatch} from "react-redux";
+import {useAppDispatch, useAppSelector} from "../../store/store";
+import {login} from "../../store/action";
 
 export interface PageLoginProps {
   className?: string;
@@ -36,16 +39,35 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
+    const formData = new FormData(e.target)
+    const data:{
+        [key:string]:string
+    }={}
+    // @ts-ignore
+    for (const [key,value] of formData.entries()) {
+        data[key] = value
+    }
+    if (!data.email) {
+      setErrorMessage('Email daxil edin')
+      return
+    }
+    if (!data.password) {
+      setErrorMessage('Şifrə daxil edin')
+      return
+    }
     setIsLoading(true)
     setErrorMessage('')
-    axios.post(apiUrl + 'user/auth/login', {
-      email: "test",
-      password: "123"
-    }).then(res => {
+    axios.post(apiUrl + 'user/auth/login', data).then(res => {
       console.log("res", res.data);
+      localStorage.setItem('access_token', res.data.access_token)
+      localStorage.setItem('user', JSON.stringify(res.data.user))
+      dispatch(login(res.data.user))
+      navigate('/')
     }).catch((err: IErrorResponse) => {
       console.log("login error", err.response.data.error)
       setErrorMessage(err.response.data.error)

@@ -8,13 +8,15 @@ import {
   LifebuoyIcon,
 } from "@heroicons/react/24/outline";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Avatar from "shared/Avatar/Avatar";
+import {useAppDispatch} from "../../store/store";
+import {logout} from "../../store/action";
 
 const solutions = [
   {
     name: "Account",
-    href: "/author",
+    href: "/account",
     icon: UserCircleIcon,
   },
   {
@@ -34,21 +36,29 @@ const solutions = [
   },
 ];
 
-const solutionsFoot = [
-  {
-    name: "Help",
-    href: "##",
-    icon: LifebuoyIcon,
-  },
-
-  {
-    name: "Logout",
-    href: "##",
-    icon: ArrowRightOnRectangleIcon,
-  },
-];
-
 export default function AvatarDropdown() {
+
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  const solutionsFoot = [
+    {
+      name: "Help",
+      href: "##",
+      icon: LifebuoyIcon,
+    },
+    {
+      name: "Logout",
+      href: "##",
+      icon: ArrowRightOnRectangleIcon,
+      onClick: (e: any) => {
+        e.preventDefault()
+        dispatch(logout())
+        navigate('/')
+      }
+    },
+  ];
+
   return (
     <div className="AvatarDropdown">
       <Popover className="relative">
@@ -92,6 +102,7 @@ export default function AvatarDropdown() {
                       <a
                         key={index}
                         href={item.href}
+                        onClick={item.onClick}
                         className="flex items-center p-2 -m-3 transition duration-150 ease-in-out rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                       >
                         <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">

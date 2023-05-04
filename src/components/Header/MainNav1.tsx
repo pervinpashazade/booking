@@ -6,12 +6,17 @@ import ButtonPrimary from "shared/Button/ButtonPrimary";
 import MenuBar from "shared/MenuBar/MenuBar";
 import SwitchDarkMode from "shared/SwitchDarkMode/SwitchDarkMode";
 import HeroSearchForm2MobileFactory from "components/HeroSearchForm2Mobile/HeroSearchForm2MobileFactory";
+import {useAppSelector} from "../../store/store";
+import AvatarDropdown from "./AvatarDropdown";
 
 export interface MainNav1Props {
   className?: string;
 }
 
 const MainNav1: FC<MainNav1Props> = ({ className = "" }) => {
+
+  const isAuth = useAppSelector(store => store.isAuth)
+
   return (
     <div className={`nc-MainNav1 relative z-10 ${className}`}>
       <div className="px-4 lg:container py-4 lg:py-5 relative flex justify-between items-center">
@@ -29,7 +34,11 @@ const MainNav1: FC<MainNav1Props> = ({ className = "" }) => {
             <SwitchDarkMode />
             <SearchDropdown />
             <div className="px-1" />
-            <ButtonPrimary href="/login">Sign up</ButtonPrimary>
+            {
+                !isAuth ?
+                <ButtonPrimary href="/login">Daxil ol</ButtonPrimary>
+                : <AvatarDropdown />
+            }
           </div>
           <div className="flex xl:hidden items-center">
             <SwitchDarkMode />
