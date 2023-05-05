@@ -19,16 +19,16 @@ const PageAddListing2: FC<PageAddListing2Props> = () => {
       backtHref="/add-listing-1"
     >
       <>
-        <h2 className="text-2xl font-semibold">Your place location</h2>
+        <h2 className="text-2xl font-semibold">Ünvan</h2>
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         {/* FORM */}
         <div className="space-y-8">
-          <ButtonSecondary>
+          {/* <ButtonSecondary>
             <MapPinIcon className="w-5 h-5 text-neutral-500 dark:text-neutral-400" />
             <span className="ml-3">Use current location</span>
-          </ButtonSecondary>
+          </ButtonSecondary> */}
           {/* ITEM */}
-          <FormItem label="Country/Region">
+          <FormItem label="Şəhər">
             <Select>
               <option value="Viet Nam">Viet Nam</option>
               <option value="Thailand">Thailand</option>
@@ -39,13 +39,10 @@ const PageAddListing2: FC<PageAddListing2Props> = () => {
               <option value="...">...</option>
             </Select>
           </FormItem>
-          <FormItem label="Street">
+          <FormItem label="Küçə">
             <Input placeholder="..." />
           </FormItem>
-          <FormItem label="Room number (optional)">
-            <Input />
-          </FormItem>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-5">
+          {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-5">
             <FormItem label="City">
               <Input />
             </FormItem>
@@ -55,8 +52,8 @@ const PageAddListing2: FC<PageAddListing2Props> = () => {
             <FormItem label="Postal code">
               <Input />
             </FormItem>
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <Label>Detailed address</Label>
             <span className="block mt-1 text-sm text-neutral-500 dark:text-neutral-400">
               1110 Pennsylvania Avenue NW, Washington, DC 20230
@@ -80,7 +77,7 @@ const PageAddListing2: FC<PageAddListing2Props> = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </>
     </CommonLayout>

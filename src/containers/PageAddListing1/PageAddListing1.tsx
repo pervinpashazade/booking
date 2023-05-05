@@ -3,8 +3,9 @@ import Input from "shared/Input/Input";
 import Select from "shared/Select/Select";
 import CommonLayout from "./CommonLayout";
 import FormItem from "./FormItem";
+import Textarea from "shared/Textarea/Textarea";
 
-export interface PageAddListing1Props {}
+export interface PageAddListing1Props { }
 
 const PageAddListing1: FC<PageAddListing1Props> = () => {
   return (
@@ -14,14 +15,14 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
       nextHref="/add-listing-2"
     >
       <>
-        <h2 className="text-2xl font-semibold">Choosing listing categories</h2>
+        <h2 className="text-2xl font-semibold">Yeni elan</h2>
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         {/* FORM */}
         <div className="space-y-8">
           {/* ITEM */}
           <FormItem
-            label="Choose a property type"
-            desc="Hotel: Professional hospitality businesses that usually have a unique style or theme defining their brand and decor"
+            label="Məkan növü"
+            desc="Adətən öz brendini və dekorasiyasını müəyyən edən unikal üsluba və ya mövzuya malik olan peşəkar qonaqpərvərlik müəssisələri"
           >
             <Select>
               <option value="Hotel">Hotel</option>
@@ -34,22 +35,35 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
             </Select>
           </FormItem>
           <FormItem
-            label="Place name"
-            desc="A catchy name usually includes: House name + Room name + Featured property + Tourist destination"
+            label="Məkanın adı"
+            desc="Cazibədar ad adətən daxildir: Ev adı + Otaq adı + Seçilmiş əmlak + Turist təyinatı"
           >
             <Input placeholder="Places name" />
           </FormItem>
-          <FormItem
-            label="Rental form"
-            desc="Entire place: Guests have the whole place to themselves—there's a private entrance and no shared spaces. A bedroom, bathroom, and kitchen are usually included."
-          >
+          <FormItem label="Şəhər">
             <Select>
-              <option value="Hotel">Entire place</option>
-              <option value="Private room">Private room</option>
-              <option value="Share room">Share room</option>
+              <option value="Viet Nam">Viet Nam</option>
+              <option value="Thailand">Thailand</option>
+              <option value="France">France</option>
+              <option value="Singapore">Singapore</option>
+              <option value="Jappan">Jappan</option>
+              <option value="Korea">Korea</option>
+              <option value="...">...</option>
             </Select>
           </FormItem>
+          <FormItem label="Küçə">
+            <Input placeholder="..." />
+          </FormItem>
         </div>
+        <div>
+          <h2 className="text-2xl font-semibold">
+            Məkan haqqında ətraflı məlumat
+          </h2>
+          <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
+            Yaşayış yerinizin ən yaxşı xüsusiyyətlərini, sürətli Wi-Fi və ya parkinq kimi hər hansı xüsusi imkanları, həmçinin qonşuluqda bəyəndiyiniz şeyləri qeyd edin.
+          </span>
+        </div>
+        <Textarea placeholder="..." rows={14} />
       </>
     </CommonLayout>
   );

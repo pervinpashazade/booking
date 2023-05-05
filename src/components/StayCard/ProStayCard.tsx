@@ -21,6 +21,7 @@ const StayCard: FC<StayCardProps> = ({
     className = "",
     data,
 }) => {
+
     const {
         id,
         user,
@@ -48,14 +49,14 @@ const StayCard: FC<StayCardProps> = ({
     const renderSliderGallery = () => {
         return (
             <div className="relative w-full">
-                {/* <GallerySlider
+                <GallerySlider
                     uniqueID={`StayCard_${id}`}
                     ratioClass="aspect-w-4 aspect-h-3 "
-                    galleryImgs={galleryImgs}
-                    href={href}
+                    galleryImgs={data.images.map(item => item.url_full)}
+                    href={"/room"}
                 />
-                <BtnLikeIcon isLiked={like} className="absolute right-3 top-3 z-[1]" />
-                {saleOff && <SaleOffBadge className="absolute left-3 top-3" />} */}
+                {/* <BtnLikeIcon isLiked={like} className="absolute right-3 top-3 z-[1]" /> */}
+                {/* {saleOff && <SaleOffBadge className="absolute left-3 top-3" />} */}
             </div>
         );
     };
@@ -110,7 +111,7 @@ const StayCard: FC<StayCardProps> = ({
                         {` `}
                         {size === "default" && (
                             <span className="text-sm text-neutral-500 dark:text-neutral-400 font-normal">
-                                /night
+                                /gün
                             </span>
                         )}
                     </span>

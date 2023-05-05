@@ -72,9 +72,13 @@ export enum ConditionTypes {
   poor = 2,
   good = 3,
   excelent = 4,
-  lux = 4
+  lux = 5
 }
 
+export interface IImageProps {
+  id: number
+  url_full: string
+}
 
 //
 export interface IStayProps {
@@ -97,6 +101,7 @@ export interface IStayProps {
   title: string,
   content: string,
   image: string,
+  images: Array<IImageProps>
   is_active: number,
   is_vip: number,
 }

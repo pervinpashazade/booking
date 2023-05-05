@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import CommonLayout from "./CommonLayout";
 
-export interface PageAddListing7Props {}
+export interface PageAddListing7Props { }
 
 const PageAddListing7: FC<PageAddListing7Props> = () => {
   return (
@@ -12,10 +12,9 @@ const PageAddListing7: FC<PageAddListing7Props> = () => {
     >
       <>
         <div>
-          <h2 className="text-2xl font-semibold">Pictures of the place</h2>
+          <h2 className="text-2xl font-semibold">Məkanın şəkilləri</h2>
           <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
-            A few beautiful photos will help customers have more sympathy for
-            your property.
+            Bir neçə gözəl fotoşəkil müştərilərin əmlakınıza daha çox rəğbət bəsləməsinə kömək edəcək.
           </span>
         </div>
 
@@ -23,7 +22,7 @@ const PageAddListing7: FC<PageAddListing7Props> = () => {
         {/* FORM */}
         <div className="space-y-8">
           <div>
-            <span className="text-lg font-semibold">Cover image</span>
+            <span className="text-lg font-semibold">Əsas şəkil</span>
             <div className="mt-5 ">
               <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-neutral-300 dark:border-neutral-6000 border-dashed rounded-md">
                 <div className="space-y-1 text-center">
@@ -65,7 +64,7 @@ const PageAddListing7: FC<PageAddListing7Props> = () => {
           </div>
           {/* ----------------- */}
           <div>
-            <span className="text-lg font-semibold">Pictures of the place</span>
+            <span className="text-lg font-semibold">Ətraflı şəkillər</span>
             <div className="mt-5 ">
               <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-neutral-300 dark:border-neutral-6000 border-dashed rounded-md">
                 <div className="space-y-1 text-center">
