@@ -1,10 +1,13 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, {FC, useEffect, useState} from "react";
 import StaySearchForm from "./(stay-search-form)/StaySearchForm";
 import ExperiencesSearchForm from "./(experiences-search-form)/ExperiencesSearchForm";
 import RentalCarSearchForm from "./(car-search-form)/RentalCarSearchForm";
 import FlightSearchForm from "./(flight-search-form)/FlightSearchForm";
+import axios from "axios";
+import {apiUrl} from "../../config";
+import {ICityProps} from "../../data/types";
 
 export type SearchTab = "Kirayə" | "Turlar";
 
@@ -21,6 +24,13 @@ const HeroSearchForm: FC<HeroSearchFormProps> = ({
 }) => {
   const tabs: SearchTab[] = ["Kirayə", "Turlar"];
   const [tabActive, setTabActive] = useState<SearchTab>(currentTab);
+  const [cities, setCities] = useState<Array<ICityProps>>([]);
+
+  useEffect(() => {
+    axios.get(apiUrl + "shared/cities").then((res) => {
+      setCities(res.data.data);
+    })
+  }, []);
 
   const renderTab = () => {
     return (
@@ -50,7 +60,7 @@ const HeroSearchForm: FC<HeroSearchFormProps> = ({
   const renderForm = () => {
     switch (tabActive) {
       case "Kirayə":
-        return <StaySearchForm />;
+        return <StaySearchForm  cities={cities}/>;
       case "Turlar":
         return <ExperiencesSearchForm />;
       default:
