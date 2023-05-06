@@ -26,17 +26,17 @@ const ListingCarMapPage: FC<ListingCarMapPageProps> = ({ className = "" }) => {
 
       {/* SECTION HERO */}
       <div className="container pt-10 pb-24 lg:pt-16 lg:pb-28">
-        <SectionHeroArchivePage
-          rightImage={heroRightImage}
-          currentPage="Restoranlar"
-          currentTab="Restoranlar"
-          listingType={
-            <>
-              <i className="text-2xl las la-car"></i>
-              <span className="ml-2.5">1512 cars</span>
-            </>
-          }
-        />
+        {/*<SectionHeroArchivePage*/}
+        {/*  rightImage={heroRightImage}*/}
+        {/*  currentPage="Restoranlar"*/}
+        {/*  currentTab="Restoranlar"*/}
+        {/*  listingType={*/}
+        {/*    <>*/}
+        {/*      <i className="text-2xl las la-car"></i>*/}
+        {/*      <span className="ml-2.5">1512 cars</span>*/}
+        {/*    </>*/}
+        {/*  }*/}
+        {/*/>*/}
       </div>
 
       {/* SECTION */}

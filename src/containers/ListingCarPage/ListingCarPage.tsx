@@ -79,18 +79,18 @@ const ListingCarPage: FC<ListingCarPageProps> = ({ className = "" }) => {
 
       <div className="container relative">
         {/* SECTION HERO */}
-        <SectionHeroArchivePage
-          rightImage={heroRightImage}
-          currentPage="Restoranlar"
-          currentTab="Restoranlar"
-          listingType={
-            <>
-              <i className="text-2xl las la-car"></i>
-              <span className="ml-2.5">1512 cars</span>
-            </>
-          }
-          className="pt-10 pb-24 lg:pb-28 lg:pt-16 "
-        />
+        {/*<SectionHeroArchivePage*/}
+        {/*  rightImage={heroRightImage}*/}
+        {/*  currentPage="Restoranlar"*/}
+        {/*  currentTab="Restoranlar"*/}
+        {/*  listingType={*/}
+        {/*    <>*/}
+        {/*      <i className="text-2xl las la-car"></i>*/}
+        {/*      <span className="ml-2.5">1512 cars</span>*/}
+        {/*    </>*/}
+        {/*  }*/}
+        {/*  className="pt-10 pb-24 lg:pb-28 lg:pt-16 "*/}
+        {/*/>*/}
 
         {/* SECTION */}
         <SectionGridFilterCard className="pb-24 lg:pb-28" />
