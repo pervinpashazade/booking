@@ -5,10 +5,15 @@ import ButtonPrimary from "shared/Button/ButtonPrimary";
 import ButtonSecondary from "shared/Button/ButtonSecondary";
 import { DEMO_STAY_LISTINGS } from "data/listings";
 import StayCard from "components/StayCard/StayCard";
+import ProStayCard from "components/StayCard/StayCard";
+import { useAppSelector } from "store/store";
 
 export interface PageAddListing4Props { }
 
 const PageAddListing4: FC<PageAddListing4Props> = () => {
+
+  const room = useAppSelector(store => store.room)
+
   return (
     <CommonLayout
       index="4"
@@ -28,7 +33,11 @@ const PageAddListing4: FC<PageAddListing4Props> = () => {
         <div>
           <h3 className="text-lg font-semibold">Sizin elanınız</h3>
           <div className="max-w-xs">
-            <StayCard
+            {/* <StayCard
+              className="mt-8"
+              data={{ ...DEMO_STAY_LISTINGS[0], reviewStart: 0 }}
+            /> */}
+            <ProStayCard
               className="mt-8"
               data={{ ...DEMO_STAY_LISTINGS[0], reviewStart: 0 }}
             />

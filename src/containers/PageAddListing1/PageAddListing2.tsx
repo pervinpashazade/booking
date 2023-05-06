@@ -73,8 +73,14 @@ const PageAddListing2: FC<PageAddListing2Props> = () => {
             }
             onChange={count => dispatch(changeValue("room", "double_bed_count", count))}
           />
-          <NcInputNumber label="Hamam sayı" defaultValue={2} />
-          <NcInputNumber label="Mətbəx sayı" defaultValue={2} />
+          <NcInputNumber
+            label="Hamam sayı"
+            defaultValue={
+              //@ts-ignore
+              room.bathroom_count
+            }
+            onChange={count => dispatch(changeValue("room", "bathroom_count", count))}
+          />
         </div>
       </>
       {/* <>
