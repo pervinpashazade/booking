@@ -5,10 +5,12 @@ import googleSvg from "images/Google.svg";
 import { Helmet } from "react-helmet";
 import Input from "shared/Input/Input";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { apiUrl, appName } from "config";
 import axios from "axios";
 import { IErrorResponse } from "data/types";
+import { useAppDispatch } from "store/store";
+import { login } from "store/action";
 
 export interface PageSignUpProps {
   className?: string;
@@ -34,21 +36,68 @@ const loginSocials = [
 
 const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
 
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [errorMessage, setErrorMessage] = useState<string>('')
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
+
+    const formData = new FormData(e.target)
+    const data: {
+      [key: string]: string
+    } = {}
+
+    // @ts-ignore
+    for (const [key, value] of formData.entries()) {
+      data[key] = value
+    }
+
+    if (!data.name) {
+      setErrorMessage('Ad daxil edin')
+      return
+    }
+    if (!data.surname) {
+      setErrorMessage('Soyad daxil edin')
+      return
+    }
+    if (!data.email) {
+      setErrorMessage('Email daxil edin')
+      return
+    }
+    if (!data.password) {
+      setErrorMessage('Şifrə daxil edin')
+      return
+    }
+    if (!data.password_confirmation) {
+      setErrorMessage('Şifrə təkarı daxil edin')
+      return
+    }
+
+    if (data?.password !== data?.password_confirmation) {
+      setErrorMessage('Şifrə təkrarı eyni olmalıdır')
+      return
+    }
+
     setIsLoading(true)
     setErrorMessage('')
+
     axios.post(apiUrl + 'user/auth/register', {
-      name: "Name1",
-      surname: "Surname1",
-      email: "test@gmail.com",
-      password: "123123",
-      password_confirmation: "123123"
+      name: data.name,
+      surname: data.surname,
+      email: data.email,
+      password: data.password,
+      password_confirmation: data.password_confirmation
     }).then(res => {
       console.log("res", res.data);
+
+      localStorage.setItem('access_token', res.data.access_token)
+      localStorage.setItem('user', JSON.stringify(res.data.user))
+      dispatch(login(res.data.user))
+      navigate('/')
+
     }).catch((err: IErrorResponse) => {
       console.log("login error", err.response.data.error)
       setErrorMessage(err.response.data.error)
@@ -133,11 +182,22 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
             </label>
             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
-                Password
+                Şifrə
               </span>
               <Input
                 type="password"
                 name="password"
+                className="mt-1"
+                placeholder="******"
+              />
+            </label>
+            <label className="block">
+              <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
+                Şifrə təkrarı
+              </span>
+              <Input
+                type="password"
+                name="password_confirmation"
                 className="mt-1"
                 placeholder="******"
               />
