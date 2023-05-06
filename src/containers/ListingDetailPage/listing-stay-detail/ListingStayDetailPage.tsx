@@ -26,10 +26,10 @@ const StayDetailPageContainer: FC<{}> = () => {
   //
 
   //get slug from url
-  // const { slug } = useParams();
+  const { slug } = useParams();
 
-  // console.log("slug", slug);
-
+  console.log("slug", slug);
+  
 
   let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false);
 
@@ -52,7 +52,7 @@ const StayDetailPageContainer: FC<{}> = () => {
   const [data, setData] = useState<IStayProps>();
 
   useEffect(() => {
-    axios.get(apiUrl + `vendor/announcement/${"heyder-eliyev-merkezi-11"}`, {
+    axios.get(apiUrl + `vendor/announcement/${slug}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
       }
