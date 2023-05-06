@@ -88,7 +88,8 @@ export interface IStayProps {
   city: {
     id: number
     name: string
-  }
+  },
+  slug: string,
   category_id: number,
   category: {},
   area: number,

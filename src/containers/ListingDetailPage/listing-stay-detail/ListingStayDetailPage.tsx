@@ -7,7 +7,7 @@ import Badge from "shared/Badge/Badge";
 import LikeSaveBtns from "components/LikeSaveBtns";
 import SectionDateRange from "../SectionDateRange";
 import StayDatesRangeInput from "./StayDatesRangeInput";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
 import { Amenities_demos, PHOTOS } from "./constant";
 import { Dialog, Transition } from "@headlessui/react";
 import { ArrowRightIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
@@ -26,6 +26,11 @@ import { manat_icon } from "contains/contants";
 
 const StayDetailPageContainer: FC<{}> = () => {
   //
+
+
+  //get slug from url
+    const {slug} = useParams();
+
 
   let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false);
 
@@ -48,7 +53,7 @@ const StayDetailPageContainer: FC<{}> = () => {
   const [data, setData] = useState<IStayProps>();
 
   useEffect(() => {
-    axios.get(apiUrl + `vendor/announcement/1`, {
+    axios.get(apiUrl + `vendor/announcement/${slug}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
       }

@@ -41,6 +41,7 @@ const StayCard: FC<StayCardProps> = ({
         breakfast_fee,
         condition: ConditionTypes,
         title,
+        slug,
         content,
         image,
         is_active,
@@ -54,7 +55,7 @@ const StayCard: FC<StayCardProps> = ({
                     uniqueID={`StayCard_${id}`}
                     ratioClass="aspect-w-4 aspect-h-3 "
                     galleryImgs={data.images.map(item => item.url_full)}
-                    href={"/room"}
+                    href={`/room/${slug}`}
                 />
                 {/* <BtnLikeIcon isLiked={like} className="absolute right-3 top-3 z-[1]" /> */}
                 {/* {saleOff && <SaleOffBadge className="absolute left-3 top-3" />} */}
