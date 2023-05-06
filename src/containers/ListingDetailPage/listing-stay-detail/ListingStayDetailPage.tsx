@@ -637,28 +637,33 @@ const StayDetailPageContainer: FC<{}> = () => {
           {/*  </div>*/}
           {/*))}*/}
 
-          {data?.images.filter((x,i)=>i!==0).map((item, index) => (
-              <div
-                  key={index}
-                  className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? "hidden sm:block" : ""
-                  }`}
-              >
-                <div className="aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5">
-                  <img
-                      className="absolute inset-0 object-cover rounded-md sm:rounded-xl w-full h-full"
-                      src={item.url_full}
-                      alt=""
-                      sizes="400px"
-                  />
-                </div>
+          {data?.images.filter((_, i) => i >= 1 && i < 6).map((item, index) => {
+            if (index !== 0){
+              return(
+                  <div
+                      key={index}
+                      className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? "hidden sm:block" : ""
+                      }`}
+                  >
+                    <div className="aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5">
+                      <img
+                          className="absolute inset-0 object-cover rounded-md sm:rounded-xl w-full h-full"
+                          src={item.url_full}
+                          alt=""
+                          sizes="400px"
+                      />
+                    </div>
 
-                {/* OVERLAY */}
-                <div
-                    className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
-                    onClick={handleOpenModalImageGallery}
-                />
-              </div>
-          ))}
+                    {/* OVERLAY */}
+                    <div
+                        className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
+                        onClick={handleOpenModalImageGallery}
+                    />
+                  </div>
+              )
+            }
+
+          })}
           {/* {PHOTOS.filter((_, i) => i >= 1 && i < 5).map((item, index) => (
             <div
               key={index}
