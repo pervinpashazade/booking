@@ -186,9 +186,9 @@ const AuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
                   {list.map((item) => (
                     <ProStayCard key={item.id} data={item} />
                   ))}
-                  {DEMO_STAY_LISTINGS.filter((_, i) => i < 4).map((stay) => (
+                  {/* {DEMO_STAY_LISTINGS.filter((_, i) => i < 4).map((stay) => (
                     <StayCard key={stay.id} data={stay} />
-                  ))}
+                  ))} */}
                 </div>
                 <div className="flex mt-11 justify-center items-center">
                   <ButtonSecondary>Show me more</ButtonSecondary>
