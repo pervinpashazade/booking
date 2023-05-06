@@ -32,7 +32,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({
         <div>
           <span className="text-4xl font-semibold">{index}</span>{" "}
           <span className="text-lg text-neutral-500 dark:text-neutral-400">
-            / 4
+            / 3
           </span>
         </div>
 
@@ -42,8 +42,8 @@ const CommonLayout: FC<CommonLayoutProps> = ({
         {/* --------------------- */}
         <div className="flex justify-end space-x-5">
           {
-            index !== "01" &&
-            <ButtonSecondary href={backtHref}>Geri qayıt</ButtonSecondary>
+            index !== "1" &&
+            <ButtonSecondary href={backtHref}>{index !== "3" ? "Geri qayıt" : "Ana səhifə"}</ButtonSecondary>
           }
           <ButtonPrimary href={nextHref}>
             {nextBtnText || "Davam et"}

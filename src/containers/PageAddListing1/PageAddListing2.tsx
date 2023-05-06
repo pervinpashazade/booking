@@ -22,8 +22,9 @@ const PageAddListing2: FC<PageAddListing2Props> = () => {
   return (
     <CommonLayout
       index="2"
-      nextHref="/new/step/3"
       backtHref="/new/step/1"
+      nextHref="/new/step/3"
+      nextBtnText="Elanı paylaş"
     >
       <>
         <h2 className="text-2xl font-semibold">Otaq məlumatları</h2>
