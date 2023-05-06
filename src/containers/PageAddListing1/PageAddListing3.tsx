@@ -41,7 +41,7 @@ const PageAddListing3: FC<PageAddListing3Props> = () => {
             />
           </div>
           <div className="flex items-center space-x-5 mt-8">
-            <ButtonSecondary href="/new/step/1">
+            {/* <ButtonSecondary href="/new/step/1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -57,9 +57,9 @@ const PageAddListing3: FC<PageAddListing3Props> = () => {
                 />
               </svg>
               <span className="ml-3">Redakdə et</span>
-            </ButtonSecondary>
+            </ButtonSecondary> */}
 
-            <ButtonPrimary>
+            {/* <ButtonPrimary>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -81,7 +81,7 @@ const PageAddListing3: FC<PageAddListing3Props> = () => {
                 />
               </svg>
               <span className="ml-3">Bax</span>
-            </ButtonPrimary>
+            </ButtonPrimary> */}
           </div>
         </div>
         {/*  */}

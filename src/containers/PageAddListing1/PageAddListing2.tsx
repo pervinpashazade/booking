@@ -23,7 +23,7 @@ const PageAddListing2: FC<PageAddListing2Props> = () => {
     <CommonLayout
       index="2"
       backtHref="/new/step/1"
-      nextHref="/new/step/3"
+      // nextHref="/new/step/3"
       nextBtnText="Elanı paylaş"
     >
       <>
