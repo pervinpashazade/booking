@@ -23,7 +23,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
           {/* ITEM */}
           <FormItem
             label="Məkan növü"
-            desc="Adətən öz brendini və dekorasiyasını müəyyən edən unikal üsluba və ya mövzuya malik olan peşəkar qonaqpərvərlik müəssisələri"
+            // desc="Adətən öz brendini və dekorasiyasını müəyyən edən unikal üsluba və ya mövzuya malik olan peşəkar qonaqpərvərlik müəssisələri"
           >
             <Select>
               <option value="Hotel">Hotel</option>
@@ -37,7 +37,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
           </FormItem>
           <FormItem
             label="Məkanın adı"
-            desc="Cazibədar ad adətən daxildir: Ev adı + Otaq adı + Seçilmiş əmlak + Turist təyinatı"
+            // desc="Cazibədar ad adətən daxildir: Ev adı + Otaq adı + Seçilmiş əmlak + Turist təyinatı"
           >
             <Input placeholder="Məkanın adını daxil edin" />
           </FormItem>
