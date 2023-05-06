@@ -93,9 +93,9 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
     }).then(res => {
       console.log("res", res.data);
 
-      localStorage.setItem('access_token', res.data.access_token)
-      localStorage.setItem('user', JSON.stringify(res.data.user))
-      dispatch(login(res.data.user))
+      localStorage.setItem('access_token', res.data.data.access_token)
+      localStorage.setItem('user', JSON.stringify(res.data.data.user))
+      dispatch(login(res.data.data.user))
       navigate('/')
 
     }).catch((err: IErrorResponse) => {
