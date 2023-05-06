@@ -1,13 +1,11 @@
-import React, { FC, Fragment, useEffect, useState } from "react";
+import { FC, Fragment, useEffect, useState } from "react";
 import CommentListing from "components/CommentListing/CommentListing";
 import FiveStartIconForRate from "components/FiveStartIconForRate/FiveStartIconForRate";
 import StartRating from "components/StartRating/StartRating";
 import Avatar from "shared/Avatar/Avatar";
 import Badge from "shared/Badge/Badge";
 import LikeSaveBtns from "components/LikeSaveBtns";
-import SectionDateRange from "../SectionDateRange";
-import StayDatesRangeInput from "./StayDatesRangeInput";
-import {Link, useLocation, useNavigate, useParams} from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { Amenities_demos, PHOTOS } from "./constant";
 import { Dialog, Transition } from "@headlessui/react";
 import { ArrowRightIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
@@ -27,9 +25,10 @@ import { manat_icon } from "contains/contants";
 const StayDetailPageContainer: FC<{}> = () => {
   //
 
-
   //get slug from url
-    const {slug} = useParams();
+  // const { slug } = useParams();
+
+  // console.log("slug", slug);
 
 
   let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false);
@@ -53,7 +52,7 @@ const StayDetailPageContainer: FC<{}> = () => {
   const [data, setData] = useState<IStayProps>();
 
   useEffect(() => {
-    axios.get(apiUrl + `vendor/announcement/${slug}`, {
+    axios.get(apiUrl + `vendor/announcement/${"heyder-eliyev-merkezi-11"}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
       }
@@ -638,28 +637,28 @@ const StayDetailPageContainer: FC<{}> = () => {
           {/*))}*/}
 
           {data?.images.filter((_, i) => i >= 1 && i < 6).map((item, index) => {
-            if (index !== 0){
-              return(
-                  <div
-                      key={index}
-                      className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? "hidden sm:block" : ""
-                      }`}
-                  >
-                    <div className="aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5">
-                      <img
-                          className="absolute inset-0 object-cover rounded-md sm:rounded-xl w-full h-full"
-                          src={item.url_full}
-                          alt=""
-                          sizes="400px"
-                      />
-                    </div>
-
-                    {/* OVERLAY */}
-                    <div
-                        className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
-                        onClick={handleOpenModalImageGallery}
+            if (index !== 0) {
+              return (
+                <div
+                  key={index}
+                  className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? "hidden sm:block" : ""
+                    }`}
+                >
+                  <div className="aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5">
+                    <img
+                      className="absolute inset-0 object-cover rounded-md sm:rounded-xl w-full h-full"
+                      src={item.url_full}
+                      alt=""
+                      sizes="400px"
                     />
                   </div>
+
+                  {/* OVERLAY */}
+                  <div
+                    className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
+                    onClick={handleOpenModalImageGallery}
+                  />
+                </div>
               )
             }
 
