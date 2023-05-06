@@ -1,20 +1,21 @@
 import SectionHero from "components/SectionHero/SectionHero";
 import SectionSliderNewCategories from "components/SectionSliderNewCategories/SectionSliderNewCategories";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SectionSubscribe2 from "components/SectionSubscribe2/SectionSubscribe2";
 import SectionOurFeatures from "components/SectionOurFeatures/SectionOurFeatures";
 import SectionGridFeaturePlaces from "./SectionGridFeaturePlaces";
 import SectionHowItWork from "components/SectionHowItWork/SectionHowItWork";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import BgGlassmorphism from "components/BgGlassmorphism/BgGlassmorphism";
-import { TaxonomyType } from "data/types";
+import { IStayProps, TaxonomyType } from "data/types";
 import SectionGridAuthorBox from "components/SectionGridAuthorBox/SectionGridAuthorBox";
 import SectionGridCategoryBox from "components/SectionGridCategoryBox/SectionGridCategoryBox";
 import SectionBecomeAnAuthor from "components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
 import SectionVideos from "./SectionVideos";
 import SectionClientSay from "components/SectionClientSay/SectionClientSay";
 import { Helmet } from "react-helmet";
-import { appName } from "config";
+import { apiUrl, appName } from "config";
+import axios from "axios";
 
 const DEMO_CATS: TaxonomyType[] = [
   {
@@ -122,6 +123,25 @@ const DEMO_CATS_2: TaxonomyType[] = [
 ];
 
 function PageHome() {
+
+  const [list, setList] = useState<Array<IStayProps>>([])
+
+  useEffect(() => {
+    axios.get(apiUrl + "vendor/announcement", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      },
+    }).then(res => {
+      if (res.data.success) {
+        setList(res.data.data.data)
+      }
+    }).catch(err => {
+      console.log("account vendor/announcement error", err);
+    }).finally(() => {
+
+    })
+  }, [])
+
   return (
     <div className="nc-PageHome relative overflow-hidden">
       <Helmet>
@@ -148,7 +168,7 @@ function PageHome() {
         {/* SECTION */}
         <div className="relative py-16">
           <BackgroundSection />
-          <SectionGridFeaturePlaces heading="Sizin üçün seçilənlər" subHeading="Seçilmiş qalmaq üçün yerlər" />
+          <SectionGridFeaturePlaces data={list} heading="Sizin üçün seçilənlər" subHeading="Seçilmiş qalmaq üçün yerlər" />
         </div>
 
         {/* SECTION */}

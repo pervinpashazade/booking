@@ -109,7 +109,7 @@ function PageHome3() {
         {/* SECTION */}
         <div className="relative py-16">
           <BackgroundSection />
-          <SectionGridFeaturePlaces />
+          {/* <SectionGridFeaturePlaces /> */}
         </div>
 
         {/* SECTION */}
