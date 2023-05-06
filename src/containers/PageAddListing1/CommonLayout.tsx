@@ -41,9 +41,12 @@ const CommonLayout: FC<CommonLayoutProps> = ({
 
         {/* --------------------- */}
         <div className="flex justify-end space-x-5">
-          <ButtonSecondary href={backtHref}>Go back</ButtonSecondary>
+          {
+            index !== "01" &&
+            <ButtonSecondary href={backtHref}>Geri qayıt</ButtonSecondary>
+          }
           <ButtonPrimary href={nextHref}>
-            {nextBtnText || "Continue"}
+            {nextBtnText || "Davam et"}
           </ButtonPrimary>
         </div>
       </div>

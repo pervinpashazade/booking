@@ -22,6 +22,7 @@ import axios from "axios";
 import { apiUrl, appName } from "config";
 import { IStayProps } from "data/types";
 import Helmet from "react-helmet";
+import { manat_icon } from "contains/contants";
 
 const StayDetailPageContainer: FC<{}> = () => {
   //
@@ -540,7 +541,7 @@ const StayDetailPageContainer: FC<{}> = () => {
         {/* PRICE */}
         <div className="flex justify-between">
           <span className="text-3xl font-semibold">
-            {data?.price} ₼
+            {data?.price} {manat_icon}
             <span className="ml-1 text-base font-normal text-neutral-500 dark:text-neutral-400">
               /gün
             </span>

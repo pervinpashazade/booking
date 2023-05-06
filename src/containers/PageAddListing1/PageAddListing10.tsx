@@ -5,14 +5,14 @@ import ButtonPrimary from "shared/Button/ButtonPrimary";
 import ButtonSecondary from "shared/Button/ButtonSecondary";
 import CommonLayout from "./CommonLayout";
 
-export interface PageAddListing10Props {}
+export interface PageAddListing10Props { }
 
 const PageAddListing10: FC<PageAddListing10Props> = () => {
   return (
     <CommonLayout
       nextBtnText="Publish listing"
       index="10"
-      backtHref="/add-listing-9"
+      backtHref="/new/step/9"
       nextHref="/"
     >
       <>
@@ -34,7 +34,7 @@ const PageAddListing10: FC<PageAddListing10Props> = () => {
             />
           </div>
           <div className="flex items-center space-x-5 mt-8">
-            <ButtonSecondary href="/add-listing-1">
+            <ButtonSecondary href="/new/step/1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"

@@ -121,58 +121,58 @@ const otherPageChildMenus: NavItemType[] = [
 const templatesChildrenMenus: NavItemType[] = [
   {
     id: ncNanoId(),
-    href: "/add-listing-1",
+    href: "/new/step/1",
     name: "Add Listings",
     type: "dropdown",
     children: [
       {
         id: ncNanoId(),
-        href: "/add-listing-1",
+        href: "/new/step/1",
         name: "Add Listings 1",
       },
       {
         id: ncNanoId(),
-        href: "/add-listing-2",
+        href: "/new/step/2",
         name: "Add Listings 2",
       },
       {
         id: ncNanoId(),
-        href: "/add-listing-3",
+        href: "/new/step/3",
         name: "Add Listings 3",
       },
       {
         id: ncNanoId(),
-        href: "/add-listing-4",
+        href: "/new/step/4",
         name: "Add Listings 4",
       },
       {
         id: ncNanoId(),
-        href: "/add-listing-5",
+        href: "/new/step/5",
         name: "Add Listings 5",
       },
       {
         id: ncNanoId(),
-        href: "/add-listing-6",
+        href: "/new/step/6",
         name: "Add Listings 6",
       },
       {
         id: ncNanoId(),
-        href: "/add-listing-7",
+        href: "/new/step/7",
         name: "Add Listings 7",
       },
       {
         id: ncNanoId(),
-        href: "/add-listing-8",
+        href: "/new/step/8",
         name: "Add Listings 8",
       },
       {
         id: ncNanoId(),
-        href: "/add-listing-9",
+        href: "/new/step/9",
         name: "Add Listings 9",
       },
       {
         id: ncNanoId(),
-        href: "/add-listing-10",
+        href: "/new/step/10",
         name: "Add Listings 10",
       },
     ],

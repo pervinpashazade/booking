@@ -47,7 +47,7 @@ import ListingStayDetailPage from "containers/ListingDetailPage/listing-stay-det
 import ListingCarDetailPage from "containers/ListingDetailPage/listing-car-detail/ListingCarDetailPage";
 import ListingExperiencesDetailPage from "containers/ListingDetailPage/listing-experiences-detail/ListingExperiencesDetailPage";
 import PageForgotPassword from "containers/PageForgotPassword/PageForgotPassword";
-import {useAppSelector} from "../store/store";
+import { useAppSelector } from "../store/store";
 
 export const pages: Page[] = [
   { path: "/", exact: true, component: PageHome },
@@ -94,26 +94,26 @@ export const pages: Page[] = [
   { path: "/blog", component: BlogPage },
   { path: "/blog-single", component: BlogSingle },
   //
-  { path: "/add-listing-1", component: PageAddListing1 },
-  { path: "/add-listing-2", component: PageAddListing2 },
-  { path: "/add-listing-3", component: PageAddListing3 },
-  { path: "/add-listing-4", component: PageAddListing4 },
-  { path: "/add-listing-5", component: PageAddListing5 },
-  { path: "/add-listing-6", component: PageAddListing6 },
-  { path: "/add-listing-7", component: PageAddListing7 },
-  { path: "/add-listing-8", component: PageAddListing8 },
-  { path: "/add-listing-9", component: PageAddListing9 },
-  { path: "/add-listing-10", component: PageAddListing10 },
+  { path: "/new/step/1", component: PageAddListing1 },
+  { path: "/new/step/2", component: PageAddListing2 },
+  { path: "/new/step/3", component: PageAddListing3 },
+  { path: "/new/step/4", component: PageAddListing4 },
+  { path: "/new/step/5", component: PageAddListing5 },
+  { path: "/new/step/6", component: PageAddListing6 },
+  { path: "/new/step/7", component: PageAddListing7 },
+  { path: "/new/step/8", component: PageAddListing8 },
+  { path: "/new/step/9", component: PageAddListing9 },
+  { path: "/new/step/10", component: PageAddListing10 },
   //
   { path: "/contact", component: PageContact },
   { path: "/about", component: PageAbout },
 
-    // auth
+  // auth
   { path: "/signup", component: PageSignUp, key: "auth" },
   { path: "/login", component: PageLogin, key: "auth" },
   { path: "/forgot-pass", component: PageForgotPassword, key: "auth" },
 
-  { path: "/subscription", component: PageSubcription},
+  { path: "/subscription", component: PageSubcription },
   //
 ];
 
@@ -133,15 +133,15 @@ const MyRoutes = () => {
       <Routes>
         {
           !isAuth ?
-              pages.map(({ component, path }) => {
-                const Component = component;
-                return <Route key={path} element={<Component />} path={path} />;
-              })
-              :
-              pages.filter(page => page.key !== "auth").map(({ component, path }) => {
-                const Component = component;
-                return <Route key={path} element={<Component />} path={path} />;
-              })
+            pages.map(({ component, path }) => {
+              const Component = component;
+              return <Route key={path} element={<Component />} path={path} />;
+            })
+            :
+            pages.filter(page => page.key !== "auth").map(({ component, path }) => {
+              const Component = component;
+              return <Route key={path} element={<Component />} path={path} />;
+            })
         }
         <Route path="*" element={<Page404 />} />
       </Routes>

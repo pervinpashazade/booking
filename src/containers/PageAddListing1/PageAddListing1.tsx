@@ -4,6 +4,7 @@ import Select from "shared/Select/Select";
 import CommonLayout from "./CommonLayout";
 import FormItem from "./FormItem";
 import Textarea from "shared/Textarea/Textarea";
+import { manat_icon } from "contains/contants";
 
 export interface PageAddListing1Props { }
 
@@ -11,8 +12,8 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
   return (
     <CommonLayout
       index="01"
-      backtHref="/add-listing-1"
-      nextHref="/add-listing-2"
+      backtHref="/"
+      nextHref="/new/step/2"
     >
       <>
         <h2 className="text-2xl font-semibold">Yeni elan</h2>
@@ -38,7 +39,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
             label="Məkanın adı"
             desc="Cazibədar ad adətən daxildir: Ev adı + Otaq adı + Seçilmiş əmlak + Turist təyinatı"
           >
-            <Input placeholder="Places name" />
+            <Input placeholder="Məkanın adını daxil edin" />
           </FormItem>
           <FormItem label="Şəhər">
             <Select>
@@ -54,16 +55,21 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
           <FormItem label="Küçə">
             <Input placeholder="..." />
           </FormItem>
+          <FormItem label="Qiymət">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <span className="text-gray-500">{manat_icon}</span>
+              </div>
+              <Input className="!pl-8 !pr-10" placeholder="0.00" />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <span className="text-gray-500">AZN</span>
+              </div>
+            </div>
+          </FormItem>
+          <FormItem label="Ətraflı məlumat">
+            <Textarea placeholder="..." rows={14} />
+          </FormItem>
         </div>
-        <div>
-          <h2 className="text-2xl font-semibold">
-            Məkan haqqında ətraflı məlumat
-          </h2>
-          <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
-            Yaşayış yerinizin ən yaxşı xüsusiyyətlərini, sürətli Wi-Fi və ya parkinq kimi hər hansı xüsusi imkanları, həmçinin qonşuluqda bəyəndiyiniz şeyləri qeyd edin.
-          </span>
-        </div>
-        <Textarea placeholder="..." rows={14} />
       </>
     </CommonLayout>
   );

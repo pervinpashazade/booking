@@ -36,16 +36,16 @@ export interface LocationStates {
   "/blog"?: {};
   "/blog-single"?: {};
   //
-  "/add-listing-1"?: {};
-  "/add-listing-2"?: {};
-  "/add-listing-3"?: {};
-  "/add-listing-4"?: {};
-  "/add-listing-5"?: {};
-  "/add-listing-6"?: {};
-  "/add-listing-7"?: {};
-  "/add-listing-8"?: {};
-  "/add-listing-9"?: {};
-  "/add-listing-10"?: {};
+  "/new/step/1"?: {};
+  "/new/step/2"?: {};
+  "/new/step/3"?: {};
+  "/new/step/4"?: {};
+  "/new/step/5"?: {};
+  "/new/step/6"?: {};
+  "/new/step/7"?: {};
+  "/new/step/8"?: {};
+  "/new/step/9"?: {};
+  "/new/step/10"?: {};
   //
   "/author"?: {};
   "/search"?: {};

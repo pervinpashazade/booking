@@ -1,3 +1,5 @@
+const manat_icon = "₼"
+
 const avatarColors = [
   "#ffdd00",
   "#fbb034",
@@ -27,4 +29,7 @@ const avatarColors = [
   "#E208A7",
 ];
 
-export { avatarColors };
+export {
+  avatarColors,
+  manat_icon,
+};
