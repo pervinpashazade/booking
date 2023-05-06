@@ -11,7 +11,7 @@ export interface PageAddListing1Props { }
 const PageAddListing1: FC<PageAddListing1Props> = () => {
   return (
     <CommonLayout
-      index="01"
+      index="1"
       backtHref="/"
       nextHref="/new/step/2"
     >

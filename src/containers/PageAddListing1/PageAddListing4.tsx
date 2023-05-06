@@ -11,7 +11,7 @@ export interface PageAddListing4Props { }
 const PageAddListing4: FC<PageAddListing4Props> = () => {
   return (
     <CommonLayout
-      index="04"
+      index="4"
       backtHref="/new/step/3"
       nextBtnText="Elanı paylaş"
       nextHref="/account"

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import BtnLikeIcon from "components/BtnLikeIcon/BtnLikeIcon";
 import SaleOffBadge from "components/SaleOffBadge/SaleOffBadge";
 import Badge from "shared/Badge/Badge";
+import { manat_icon } from "contains/contants";
 
 export interface StayCardProps {
     className?: string;
@@ -26,7 +27,7 @@ const StayCard: FC<StayCardProps> = ({
         id,
         user,
         user_id,
-        city_id,
+        city,
         category_id,
         category,
         area,
@@ -65,12 +66,12 @@ const StayCard: FC<StayCardProps> = ({
         return (
             <div className={size === "default" ? "p-4 space-y-4" : "p-3 space-y-2"}>
                 <div className="space-y-2">
-                    <span className="text-sm text-neutral-500 dark:text-neutral-400">
-                        {title} · {room_count} {/* beds */} otaq
-                    </span>
+                    {/* <span className="text-sm text-neutral-500 dark:text-neutral-400">
+                        {title} · {room_count} otaq
+                    </span> */}
                     <div className="flex items-center space-x-2">
                         {/* {isAds && <Badge name="ADS" color="green" />} */}
-                        <Badge name="ADS" color="green" />
+                        {/* <Badge name="ADS" color="green" /> */}
                         <h2
                             className={` font-medium capitalize ${size === "default" ? "text-lg" : "text-base"
                                 }`}
@@ -101,13 +102,16 @@ const StayCard: FC<StayCardProps> = ({
                                 />
                             </svg>
                         )}
-                        <span className="">{city_id} {address}</span>
+                        <span className="">
+                            {city.name}
+                            {/* {address} */}
+                        </span>
                     </div>
                 </div>
                 <div className="w-14 border-b border-neutral-100 dark:border-neutral-800"></div>
                 <div className="flex justify-between items-center">
                     <span className="text-base font-semibold">
-                        {price}
+                        {price} {manat_icon}
                         {` `}
                         {size === "default" && (
                             <span className="text-sm text-neutral-500 dark:text-neutral-400 font-normal">

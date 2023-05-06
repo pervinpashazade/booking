@@ -10,7 +10,7 @@ export interface PageAddListing3Props { }
 const PageAddListing3: FC<PageAddListing3Props> = () => {
   return (
     <CommonLayout
-      index="03"
+      index="3"
       backtHref="/new/step/2"
       nextHref="/new/step/4"
     >

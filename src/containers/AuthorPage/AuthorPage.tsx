@@ -35,6 +35,9 @@ const AuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
     axios.get(apiUrl + "vendor/announcement", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      },
+      params: {
+        me: true
       }
     }).then(res => {
       if (res.data.success) {

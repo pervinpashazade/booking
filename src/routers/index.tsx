@@ -86,7 +86,7 @@ export const pages: Page[] = [
   { path: "/pay-done", component: PayPage },
   //
   { path: "/account", component: AuthorPage },
-  { path: "/account", component: AccountPage },
+  { path: "/author", component: AccountPage },
   { path: "/account-password", component: AccountPass },
   { path: "/account-savelists", component: AccountSavelists },
   { path: "/account-billing", component: AccountBilling },

@@ -20,7 +20,17 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
                 }`
               }
             >
-              Account info
+              Profil
+            </NavLink>
+            <NavLink
+              to="/account-savelists"
+              className={({ isActive }) =>
+                `block py-5 md:py-8 border-b-2 flex-shrink-0 ${
+                  !isActive ? "border-transparent" : "border-primary-500"
+                }`
+              }
+            >
+              Elanlarım
             </NavLink>
             <NavLink
               to="/account-savelists"
