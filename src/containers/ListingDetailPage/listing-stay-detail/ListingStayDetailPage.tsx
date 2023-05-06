@@ -599,7 +599,7 @@ const StayDetailPageContainer: FC<{}> = () => {
       </Helmet>
 
       {/*  HEADER */}
-      <header className="rounded-md sm:rounded-xl">
+      <header className="rounded-md sm:rounded-xl pt-8">
         <div className="relative grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2">
           <div
             className="col-span-2 row-span-3 sm:row-span-2 relative rounded-md sm:rounded-xl overflow-hidden cursor-pointer "
