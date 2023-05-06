@@ -80,10 +80,17 @@ export interface IImageProps {
   url_full: string
 }
 
+export interface IUserProps {
+    id: number
+    name: string
+    surname: string
+    email: string
+}
+
 //
 export interface IStayProps {
   id: number,
-  user: {},
+  user: IUserProps,
   user_id: number,
   city: {
     id: number
@@ -96,7 +103,7 @@ export interface IStayProps {
   price: number,
   currency: string,
   address: string,
-  room_count: number,
+  bedroom_count: number,
   bathroom_count: number,
   person_count: number,
   is_breakfast: number,
@@ -108,6 +115,9 @@ export interface IStayProps {
   images: Array<IImageProps>
   is_active: number,
   is_vip: number,
+  view_count: number,
+  double_bed_count: number,
+    single_bed_count: number,
 }
 
 export interface StayDataType {

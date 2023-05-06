@@ -34,7 +34,6 @@ const StayCard: FC<StayCardProps> = ({
         price,
         currency,
         address,
-        room_count,
         bathroom_count,
         person_count,
         is_breakfast,

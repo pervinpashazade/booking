@@ -73,7 +73,7 @@ const StayDetailPageContainer: FC<{}> = () => {
       <div className="listingSection__wrap !space-y-6">
         {/* 1 */}
         <div className="flex justify-between items-center">
-          <Badge name="Wooden house" />
+          <Badge name={`Baxış sayı: ${data?.view_count}`} />
           <LikeSaveBtns />
         </div>
 
@@ -99,7 +99,8 @@ const StayDetailPageContainer: FC<{}> = () => {
             Müəllif{" "}
             <span className="text-neutral-900 dark:text-neutral-200 font-medium">
               <Link to="/account">
-                Kevin Francis
+                {data?.user?.name ?? ""}
+                {data?.user?.surname ?? ""}
               </Link>
             </span>
           </span>
@@ -113,25 +114,33 @@ const StayDetailPageContainer: FC<{}> = () => {
           <div className="flex items-center space-x-3 ">
             <i className=" las la-user text-2xl "></i>
             <span className="">
-              {data?.person_count} <span className="hidden sm:inline-block">qonaq sayı</span>
+              {data?.person_count} <span className="hidden sm:inline-block">Qonaq</span>
             </span>
           </div>
           <div className="flex items-center space-x-3">
             <i className=" las la-door-open text-2xl"></i>
             <span className=" ">
-              {data?.room_count} <span className="hidden sm:inline-block">otaq sayı</span>
+              {data?.bedroom_count} <span className="hidden sm:inline-block">Yataq otağı</span>
             </span>
           </div>
           <div className="flex items-center space-x-3">
             <i className=" las la-bed text-2xl"></i>
             <span className=" ">
-              {data?.room_count} <span className="hidden sm:inline-block">yataq sayı</span>
+              {data?.single_bed_count} <span className="hidden sm:inline-block">Tək yataq</span>
             </span>
           </div>
+
+          <div className="flex items-center space-x-3">
+            <i className=" las la-bed text-2xl"></i>
+            <span className=" ">
+              {data?.double_bed_count} <span className="hidden sm:inline-block">İkili yataq</span>
+            </span>
+          </div>
+
           <div className="flex items-center space-x-3">
             <i className=" las la-bath text-2xl"></i>
             <span className=" ">
-              {data?.bathroom_count} <span className="hidden sm:inline-block">hamam sayı</span>
+              {data?.bathroom_count} <span className="hidden sm:inline-block">Hamam</span>
             </span>
           </div>
         </div>
@@ -599,33 +608,56 @@ const StayDetailPageContainer: FC<{}> = () => {
           >
             <img
               className="absolute inset-0 object-cover rounded-md sm:rounded-xl w-full h-full"
-              src={PHOTOS[0]}
+              src={data?.images[0].url_full}
               alt=""
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
             />
             <div className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity"></div>
           </div>
-          {PHOTOS.filter((_, i) => i >= 1 && i < 5).map((item, index) => (
-            <div
-              key={index}
-              className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? "hidden sm:block" : ""
-                }`}
-            >
-              <div className="aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5">
-                <img
-                  className="absolute inset-0 object-cover rounded-md sm:rounded-xl w-full h-full"
-                  src={item || ""}
-                  alt=""
-                  sizes="400px"
+          {/*{PHOTOS.filter((_, i) => i >= 1 && i < 5).map((item, index) => (*/}
+          {/*  <div*/}
+          {/*    key={index}*/}
+          {/*    className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? "hidden sm:block" : ""*/}
+          {/*      }`}*/}
+          {/*  >*/}
+          {/*    <div className="aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5">*/}
+          {/*      <img*/}
+          {/*        className="absolute inset-0 object-cover rounded-md sm:rounded-xl w-full h-full"*/}
+          {/*        src={item || ""}*/}
+          {/*        alt=""*/}
+          {/*        sizes="400px"*/}
+          {/*      />*/}
+          {/*    </div>*/}
+
+          {/*    /!* OVERLAY *!/*/}
+          {/*    <div*/}
+          {/*      className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer"*/}
+          {/*      onClick={handleOpenModalImageGallery}*/}
+          {/*    />*/}
+          {/*  </div>*/}
+          {/*))}*/}
+
+          {data?.images.filter((x,i)=>i!==0).map((item, index) => (
+              <div
+                  key={index}
+                  className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? "hidden sm:block" : ""
+                  }`}
+              >
+                <div className="aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5">
+                  <img
+                      className="absolute inset-0 object-cover rounded-md sm:rounded-xl w-full h-full"
+                      src={item.url_full}
+                      alt=""
+                      sizes="400px"
+                  />
+                </div>
+
+                {/* OVERLAY */}
+                <div
+                    className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
+                    onClick={handleOpenModalImageGallery}
                 />
               </div>
-
-              {/* OVERLAY */}
-              <div
-                className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
-                onClick={handleOpenModalImageGallery}
-              />
-            </div>
           ))}
           {/* {PHOTOS.filter((_, i) => i >= 1 && i < 5).map((item, index) => (
             <div
@@ -660,9 +692,9 @@ const StayDetailPageContainer: FC<{}> = () => {
       </header>
 
       {/* MAIN */}
-      <main className=" relative z-10 mt-11 flex flex-col lg:flex-row ">
+      <main className=" relative z-10 mt-11 flex flex-col lg:flex-row gap-6">
         {/* CONTENT */}
-        <div className="w-full lg:w-3/5 xl:w-2/3 space-y-8 lg:space-y-10 lg:pr-10">
+        <div className="w-full lg:w-3/5 xl:w-2/3 space-y-8 lg:space-y-10 lg:pr-0">
           {renderSection1()}
           {renderSection2()}
           {/* {renderSection3()} */}
