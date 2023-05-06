@@ -2,6 +2,7 @@
 export const actionTypes = {
   LOGIN: "LOGIN",
   LOGOUT: "LOGOUT",
+  CHANGE_VALUE: "CHANGE_VALUE",
 };
 
 export const parseJwt = (jwttoken) => {
@@ -30,7 +31,6 @@ export const login = (data) => {
 
 export const logout = () => {
   return (dispatch) => {
-    // localStorage.removeItem("token");
     localStorage.clear();
     dispatch({
       type: actionTypes.LOGOUT,
@@ -38,8 +38,19 @@ export const logout = () => {
   };
 };
 
+export const changeValue = (section, field, value, subKey) => {
 
+  console.log("action section", section);
+  console.log("action field", field);
+  console.log("action value", value);
 
-
-
-
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.CHANGE_VALUE,
+      section: section,
+      field: field,
+      value: value,
+      subKey: subKey
+    });
+  }
+}

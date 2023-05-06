@@ -3,6 +3,7 @@ import { actionTypes } from "./action";
 export const initialState = {
   isAuth: !!localStorage.getItem("access_token"),
   user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
+  room: {}
 };
 
 export default (state = initialState, action) => {
@@ -18,6 +19,39 @@ export default (state = initialState, action) => {
         isAuth: false,
         user: null,
       });
+
+    case actionTypes.CHANGE_VALUE:
+
+      if (action.value !== undefined) {
+
+        if (!action.subKey) {
+          return Object.assign({}, state, {
+            [action.section]: {
+              ...state[action.section],
+              [action.field]: action.value,
+            }
+          })
+        } else {
+          return Object.assign({}, state, {
+            [action.section]: {
+              ...state[action.section],
+              [action.field]: {
+                ...state[action.section][action.field],
+                [action.subKey]: action.value,
+              }
+            }
+          })
+        }
+
+      } else {
+        return Object.assign({}, state, {
+          [action.section]: {
+            ...state[action.section],
+            update: Date.now()
+          }
+        })
+      }
+
     default:
       return state;
   }

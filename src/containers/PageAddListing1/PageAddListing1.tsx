@@ -1,14 +1,53 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Input from "shared/Input/Input";
 import Select from "shared/Select/Select";
 import CommonLayout from "./CommonLayout";
 import FormItem from "./FormItem";
 import Textarea from "shared/Textarea/Textarea";
 import { manat_icon } from "contains/contants";
+import axios from "axios";
+import { apiUrl } from "config";
+import { ICategoryProps, ICityProps } from "data/types";
+import { useAppDispatch, useAppSelector } from "store/store";
+import { changeValue } from "store/action";
 
 export interface PageAddListing1Props { }
 
 const PageAddListing1: FC<PageAddListing1Props> = () => {
+
+  const dispatch = useAppDispatch()
+  const room = useAppSelector(store => store.room)
+
+  const [categoryList, setCategoryList] = useState<Array<ICategoryProps>>([])
+  const [cityList, setCityList] = useState<Array<ICityProps>>([])
+
+  useEffect(() => {
+    getCategoryList()
+    getCityList()
+  }, [])
+
+  const getCategoryList = () => {
+    axios.get(apiUrl + 'shared/categories').then(res => {
+      // console.log("res.data", res.data.data);
+      if (res.data.success) {
+        setCategoryList(res.data.data)
+      }
+    }).catch(err => {
+      console.log("shared/categories err", err);
+    })
+  }
+
+  const getCityList = () => {
+    axios.get(apiUrl + 'shared/cities').then(res => {
+      // console.log("res.data", res.data.data);
+      if (res.data.success) {
+        setCityList(res.data.data)
+      }
+    }).catch(err => {
+      console.log("shared/cities err", err);
+    })
+  }
+
   return (
     <CommonLayout
       index="1"
@@ -23,55 +62,89 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
           {/* ITEM */}
           <FormItem
             label="Məkan növü"
-            // desc="Adətən öz brendini və dekorasiyasını müəyyən edən unikal üsluba və ya mövzuya malik olan peşəkar qonaqpərvərlik müəssisələri"
+          // desc="Adətən öz brendini və dekorasiyasını müəyyən edən unikal üsluba və ya mövzuya malik olan peşəkar qonaqpərvərlik müəssisələri"
           >
-            <Select>
-              <option value="Hotel">Hotel</option>
-              <option value="Cottage">Cottage</option>
-              <option value="Villa">Villa</option>
-              <option value="Cabin">Cabin</option>
-              <option value="Farm stay">Farm stay</option>
-              <option value="Houseboat">Houseboat</option>
-              <option value="Lighthouse">Lighthouse</option>
+            <Select
+              value={
+                // @ts-ignore
+                room.category?.id
+              }
+              onChange={e => dispatch(changeValue("room", "category", categoryList.find(x => x.id === Number(e.target.value))))}
+            >
+              {
+                categoryList.map(item => <option key={item.id} value={item.id}>{item.title}</option>)
+              }
             </Select>
           </FormItem>
           <FormItem
             label="Məkanın adı"
-            // desc="Cazibədar ad adətən daxildir: Ev adı + Otaq adı + Seçilmiş əmlak + Turist təyinatı"
+          // desc="Cazibədar ad adətən daxildir: Ev adı + Otaq adı + Seçilmiş əmlak + Turist təyinatı"
           >
-            <Input placeholder="Məkanın adını daxil edin" />
+            <Input
+              value={
+                // @ts-ignore
+                room.title
+              }
+              placeholder="Məkanın adını daxil edin"
+              onChange={e => dispatch(changeValue("room", "title", e.target.value))}
+            />
           </FormItem>
           <FormItem label="Şəhər">
-            <Select>
-              <option value="Viet Nam">Viet Nam</option>
-              <option value="Thailand">Thailand</option>
-              <option value="France">France</option>
-              <option value="Singapore">Singapore</option>
-              <option value="Jappan">Jappan</option>
-              <option value="Korea">Korea</option>
-              <option value="...">...</option>
+            <Select
+              value={
+                // @ts-ignore
+                room.city?.id
+              }
+              onChange={e => dispatch(changeValue("room", "city", cityList.find(x => x.id === Number(e.target.value))))}
+            >
+              {
+                cityList.map(item => <option key={item.id} value={item.id}>{item.name}</option>)
+              }
             </Select>
           </FormItem>
           <FormItem label="Küçə">
-            <Input placeholder="..." />
+            <Input
+              value={
+                // @ts-ignore
+                room.address
+              }
+              placeholder="..."
+              onChange={e => dispatch(changeValue("room", "address", e.target.value))}
+            />
           </FormItem>
           <FormItem label="Qiymət">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <span className="text-gray-500">{manat_icon}</span>
               </div>
-              <Input className="!pl-8 !pr-10" placeholder="0.00" />
+              <Input
+                className="!pl-8 !pr-10"
+                placeholder="0.00"
+                value={
+                  // @ts-ignore
+                  room.price
+                }
+                onChange={e => dispatch(changeValue("room", "price", e.target.value))}
+              />
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                 <span className="text-gray-500">AZN</span>
               </div>
             </div>
           </FormItem>
           <FormItem label="Ətraflı məlumat">
-            <Textarea placeholder="..." rows={14} />
+            <Textarea
+              placeholder="..."
+              rows={14}
+              value={
+                // @ts-ignore
+                room.content
+              }
+              onChange={e => dispatch(changeValue("room", "content", e.target.value))}
+            />
           </FormItem>
         </div>
       </>
-    </CommonLayout>
+    </CommonLayout >
   );
 };
 

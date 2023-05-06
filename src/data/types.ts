@@ -80,11 +80,21 @@ export interface IImageProps {
   url_full: string
 }
 
+export interface ICategoryProps {
+  id: number
+  title: string
+}
+
+export interface ICityProps {
+  id: number
+  name: string
+}
+
 export interface IUserProps {
-    id: number
-    name: string
-    surname: string
-    email: string
+  id: number
+  name: string
+  surname: string
+  email: string
 }
 
 //
@@ -117,7 +127,7 @@ export interface IStayProps {
   is_vip: number,
   view_count: number,
   double_bed_count: number,
-    single_bed_count: number,
+  single_bed_count: number,
 }
 
 export interface StayDataType {

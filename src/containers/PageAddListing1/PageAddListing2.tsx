@@ -9,10 +9,16 @@ import Select from "shared/Select/Select";
 import CommonLayout from "./CommonLayout";
 import FormItem from "./FormItem";
 import NcInputNumber from "components/NcInputNumber/NcInputNumber";
+import { useAppDispatch, useAppSelector } from "store/store";
+import { changeValue } from "store/action";
 
 export interface PageAddListing2Props { }
 
 const PageAddListing2: FC<PageAddListing2Props> = () => {
+
+  const dispatch = useAppDispatch()
+  const room = useAppSelector(store => store.room)
+
   return (
     <CommonLayout
       index="2"
@@ -26,11 +32,47 @@ const PageAddListing2: FC<PageAddListing2Props> = () => {
         <div className="space-y-8">
           {/* ITEM */}
           <FormItem label="Sahə (m2)">
-            <Input placeholder="Ümumi sahə (m2)" />
+            <Input
+              placeholder="Ümumi sahə (m2)"
+              value={
+                // @ts-ignore 
+                room.area
+              }
+              onChange={e => dispatch(changeValue("room", "area", e.target.value))}
+            />
           </FormItem>
-          <NcInputNumber label="Qonaq sayı" defaultValue={4} />
-          <NcInputNumber label="Yataq otağı sayı" defaultValue={4} />
-          <NcInputNumber label="Yataq sayı" defaultValue={4} />
+          <NcInputNumber
+            label="Qonaq sayı"
+            defaultValue={
+              //@ts-ignore
+              room.person_count
+            }
+            onChange={count => dispatch(changeValue("room", "person_count", count))}
+          />
+          <NcInputNumber
+            label="Yataq otağı sayı"
+            defaultValue={
+              //@ts-ignore
+              room.bedroom_count
+            }
+            onChange={count => dispatch(changeValue("room", "bedroom_count", count))}
+          />
+          <NcInputNumber
+            label="Tək yataq sayı"
+            defaultValue={
+              //@ts-ignore
+              room.single_bed_count
+            }
+            onChange={count => dispatch(changeValue("room", "single_bed_count", count))}
+          />
+          <NcInputNumber
+            label="İkili yataq sayı"
+            defaultValue={
+              //@ts-ignore
+              room.double_bed_count
+            }
+            onChange={count => dispatch(changeValue("room", "double_bed_count", count))}
+          />
           <NcInputNumber label="Hamam sayı" defaultValue={2} />
           <NcInputNumber label="Mətbəx sayı" defaultValue={2} />
         </div>
