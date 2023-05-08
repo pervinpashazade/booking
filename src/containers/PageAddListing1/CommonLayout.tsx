@@ -27,7 +27,12 @@ const CommonLayout: FC<CommonLayoutProps> = ({
 
   const handleSubmit = () => {
     console.log("room data", room);
-
+    // @ts-ignore +
+    // if (!room.city.id || !room.category.id || !room.area || !room.price || !room.address || !room.bedroom_count || !room.bathroom_count || !room.person_count || !room.title || !room.content || !room.images || !room.single_bed_count || !room.double_bed_count) {
+    //     alert("Bütün xanaları doldurun");
+    //     return;
+    // }
+    debugger
     axios.post(apiUrl + 'vendor/announcement', {
       // @ts-ignore +
       city_id: room.city.id,
@@ -77,7 +82,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({
         <div>
           <span className="text-4xl font-semibold">{index}</span>{" "}
           <span className="text-lg text-neutral-500 dark:text-neutral-400">
-            / 3
+            / 2
           </span>
         </div>
 

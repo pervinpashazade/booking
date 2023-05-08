@@ -91,9 +91,9 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
     dispatch(changeValue("room", "images", arr))
   };
 
-  console.log("files", selectedFiles);
+  // console.log("files", selectedFiles);
   // @ts-ignore
-  console.log("room images", room.images);
+  // console.log("room images", room.images);
 
   return (
     <CommonLayout
