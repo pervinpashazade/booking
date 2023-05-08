@@ -133,7 +133,7 @@ const StayCard: FC<StayCardProps> = ({
             data-nc-id="StayCard"
         >
             {renderSliderGallery()}
-            <Link to={"/room"}>{renderContent()}</Link>
+            <Link to={`/room/${slug}`}>{renderContent()}</Link>
         </div>
     );
 };

@@ -131,6 +131,9 @@ function PageHome() {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
       },
+      params: {
+        per_page: 30,
+      }
     }).then(res => {
       if (res.data.success) {
         setList(res.data.data.data)

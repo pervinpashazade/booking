@@ -21,6 +21,8 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
   const [categoryList, setCategoryList] = useState<Array<ICategoryProps>>([])
   const [cityList, setCityList] = useState<Array<ICityProps>>([])
 
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
+
   useEffect(() => {
     getCategoryList()
     getCityList()
@@ -48,8 +50,6 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
     })
   }
 
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -82,18 +82,10 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
   };
 
   const removeFile = (file: File) => {
-    // setSelectedFiles((prevSelectedFiles) =>
-    //   prevSelectedFiles.filter((selectedFile) => selectedFile !== file)
-    // );
-
     //@ts-ignore
     const arr = room.images.filter((selectedFile) => selectedFile !== file)
     dispatch(changeValue("room", "images", arr))
   };
-
-  console.log("files", selectedFiles);
-  // @ts-ignore
-  console.log("room images", room.images);
 
   return (
     <CommonLayout
@@ -130,7 +122,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
             <Input
               value={
                 // @ts-ignore
-                room.title
+                room.title ?? ""
               }
               placeholder="Məkanın adını daxil edin"
               onChange={e => dispatch(changeValue("room", "title", e.target.value))}
@@ -153,7 +145,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
             <Input
               value={
                 // @ts-ignore
-                room.address
+                room.address ?? ""
               }
               placeholder="..."
               onChange={e => dispatch(changeValue("room", "address", e.target.value))}
@@ -169,7 +161,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
                 placeholder="0.00"
                 value={
                   // @ts-ignore
-                  room.price
+                  room.price ?? ""
                 }
                 onChange={e => dispatch(changeValue("room", "price", e.target.value))}
               />
@@ -184,7 +176,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
               rows={14}
               value={
                 // @ts-ignore
-                room.content
+                room.content ?? ""
               }
               onChange={e => dispatch(changeValue("room", "content", e.target.value))}
             />
@@ -239,31 +231,14 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
                       PNG, JPG, GIF up to 10MB
                     </p>
                   </div>
-
-                  {/* {
-                    selectedFiles.length > 0 &&
-                    <div className="w-full mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                      {selectedFiles.map((file) => (
-                        <div key={file.name} className="relative">
-                          <img src={URL.createObjectURL(file)} alt={file.name} className="w-32 h-32 object-cover rounded" />
-                          <button
-                            className="absolute top-0 right-0 w-6 h-6 font-bold text-sm text-red-600 bg-white rounded-full hover:bg-gray-200"
-                            onClick={() => removeFile(file)}
-                          >
-                            x
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  } */}
-
+                  
                   {
                     // @ts-ignore
-                    room.images?.length > 0 &&
+                    room?.images?.length > 0 &&
                     <div className="w-full mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                       {
                         // @ts-ignore
-                        room.images.map((file) => (
+                        room.images.map((file: any) => (
                           <div key={file.name} className="relative">
                             <img src={URL.createObjectURL(file)} alt={file.name} className="w-32 h-32 object-cover rounded" />
                             <button

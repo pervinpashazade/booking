@@ -37,7 +37,7 @@ const PageAddListing2: FC<PageAddListing2Props> = () => {
               placeholder="Ümumi sahə (m2)"
               value={
                 // @ts-ignore 
-                room.area
+                room.area ?? ""
               }
               onChange={e => dispatch(changeValue("room", "area", e.target.value))}
             />
