@@ -39,11 +39,9 @@ export const logout = () => {
 };
 
 export const changeValue = (section, field, value, subKey) => {
-
-  console.log("action section", section);
-  console.log("action field", field);
-  console.log("action value", value);
-
+  // console.log("action section", section);
+  // console.log("action field", field);
+  // console.log("action value", value);
   return (dispatch) => {
     dispatch({
       type: actionTypes.CHANGE_VALUE,

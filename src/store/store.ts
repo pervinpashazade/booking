@@ -11,14 +11,6 @@ const persistConfig = {
     storage: storage,
     whitelist: [
         'personInsertionData',
-        'companyInsertionData',
-        'updatePersonData',
-        'updateCompanyData',
-        'incidentInsertionData',
-        'staticData',
-        'searchDataPerson',
-        'updateSearchCompanyItem',
-        'updateSearchPersonItem',
     ]
 };
 

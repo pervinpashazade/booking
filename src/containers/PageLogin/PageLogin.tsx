@@ -68,9 +68,9 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
       localStorage.setItem('user', JSON.stringify(res.data.data.user))
       dispatch(login(res.data.data.user))
       navigate('/')
-    }).catch((err: IErrorResponse) => {
-      console.log("login error", err.response.data.error)
-      setErrorMessage(err.response.data.error)
+    }).catch((err: any) => {
+      console.log("login error", err.response.data)
+      setErrorMessage(err.response.data.message)
     }).finally(() => {
       setIsLoading(false)
     })

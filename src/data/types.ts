@@ -7,6 +7,10 @@ export interface IErrorResponse {
   }
 }
 
+export interface IFormValidationProps {
+  [key: string]: Array<string>
+}
+
 //  ######  CustomLink  ######## //
 export interface CustomLink {
   label: string;
@@ -77,6 +81,7 @@ export enum ConditionTypes {
 
 export interface IImageProps {
   id: number
+  name: string
   url_full: string
 }
 
@@ -99,16 +104,13 @@ export interface IUserProps {
 
 //
 export interface IStayProps {
-  id: number,
+  id?: number,
   user: IUserProps,
   user_id: number,
-  city: {
-    id: number
-    name: string
-  },
+  city: ICityProps,
   slug: string,
   category_id: number,
-  category: {},
+  category: ICategoryProps,
   area: number,
   price: number,
   currency: string,
