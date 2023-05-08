@@ -2,6 +2,8 @@
 export const actionTypes = {
   LOGIN: "LOGIN",
   LOGOUT: "LOGOUT",
+  PAGE: "PAGE",
+  PER_PAGE: "PER_PAGE",
   CHANGE_VALUE: "CHANGE_VALUE",
 };
 
@@ -52,3 +54,22 @@ export const changeValue = (section, field, value, subKey) => {
     });
   }
 }
+
+
+export const pageChange = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.PAGE,
+      data: data,
+    });
+  };
+};
+
+export const per_pageChange = (data) => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.PER_PAGE,
+      data: data,
+    });
+  };
+};

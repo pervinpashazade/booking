@@ -75,7 +75,9 @@ export const initialState: initialStateProps = {
   isAuth: !!localStorage.getItem("access_token"),
   user: getItemFromLocaleStorage("user"),
   // @ts-ignore
-  room: {}
+  room: {},
+  page: 1,
+  per_page: 16,
 };
 
 export default (state = initialState, action: any) => {
@@ -127,6 +129,15 @@ export default (state = initialState, action: any) => {
           }
         })
       }
+
+    case actionTypes.PAGE:
+      return Object.assign({}, state, {
+        page: action.data,
+      });
+    case actionTypes.PER_PAGE:
+      return Object.assign({}, state, {
+        per_page: action.data,
+      });
 
     default:
       return state;

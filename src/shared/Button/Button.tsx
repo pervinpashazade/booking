@@ -2,6 +2,9 @@ import React, { ButtonHTMLAttributes, FC } from "react";
 import { Link, LinkProps } from "react-router-dom";
 import { LocationStates } from "routers/types";
 import twFocusClass from "utils/twFocusClass";
+import {useDispatch, useSelector} from "react-redux";
+import {useAppDispatch} from "../../store/store";
+import {pageChange, per_pageChange} from "../../store/action";
 
 export interface ButtonProps {
   className?: string;
@@ -31,6 +34,9 @@ const Button: FC<ButtonProps> = ({
   loading,
   onClick = () => {},
 }) => {
+  const page = useSelector((state: any) => state.page);
+  const per_page = useSelector((state: any) => state.per_page);
+  const dispatch = useAppDispatch()
   const CLASSES =
     `nc-Button relative h-auto inline-flex items-center justify-center rounded-full transition-colors ${fontSize} ${sizeClass} ${translate} ${className} ` +
     twFocusClass(true);
@@ -76,12 +82,17 @@ const Button: FC<ButtonProps> = ({
 
   return (
     <button
-      disabled={disabled || loading}
+      disabled={!loading}
       className={`${CLASSES}`}
-      onClick={onClick}
+      // onClick={onClick}
       type={type}
+      onClick={() => {
+        dispatch(pageChange(page))
+        dispatch(per_pageChange(per_page+ 16))
+      }}
+
     >
-      {loading && _renderLoading()}
+      {!loading && _renderLoading()}
       {children || `This is Button`}
     </button>
   );

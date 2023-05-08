@@ -17,6 +17,7 @@ export interface SectionGridFeaturePlacesProps {
   headingIsCenter?: boolean;
   tabs?: string[];
   data: Array<IStayProps>
+  loading?: boolean
 }
 
 const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
@@ -27,11 +28,11 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
   subHeading = "Popular places to stay that Chisfis recommends for you",
   headingIsCenter,
   tabs = ["Hamısı", "Evlər", "Turlar", "Restoranlar"],
+    loading = false
 }) => {
   const renderCard = (stay: IStayProps) => {
     return <ProStayCard key={stay.id} data={stay} />;
   };
-
   return (
     <div className="nc-SectionGridFeaturePlaces relative">
       {/*<HeaderFilter*/}
@@ -47,7 +48,7 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
         {data.map((item) => renderCard(item))}
       </div>
       <div className="flex mt-16 justify-center items-center">
-        <ButtonPrimary loading>Show me more</ButtonPrimary>
+        <ButtonPrimary loading={loading} >Daha çox</ButtonPrimary>
       </div>
     </div>
   );
