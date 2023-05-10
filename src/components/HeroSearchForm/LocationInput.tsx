@@ -150,7 +150,7 @@ const LocationInput: FC<LocationInputProps> = ({
           {city?.id && showPopover && (
             <ClearDataButton
               onClick={() => {
-                setCity();
+                setCity(null);
               }}
             />
           )}

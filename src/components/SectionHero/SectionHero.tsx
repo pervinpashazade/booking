@@ -5,9 +5,13 @@ import HeroSearchForm from "components/HeroSearchForm/HeroSearchForm";
 
 export interface SectionHeroProps {
   className?: string;
+  getRoomData?: Function;
 }
 
-const SectionHero: FC<SectionHeroProps> = ({ className = "" }) => {
+const SectionHero: FC<SectionHeroProps> = ({
+  className = "",
+  getRoomData,
+}) => {
   return (
     <div
       className={`nc-SectionHero flex flex-col-reverse lg:flex-col relative ${className}`}
@@ -31,7 +35,7 @@ const SectionHero: FC<SectionHeroProps> = ({ className = "" }) => {
 
       {/* <div className="hidden lg:block z-10 mb-12 lg:mb-0 lg:-mt-40 w-full"> */}
       <div className="hidden lg:block z-10 mb-12 lg:mb-0 lg:mt-0 w-full">
-        <HeroSearchForm />
+        <HeroSearchForm getRoomData={getRoomData} />
       </div>
     </div>
   );

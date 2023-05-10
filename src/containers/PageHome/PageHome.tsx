@@ -54,15 +54,19 @@ function PageHome() {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
       },
-      params: params
+      params: {
+        "page": params.page,
+        "per_page": params.per_page,
+        "filter[city_id]": params.city_id,
+        "price_from": params.price_from,
+        "price_to": params.price_to,
+      }
     }).finally(() => {
       setLoading(false)
     })
   }
 
   const getMoreData = () => {
-    console.log("pagination", pagination);
-
     getData({ page: pagination.page + 1, per_page: pagination.per_page }).then(res => {
       if (res.data.success) {
         setList(prevState => [
@@ -77,7 +81,20 @@ function PageHome() {
         })
       }
     })
+  }
 
+  const filteredData = (params: ISearchRoomParams) => {
+    getData(params).then(res => {
+      if (res.data.success) {
+        setList(res.data.data.data)
+        setPagination(prevState => {
+          return {
+            ...prevState,
+            total: res.data.data.total
+          }
+        })
+      }
+    })
   }
 
   return (
@@ -91,7 +108,7 @@ function PageHome() {
 
       <div className="container relative space-y-24 mb-24 lg:space-y-28 lg:mb-28">
         {/* SECTION HERO */}
-        <SectionHero className="pt-10 lg:pt-6" />
+        <SectionHero className="pt-10 lg:pt-6" getRoomData={filteredData} />
 
         {/* SECTION */}
         <div className="relative py-16">

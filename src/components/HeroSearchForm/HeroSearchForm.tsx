@@ -13,12 +13,14 @@ export interface HeroSearchFormProps {
   className?: string;
   currentTab?: SearchTab;
   currentPage?: "Kirayə" | "Turlar";
+  getRoomData?: Function;
 }
 
 const HeroSearchForm: FC<HeroSearchFormProps> = ({
   className = "",
   currentTab = "Kirayə",
   currentPage,
+  getRoomData,
 }) => {
   const tabs: SearchTab[] = ["Kirayə", "Turlar"];
   const [tabActive, setTabActive] = useState<SearchTab>(currentTab);
@@ -58,7 +60,7 @@ const HeroSearchForm: FC<HeroSearchFormProps> = ({
   const renderForm = () => {
     switch (tabActive) {
       case "Kirayə":
-        return <StaySearchForm cities={cities} />;
+        return <StaySearchForm cities={cities} getRoomData={getRoomData} />;
       case "Turlar":
         return <ExperiencesSearchForm />;
       default:
