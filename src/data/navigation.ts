@@ -217,7 +217,7 @@ export const NAVIGATION_DEMO: NavItemType[] = [
           { id: ncNanoId(), href: "/listing-stay", name: "Stay page" },
           {
             id: ncNanoId(),
-            href: "/room/filter",
+            href: "/room/search",
             name: "Stay page (map)",
           },
           { id: ncNanoId(), href: "/room", name: "Stay Detail" },

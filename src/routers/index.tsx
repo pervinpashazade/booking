@@ -58,7 +58,7 @@ export const pages: Page[] = [
   { path: "/home-3", component: PageHome3 },
   //
   { path: "/listing-stay", component: ListingStayPage },
-  { path: "/room/filter", component: ListingStayMapPage },
+  { path: "/room/search", component: ListingStayMapPage },
   { path: "/room/:slug", component: ListingStayDetailPage },
   //
   {

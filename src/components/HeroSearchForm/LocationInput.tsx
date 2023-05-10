@@ -12,6 +12,8 @@ export interface LocationInputProps {
   divHideVerticalLineClass?: string;
   autoFocus?: boolean;
   cities?: Array<ICityProps>;
+  city?: ICityProps,
+  setCity: Function
 }
 
 const LocationInput: FC<LocationInputProps> = ({
@@ -20,12 +22,13 @@ const LocationInput: FC<LocationInputProps> = ({
   desc = "Hansı şəhərə səyahət edirsən?",
   className = "nc-flex-1.5",
   divHideVerticalLineClass = "left-10 -right-0.5",
-  cities = []
+  cities = [],
+  city,
+  setCity
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [value, setValue] = useState("");
   const [showPopover, setShowPopover] = useState(autoFocus);
 
   useEffect(() => {
@@ -59,58 +62,52 @@ const LocationInput: FC<LocationInputProps> = ({
     setShowPopover(false);
   };
 
-  const handleSelectLocation = (item: string) => {
-    setValue(item);
+  const handleSelectLocation = (city_id: Number) => {
+    setCity(cities.find(x => x.id === city_id));
     setShowPopover(false);
   };
   // console.log("cities",cities)
-  const renderRecentSearches = () => {
-    return (
-      <>
-        <h3 className="block mt-2 sm:mt-0 px-4 sm:px-8 font-semibold text-base sm:text-lg text-neutral-800 dark:text-neutral-100">
-          Ən son axtarılanlar
-        </h3>
-        <div className="mt-2">
-          {
-            //   [
-            //   "Hamptons, Suffolk County, NY",
-            //   "Las Vegas, NV, United States",
-            //   "Ueno, Taito, Tokyo",
-            //   "Ikebukuro, Toshima, Tokyo",
-            // ]
+  // const renderRecentSearches = () => {
+  //   return (
+  //     <>
+  //       <h3 className="block mt-2 sm:mt-0 px-4 sm:px-8 font-semibold text-base sm:text-lg text-neutral-800 dark:text-neutral-100">
+  //         Ən son axtarılanlar
+  //       </h3>
+  //       <div className="mt-2">
+  //         {
+  //           //   [
+  //           //   "Hamptons, Suffolk County, NY",
+  //           //   "Las Vegas, NV, United States",
+  //           //   "Ueno, Taito, Tokyo",
+  //           //   "Ikebukuro, Toshima, Tokyo",
+  //           // ]
 
-            cities.map((item) => (
-              <span
-                onClick={() => handleSelectLocation(item.name)}
-                key={item.id}
-                className="flex px-4 sm:px-8 items-center space-x-3 sm:space-x-4 py-4 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer"
-              >
-                <span className="block text-neutral-400">
-                  <ClockIcon className="h-4 sm:h-6 w-4 sm:w-6" />
-                </span>
-                <span className=" block font-medium text-neutral-700 dark:text-neutral-200">
-                  {item.name}
-                </span>
-              </span>
-            ))}
-        </div>
-      </>
-    );
-  };
+  //           cities.map((item) => (
+  //             <span
+  //               onClick={() => handleSelectLocation(item.name)}
+  //               key={item.id}
+  //               className="flex px-4 sm:px-8 items-center space-x-3 sm:space-x-4 py-4 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer"
+  //             >
+  //               <span className="block text-neutral-400">
+  //                 <ClockIcon className="h-4 sm:h-6 w-4 sm:w-6" />
+  //               </span>
+  //               <span className=" block font-medium text-neutral-700 dark:text-neutral-200">
+  //                 {item.name}
+  //               </span>
+  //             </span>
+  //           ))}
+  //       </div>
+  //     </>
+  //   );
+  // };
 
   const renderSearchValue = () => {
     return (
       <>
         {
-          //   [
-          //   "Ha Noi, Viet Nam",
-          //   "San Diego, CA",
-          //   "Humboldt Park, Chicago, IL",
-          //   "Bangor, Northern Ireland",
-          // ]
           cities.map((item) => (
             <span
-              onClick={() => handleSelectLocation(item.name)}
+              onClick={() => handleSelectLocation(item.id)}
               key={item.id}
               className="flex px-4 sm:px-8 items-center space-x-3 sm:space-x-4 py-4 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer"
             >
@@ -140,20 +137,20 @@ const LocationInput: FC<LocationInputProps> = ({
           <input
             className={`block w-full bg-transparent border-none focus:ring-0 p-0 focus:outline-none focus:placeholder-neutral-300 xl:text-lg font-semibold placeholder-neutral-800 dark:placeholder-neutral-200 truncate`}
             placeholder={placeHolder}
-            value={value}
+            value={city?.name ?? ""}
             autoFocus={showPopover}
             onChange={(e) => {
-              setValue(e.currentTarget.value);
+              setCity(cities.find(x => x.id === Number(e.currentTarget.value)));
             }}
             ref={inputRef}
           />
           <span className="block mt-0.5 text-sm text-neutral-400 font-light ">
-            <span className="line-clamp-1">{!!value ? placeHolder : desc}</span>
+            <span className="line-clamp-1">{!!city?.id ? placeHolder : desc}</span>
           </span>
-          {value && showPopover && (
+          {city?.id && showPopover && (
             <ClearDataButton
               onClick={() => {
-                setValue("");
+                setCity();
               }}
             />
           )}

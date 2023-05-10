@@ -10,7 +10,7 @@ interface Props {
 
 const ButtonSubmit: FC<Props> = ({
   className = "",
-  href = "/room/filter",
+  href = "/room/search",
 }) => {
   return (
     <Link

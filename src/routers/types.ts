@@ -10,7 +10,7 @@ export interface LocationStates {
   "/listing-flights"?: {};
   //
   "/listing-stay"?: {};
-  "/room/filter"?: {};
+  "/room/search"?: {};
   "/room/:slug"?: {};
   //
   "/listing-experiences"?: {};

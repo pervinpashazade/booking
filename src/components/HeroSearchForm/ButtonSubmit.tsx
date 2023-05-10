@@ -5,7 +5,7 @@ interface Props {
   href?: string;
 }
 
-const ButtonSubmit: FC<Props> = ({ href = "/room/filter" }) => {
+const ButtonSubmit: FC<Props> = ({ href = "/room/search" }) => {
   return (
     <Link
       to={href}
