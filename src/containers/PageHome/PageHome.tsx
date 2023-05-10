@@ -16,6 +16,7 @@ import SectionClientSay from "components/SectionClientSay/SectionClientSay";
 import { Helmet } from "react-helmet";
 import { apiUrl, appName } from "config";
 import axios from "axios";
+import {useSelector} from "react-redux";
 
 const DEMO_CATS: TaxonomyType[] = [
   {
@@ -123,27 +124,34 @@ const DEMO_CATS_2: TaxonomyType[] = [
 ];
 
 function PageHome() {
-
+  const page = useSelector((state: any) => state.page);
+  const per_page = useSelector((state: any) => state.per_page);
   const [list, setList] = useState<Array<IStayProps>>([])
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
+    setLoading(false)
     axios.get(apiUrl + "vendor/announcement", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
       },
       params: {
-        per_page: 30,
+        per_page: per_page,
+        page: page
       }
     }).then(res => {
       if (res.data.success) {
         setList(res.data.data.data)
+        setLoading(true)
       }
     }).catch(err => {
       console.log("account vendor/announcement error", err);
     }).finally(() => {
 
     })
-  }, [])
+  }, [page,per_page])
+
+
 
   return (
     <div className="nc-PageHome relative overflow-hidden">
@@ -171,7 +179,7 @@ function PageHome() {
         {/* SECTION */}
         <div className="relative py-16">
           <BackgroundSection />
-          <SectionGridFeaturePlaces data={list} heading="Sizin üçün seçilənlər" subHeading="Seçilmiş qalmaq üçün yerlər" />
+          <SectionGridFeaturePlaces loading={loading} data={list} heading="Sizin üçün seçilənlər" subHeading="Seçilmiş qalmaq üçün yerlər" />
         </div>
 
         {/* SECTION */}

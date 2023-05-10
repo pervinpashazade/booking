@@ -63,7 +63,11 @@ const LocationInput: FC<LocationInputProps> = ({
     setValue(item);
     setShowPopover(false);
   };
+<<<<<<< HEAD
   console.log("cities", cities)
+=======
+  // console.log("cities",cities)
+>>>>>>> 80aa264b3e6aee250109e467b8fc449326018f93
   const renderRecentSearches = () => {
     return (
       <>

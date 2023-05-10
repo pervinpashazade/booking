@@ -30,6 +30,7 @@ export interface LocationStates {
   //
   "/account"?: {};
   "/account-savelists"?: {};
+  "/account-items"?: {};
   "/account-password"?: {};
   "/account-billing"?: {};
   //

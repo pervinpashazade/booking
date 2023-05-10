@@ -96,10 +96,10 @@ export interface ICityProps {
 }
 
 export interface IUserProps {
-  id: number
-  name: string
-  surname: string
-  email: string
+  id?: number
+  name?: string
+  surname?: string
+  email?: string
 }
 
 //

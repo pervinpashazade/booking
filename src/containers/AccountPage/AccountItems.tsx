@@ -14,8 +14,9 @@ import {IStayProps} from "../../data/types";
 import axios from "axios";
 import {apiUrl} from "../../config";
 
-const AccountSavelists = () => {
-  let [categories] = useState(["Kirayə", "Turlar"]);
+const AccountItems = () => {
+
+  let [categories] = useState(["Hazırda saytda","Gözləmədə", "Müddəti bitmiş","Dərc olunmayan"]);
 
 
   const [list, setList] = useState<Array<IStayProps>>([])
@@ -43,7 +44,7 @@ const AccountSavelists = () => {
     return (
       <div className="space-y-6 sm:space-y-8">
         <div>
-          <h2 className="text-3xl font-semibold">Bəyəndiklərim</h2>
+          <h2 className="text-3xl font-semibold">Elanlarım</h2>
         </div>
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
 
@@ -69,7 +70,7 @@ const AccountSavelists = () => {
             <Tab.Panels>
               <Tab.Panel className="mt-8">
                 <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {list.map((stay:any) => (
+                  {list.map((stay) => (
                     <ProStayCard key={stay.id} data={stay} />
                   ))}
                 </div>
@@ -103,4 +104,4 @@ const AccountSavelists = () => {
   );
 };
 
-export default AccountSavelists;
+export default AccountItems;

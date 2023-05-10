@@ -17,6 +17,7 @@ import AuthorPage from "containers/AuthorPage/AuthorPage";
 import AccountPage from "containers/AccountPage/AccountPage";
 import AccountPass from "containers/AccountPage/AccountPass";
 import AccountSavelists from "containers/AccountPage/AccountSavelists";
+import AccountItems from "containers/AccountPage/AccountItems";
 import AccountBilling from "containers/AccountPage/AccountBilling";
 import PageContact from "containers/PageContact/PageContact";
 import PageAbout from "containers/PageAbout/PageAbout";
@@ -85,10 +86,11 @@ export const pages: Page[] = [
   { path: "/checkout", component: CheckOutPage },
   { path: "/pay-done", component: PayPage },
   //
-  { path: "/account", component: AuthorPage },
-  { path: "/author", component: AccountPage },
+  { path: "/account", component: AccountPage },
+  { path: "/author", component: AuthorPage },
   { path: "/account-password", component: AccountPass },
   { path: "/account-savelists", component: AccountSavelists },
+  { path: "/account-items", component: AccountItems },
   { path: "/account-billing", component: AccountBilling },
   //
   { path: "/blog", component: BlogPage },
