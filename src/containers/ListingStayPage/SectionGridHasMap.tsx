@@ -19,10 +19,10 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
 
   return (
     <div>
-      <div className="relative flex min-h-screen">
+      <div className="container relative flex min-h-screen">
         {/* CARDSSSS */}
-        <div className="min-h-screen w-full xl:w-[780px] 2xl:w-[880px] flex-shrink-0 xl:px-8 ">
-          <Heading2 />
+        <div className="min-h-screen w-full xl:px-8 ">
+          {/* <Heading2 /> */}
           <div className="mb-8 lg:mb-11">
             <TabFilters />
           </div>
@@ -53,7 +53,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
         )}
 
         {/* MAPPPPP */}
-        <div
+        {/* <div
           className={`xl:flex-grow xl:static xl:block ${
             showFullMapFixed ? "fixed inset-0 z-50" : "hidden"
           }`}
@@ -74,7 +74,6 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
               />
             </div>
 
-            {/* BELLOW IS MY GOOGLE API KEY -- PLEASE DELETE AND TYPE YOUR API KEY */}
             <GoogleMapReact
               defaultZoom={12}
               defaultCenter={DEMO_STAYS[0].map}
@@ -94,7 +93,7 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
               ))}
             </GoogleMapReact>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

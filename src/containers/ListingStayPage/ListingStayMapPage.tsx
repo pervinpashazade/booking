@@ -7,6 +7,7 @@ import SectionSliderNewCategories from "components/SectionSliderNewCategories/Se
 import SectionSubscribe2 from "components/SectionSubscribe2/SectionSubscribe2";
 import SectionGridHasMap from "./SectionGridHasMap";
 import { Helmet } from "react-helmet";
+import { appName } from "config";
 
 export interface ListingStayMapPageProps {
   className?: string;
@@ -21,17 +22,17 @@ const ListingStayMapPage: FC<ListingStayMapPageProps> = ({
       data-nc-id="ListingStayMapPage"
     >
       <Helmet>
-        <title>Chisfis || Booking React Template</title>
+        <title>Axtar | {appName}</title>
       </Helmet>
       <BgGlassmorphism />
 
       {/* SECTION HERO */}
-      <div className="container pt-10 pb-24 lg:pt-16 lg:pb-28">
+      {/* <div className="container pt-10 pb-24 lg:pt-16 lg:pb-28">
         <SectionHeroArchivePage currentPage="Kirayə" currentTab="Kirayə" />
-      </div>
+      </div> */}
 
       {/* SECTION */}
-      <div className="container pb-24 lg:pb-28 2xl:pl-10 xl:pr-0 xl:max-w-none">
+      <div className="container pt-10 pb-24 lg:pb-28 2xl:pl-10 xl:pr-0 xl:max-w-none">
         <SectionGridHasMap />
       </div>
 

@@ -3,7 +3,7 @@
 import { ClockIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import React, { useState, useRef, useEffect, FC } from "react";
 import ClearDataButton from "./ClearDataButton";
-import {ICityProps} from "../../data/types";
+import { ICityProps } from "../../data/types";
 
 export interface LocationInputProps {
   placeHolder?: string;
@@ -20,7 +20,7 @@ const LocationInput: FC<LocationInputProps> = ({
   desc = "Hansı şəhərə səyahət edirsən?",
   className = "nc-flex-1.5",
   divHideVerticalLineClass = "left-10 -right-0.5",
-  cities=[]
+  cities = []
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -63,7 +63,7 @@ const LocationInput: FC<LocationInputProps> = ({
     setValue(item);
     setShowPopover(false);
   };
-  console.log("cities",cities)
+  console.log("cities", cities)
   const renderRecentSearches = () => {
     return (
       <>
@@ -72,27 +72,27 @@ const LocationInput: FC<LocationInputProps> = ({
         </h3>
         <div className="mt-2">
           {
-          //   [
-          //   "Hamptons, Suffolk County, NY",
-          //   "Las Vegas, NV, United States",
-          //   "Ueno, Taito, Tokyo",
-          //   "Ikebukuro, Toshima, Tokyo",
-          // ]
+            //   [
+            //   "Hamptons, Suffolk County, NY",
+            //   "Las Vegas, NV, United States",
+            //   "Ueno, Taito, Tokyo",
+            //   "Ikebukuro, Toshima, Tokyo",
+            // ]
 
-              cities.map((item) => (
-            <span
-              onClick={() => handleSelectLocation(item.name)}
-              key={item.id}
-              className="flex px-4 sm:px-8 items-center space-x-3 sm:space-x-4 py-4 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer"
-            >
-              <span className="block text-neutral-400">
-                <ClockIcon className="h-4 sm:h-6 w-4 sm:w-6" />
+            cities.map((item) => (
+              <span
+                onClick={() => handleSelectLocation(item.name)}
+                key={item.id}
+                className="flex px-4 sm:px-8 items-center space-x-3 sm:space-x-4 py-4 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer"
+              >
+                <span className="block text-neutral-400">
+                  <ClockIcon className="h-4 sm:h-6 w-4 sm:w-6" />
+                </span>
+                <span className=" block font-medium text-neutral-700 dark:text-neutral-200">
+                  {item.name}
+                </span>
               </span>
-              <span className=" block font-medium text-neutral-700 dark:text-neutral-200">
-                {item.name}
-              </span>
-            </span>
-          ))}
+            ))}
         </div>
       </>
     );
@@ -102,26 +102,26 @@ const LocationInput: FC<LocationInputProps> = ({
     return (
       <>
         {
-        //   [
-        //   "Ha Noi, Viet Nam",
-        //   "San Diego, CA",
-        //   "Humboldt Park, Chicago, IL",
-        //   "Bangor, Northern Ireland",
-        // ]
-              cities.map((item) => (
-          <span
-            onClick={() => handleSelectLocation(item.name)}
-            key={item.id}
-            className="flex px-4 sm:px-8 items-center space-x-3 sm:space-x-4 py-4 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer"
-          >
-            <span className="block text-neutral-400">
-              <ClockIcon className="h-4 w-4 sm:h-6 sm:w-6" />
+          //   [
+          //   "Ha Noi, Viet Nam",
+          //   "San Diego, CA",
+          //   "Humboldt Park, Chicago, IL",
+          //   "Bangor, Northern Ireland",
+          // ]
+          cities.map((item) => (
+            <span
+              onClick={() => handleSelectLocation(item.name)}
+              key={item.id}
+              className="flex px-4 sm:px-8 items-center space-x-3 sm:space-x-4 py-4 hover:bg-neutral-100 dark:hover:bg-neutral-700 cursor-pointer"
+            >
+              {/* <span className="block text-neutral-400">
+                <ClockIcon className="h-4 w-4 sm:h-6 sm:w-6" />
+              </span> */}
+              <span className="block font-medium text-neutral-700 dark:text-neutral-200">
+                {item.name}
+              </span>
             </span>
-            <span className="block font-medium text-neutral-700 dark:text-neutral-200">
-              {item.name}
-            </span>
-          </span>
-        ))}
+          ))}
       </>
     );
   };
