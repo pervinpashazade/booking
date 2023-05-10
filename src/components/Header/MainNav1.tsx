@@ -46,7 +46,7 @@ const MainNav1: FC<MainNav1Props> = ({ className = "" }) => {
                 <ButtonPrimary href="/new/step/1" sizeClass="px-4 py-2 sm:px-5">Yeni elan</ButtonPrimary>
             }
             <SwitchDarkMode />
-            <SearchDropdown />
+            {/* <SearchDropdown /> */}
             <div className="px-1" />
             {
               !isAuth ?

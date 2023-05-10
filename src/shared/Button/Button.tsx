@@ -82,17 +82,12 @@ const Button: FC<ButtonProps> = ({
 
   return (
     <button
-      disabled={!loading}
+      disabled={loading}
       className={`${CLASSES}`}
-      // onClick={onClick}
+      onClick={onClick}
       type={type}
-      onClick={() => {
-        dispatch(pageChange(page))
-        dispatch(per_pageChange(per_page+ 16))
-      }}
-
     >
-      {!loading && _renderLoading()}
+      {loading && _renderLoading()}
       {children || `This is Button`}
     </button>
   );

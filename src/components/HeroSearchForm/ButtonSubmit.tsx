@@ -3,16 +3,22 @@ import { Link } from "react-router-dom";
 
 interface Props {
   href?: string;
+  handleClick?: any
 }
 
-const ButtonSubmit: FC<Props> = ({ href = "/room/search" }) => {
+const ButtonSubmit: FC<Props> = ({
+  href = "/",
+  handleClick = () => { }
+}) => {
+
   return (
     <Link
       to={href}
       type="button"
       className="h-14 md:h-16 w-full md:w-16 rounded-full bg-primary-6000 hover:bg-primary-700 flex items-center justify-center text-neutral-50 focus:outline-none"
+      onClick={handleClick}
     >
-      <span className="mr-3 md:hidden">Search</span>
+      <span className="mr-3 md:hidden">Axtar</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6"

@@ -1,12 +1,8 @@
-import React, { FC, ReactNode } from "react";
-import { DEMO_STAY_LISTINGS } from "data/listings";
+import { FC, ReactNode } from "react";
 import { IStayProps, StayDataType } from "data/types";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import HeaderFilter from "./HeaderFilter";
 import ProStayCard from "components/StayCard/ProStayCard";
-
-// OTHER DEMO WILL PASS PROPS
-const DEMO_DATA: StayDataType[] = DEMO_STAY_LISTINGS.filter((_, i) => i < 8);
 
 //
 export interface SectionGridFeaturePlacesProps {
@@ -18,21 +14,26 @@ export interface SectionGridFeaturePlacesProps {
   tabs?: string[];
   data: Array<IStayProps>
   loading?: boolean
+  getData?: Function
+  totalData: number,
 }
 
 const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
   data = [],
-  stayListings = DEMO_DATA,
   gridClass = "",
   heading = "Featured places to stay",
   subHeading = "Popular places to stay that Chisfis recommends for you",
   headingIsCenter,
   tabs = ["Hamısı", "Evlər", "Turlar", "Restoranlar"],
-    loading = false
+  loading = false,
+  getData,
+  totalData = 0,
 }) => {
+
   const renderCard = (stay: IStayProps) => {
     return <ProStayCard key={stay.id} data={stay} />;
   };
+
   return (
     <div className="nc-SectionGridFeaturePlaces relative">
       {/*<HeaderFilter*/}
@@ -47,9 +48,17 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
       >
         {data.map((item) => renderCard(item))}
       </div>
-      <div className="flex mt-16 justify-center items-center">
-        <ButtonPrimary loading={loading} >Daha çox</ButtonPrimary>
-      </div>
+      {
+        data.length < totalData &&
+        <div className="flex mt-16 justify-center items-center">
+          <ButtonPrimary
+            loading={loading}
+            onClick={() => getData && getData()}
+          >
+            Daha çox
+          </ButtonPrimary>
+        </div>
+      }
     </div>
   );
 };

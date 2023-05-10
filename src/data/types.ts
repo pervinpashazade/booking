@@ -102,6 +102,20 @@ export interface IUserProps {
   email?: string
 }
 
+export interface IPaginationProps {
+  page: number
+  per_page: number
+  total: number
+}
+
+export interface ISearchRoomParams {
+  page?: number
+  per_page?: number
+  city_id?: number
+  price_from?: number
+  price_to?: number
+}
+
 //
 export interface IStayProps {
   id?: number,
