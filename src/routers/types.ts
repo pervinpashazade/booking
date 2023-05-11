@@ -48,7 +48,7 @@ export interface LocationStates {
   "/new/step/9"?: {};
   "/new/step/10"?: {};
   //
-  "/author"?: {};
+  "/author/:id"?: {};
   "/search"?: {};
   "/about"?: {};
   "/contact"?: {};

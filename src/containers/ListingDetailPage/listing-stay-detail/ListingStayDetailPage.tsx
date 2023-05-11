@@ -25,7 +25,7 @@ import { useAppSelector } from "store/store";
 
 const StayDetailPageContainer: FC<{}> = () => {
 
-  const isAuth = useAppSelector(store => store.isAuth)
+  const { isAuth, user } = useAppSelector(store => store)
 
   //get slug from url
   const { slug } = useParams();
@@ -140,7 +140,7 @@ const StayDetailPageContainer: FC<{}> = () => {
           <span className="ml-2.5 text-neutral-500 dark:text-neutral-400">
             Müəllif{" "}
             <span className="text-neutral-900 dark:text-neutral-200 font-medium">
-              <Link to="/account">
+              <Link to={data?.user_id === user.id ? "/account-items" : `/author/${data?.user_id}`}>
                 {data?.user?.name ?? ""}
                 {data?.user?.surname ?? ""}
               </Link>
@@ -656,29 +656,6 @@ const StayDetailPageContainer: FC<{}> = () => {
             />
             <div className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity"></div>
           </div>
-          {/*{PHOTOS.filter((_, i) => i >= 1 && i < 5).map((item, index) => (*/}
-          {/*  <div*/}
-          {/*    key={index}*/}
-          {/*    className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? "hidden sm:block" : ""*/}
-          {/*      }`}*/}
-          {/*  >*/}
-          {/*    <div className="aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5">*/}
-          {/*      <img*/}
-          {/*        className="absolute inset-0 object-cover rounded-md sm:rounded-xl w-full h-full"*/}
-          {/*        src={item || ""}*/}
-          {/*        alt=""*/}
-          {/*        sizes="400px"*/}
-          {/*      />*/}
-          {/*    </div>*/}
-
-          {/*    /!* OVERLAY *!/*/}
-          {/*    <div*/}
-          {/*      className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer"*/}
-          {/*      onClick={handleOpenModalImageGallery}*/}
-          {/*    />*/}
-          {/*  </div>*/}
-          {/*))}*/}
-
           {data?.images.filter((_, i) => i >= 1 && i < 6).map((item, index) => {
             if (index !== 0) {
               return (
@@ -704,28 +681,7 @@ const StayDetailPageContainer: FC<{}> = () => {
                 </div>
               )
             }
-
           })}
-          {/* {PHOTOS.filter((_, i) => i >= 1 && i < 5).map((item, index) => (
-            <div
-              key={index}
-              className={`relative rounded-md sm:rounded-xl overflow-hidden ${index >= 3 ? "hidden sm:block" : ""
-                }`}
-            >
-              <div className="aspect-w-4 aspect-h-3 sm:aspect-w-6 sm:aspect-h-5">
-                <img
-                  className="absolute inset-0 object-cover rounded-md sm:rounded-xl w-full h-full"
-                  src={item || ""}
-                  alt=""
-                  sizes="400px"
-                />
-              </div>
-              <div
-                className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
-                onClick={handleOpenModalImageGallery}
-              />
-            </div>
-          ))} */}
           <button
             className="absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-neutral-100 text-neutral-500 hover:bg-neutral-200 z-10"
             onClick={handleOpenModalImageGallery}

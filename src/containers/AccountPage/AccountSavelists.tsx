@@ -17,7 +17,6 @@ import {apiUrl} from "../../config";
 const AccountSavelists = () => {
   let [categories] = useState(["Kirayə", "Turlar"]);
 
-
   const [list, setList] = useState<Array<IStayProps>>([])
 
   useEffect(() => {
