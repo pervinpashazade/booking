@@ -141,6 +141,7 @@ export interface IStayProps {
   images: Array<IImageProps>
   is_active: number,
   is_vip: number,
+  is_favorite: boolean,
   view_count: number,
   double_bed_count: number,
   single_bed_count: number,

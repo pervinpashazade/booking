@@ -34,12 +34,10 @@ function PageHome() {
   // @ts-ignores
   const searchParams = useSelector(store => store.searchParams)
 
-  let [urlParams, setUrlParams] = useSearchParams();
+  let [urlParams, setUrlParams] = useSearchParams()
 
   const [list, setList] = useState<Array<IStayProps>>([])
   const [loading, setLoading] = useState<boolean>(false)
-
-  const [cities, setCities] = useState<Array<ICityProps>>([]);
 
   useEffect(() => {
 
@@ -51,7 +49,6 @@ function PageHome() {
 
     axios.get(apiUrl + "shared/cities").then((cityRes) => {
       if (cityRes.data.success) {
-        setCities(cityRes.data.data);
 
         getData({
           page,

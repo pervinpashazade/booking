@@ -21,9 +21,11 @@ import { apiUrl, appName } from "config";
 import { IStayProps } from "data/types";
 import Helmet from "react-helmet";
 import { manat_icon } from "contains/contants";
+import { useAppSelector } from "store/store";
 
 const StayDetailPageContainer: FC<{}> = () => {
-  //
+
+  const isAuth = useAppSelector(store => store.isAuth)
 
   //get slug from url
   const { slug } = useParams();
@@ -65,13 +67,56 @@ const StayDetailPageContainer: FC<{}> = () => {
     })
   }, [])
 
+  const handleSave = () => {
+    if (!isAuth) {
+      router(`/login?redirect=${thisPathname}`)
+      return
+    }
+
+    if (!data) {
+      alert("Məlumat tapılmadı")
+      return
+    }
+
+    // axios.post(apiUrl + '/announcement-favorite/toggle').then(res => {
+
+    // })
+
+    axios.post(apiUrl + 'vendor/announcement-favorite/toggle', {
+      announcement_id: data.id
+    }, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      },
+    }).then(res => {
+      if (res.data.success) {
+        if (res.data.success) {
+          // @ts-ignore
+          setData(prevState => {
+            return {
+              ...prevState,
+              is_favorite: res.data.data.is_favorite
+            }
+          })
+        }
+      }
+    }).catch(err => {
+      console.log("account vendor/announcement error", err);
+    }).finally(() => {
+
+    })
+  }
+
   const renderSection1 = () => {
     return (
       <div className="listingSection__wrap !space-y-6">
         {/* 1 */}
         <div className="flex justify-between items-center">
           <Badge name={`Baxış sayı: ${data?.view_count}`} />
-          <LikeSaveBtns />
+          <LikeSaveBtns
+            isSaved={data?.is_favorite}
+            onSave={handleSave}
+          />
         </div>
 
         {/* 2 */}
