@@ -57,13 +57,20 @@
 //   }
 // };
 
-import { IStayProps, IUserProps } from "data/types";
+import { ISearchRoomParams, IStayProps, IUserProps } from "data/types";
 import { actionTypes } from "./action";
 
 interface initialStateProps {
   isAuth: boolean
   user: IUserProps
-  room: IStayProps
+  room: IStayProps,
+  searchParams: {
+    city: any,
+    price_from: any,
+    price_to: any,
+    page: string,
+    per_page: string
+  },
 }
 
 function getItemFromLocaleStorage(key: string) {
@@ -76,8 +83,13 @@ export const initialState: initialStateProps = {
   user: getItemFromLocaleStorage("user"),
   // @ts-ignore
   room: {},
-  page: 1,
-  per_page: 16,
+  searchParams: {
+    city: null,
+    price_from: null,
+    price_to: null,
+    page: "1",
+    per_page: "16"
+  }
 };
 
 export default (state = initialState, action: any) => {
@@ -130,13 +142,9 @@ export default (state = initialState, action: any) => {
         })
       }
 
-    case actionTypes.PAGE:
+    case actionTypes.SET_DATA:
       return Object.assign({}, state, {
-        page: action.data,
-      });
-    case actionTypes.PER_PAGE:
-      return Object.assign({}, state, {
-        per_page: action.data,
+        [action.section]: action.value,
       });
 
     default:

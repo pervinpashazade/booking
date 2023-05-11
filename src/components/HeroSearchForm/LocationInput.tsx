@@ -4,6 +4,7 @@ import { ClockIcon, MapPinIcon } from "@heroicons/react/24/outline";
 import React, { useState, useRef, useEffect, FC } from "react";
 import ClearDataButton from "./ClearDataButton";
 import { ICityProps } from "../../data/types";
+import { changeValue } from "store/action";
 
 export interface LocationInputProps {
   placeHolder?: string;
@@ -12,8 +13,8 @@ export interface LocationInputProps {
   divHideVerticalLineClass?: string;
   autoFocus?: boolean;
   cities?: Array<ICityProps>;
-  city?: ICityProps,
-  setCity: Function
+  city?: ICityProps;
+  dispatch: Function;
 }
 
 const LocationInput: FC<LocationInputProps> = ({
@@ -24,8 +25,9 @@ const LocationInput: FC<LocationInputProps> = ({
   divHideVerticalLineClass = "left-10 -right-0.5",
   cities = [],
   city,
-  setCity
+  dispatch
 }) => {
+
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -63,9 +65,12 @@ const LocationInput: FC<LocationInputProps> = ({
   };
 
   const handleSelectLocation = (city_id: Number) => {
-    setCity(cities.find(x => x.id === city_id));
+    // setCity(cities.find(x => x.id === city_id));
+
+    dispatch(changeValue("searchParams", "city", cities.find(x => x.id === city_id)))
     setShowPopover(false);
   };
+
   // console.log("cities",cities)
   // const renderRecentSearches = () => {
   //   return (
@@ -140,7 +145,8 @@ const LocationInput: FC<LocationInputProps> = ({
             value={city?.name ?? ""}
             autoFocus={showPopover}
             onChange={(e) => {
-              setCity(cities.find(x => x.id === Number(e.currentTarget.value)));
+              // setCity(cities.find(x => x.id === Number(e.currentTarget.value)));
+              dispatch(changeValue("searchParams", "city", cities.find(x => x.id === Number(e.currentTarget.value))))
             }}
             ref={inputRef}
           />
@@ -150,7 +156,8 @@ const LocationInput: FC<LocationInputProps> = ({
           {city?.id && showPopover && (
             <ClearDataButton
               onClick={() => {
-                setCity(null);
+                // setCity(null);
+                dispatch(changeValue("searchParams", "city", null))
               }}
             />
           )}

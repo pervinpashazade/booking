@@ -2,9 +2,8 @@
 export const actionTypes = {
   LOGIN: "LOGIN",
   LOGOUT: "LOGOUT",
-  PAGE: "PAGE",
-  PER_PAGE: "PER_PAGE",
   CHANGE_VALUE: "CHANGE_VALUE",
+  SET_DATA: "SET_DATA",
 };
 
 export const parseJwt = (jwttoken) => {
@@ -55,21 +54,16 @@ export const changeValue = (section, field, value, subKey) => {
   }
 }
 
+export const setData = (section, value) => {
 
-export const pageChange = (data) => {
+  console.log("section", section);
+  console.log("value", value);
+
   return (dispatch) => {
     dispatch({
-      type: actionTypes.PAGE,
-      data: data,
-    });
-  };
-};
-
-export const per_pageChange = (data) => {
-  return (dispatch) => {
-    dispatch({
-      type: actionTypes.PER_PAGE,
-      data: data,
+      type: actionTypes.SET_DATA,
+      section,
+      value,
     });
   };
 };

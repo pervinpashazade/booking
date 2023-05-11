@@ -124,7 +124,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
                 // @ts-ignore
                 room.title ?? ""
               }
-              placeholder="Məkanın adını daxil edin"
+              placeholder="Məs.: Dağ mənzərəli A Frame villa"
               onChange={e => dispatch(changeValue("room", "title", e.target.value))}
             />
           </FormItem>
@@ -151,7 +151,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
               onChange={e => dispatch(changeValue("room", "address", e.target.value))}
             />
           </FormItem>
-          <FormItem label="Qiymət">
+          <FormItem label="Qiymət (günlük)">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <span className="text-gray-500">{manat_icon}</span>
@@ -231,7 +231,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
                       PNG, JPG, GIF up to 10MB
                     </p>
                   </div>
-                  
+
                   {
                     // @ts-ignore
                     room?.images?.length > 0 &&

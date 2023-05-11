@@ -109,11 +109,11 @@ export interface IPaginationProps {
 }
 
 export interface ISearchRoomParams {
-  page?: number
-  per_page?: number
-  city_id?: number
-  price_from?: number
-  price_to?: number
+  page?: string | number
+  per_page?: string | number
+  city_id?: string | number
+  price_from?: string | number
+  price_to?: string | number
 }
 
 //
