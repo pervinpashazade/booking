@@ -34,7 +34,7 @@ function PageHome() {
   // @ts-ignores
   const searchParams = useSelector(store => store.searchParams)
 
-  let [urlParams, setUrlParams] = useSearchParams()
+  let [urlParams] = useSearchParams()
 
   const [list, setList] = useState<Array<IStayProps>>([])
   const [loading, setLoading] = useState<boolean>(false)
@@ -93,8 +93,8 @@ function PageHome() {
         "page": params.page,
         "per_page": params.per_page,
         "filter[city_id]": params.city_id,
-        "price_from": params.price_from,
-        "price_to": params.price_to,
+        "filter[price_from]": params.price_from,
+        "filter[price_to]": params.price_to,
       }
     }).finally(() => {
       setLoading(false)

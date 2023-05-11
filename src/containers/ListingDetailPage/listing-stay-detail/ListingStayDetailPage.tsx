@@ -140,7 +140,7 @@ const StayDetailPageContainer: FC<{}> = () => {
           <span className="ml-2.5 text-neutral-500 dark:text-neutral-400">
             Müəllif{" "}
             <span className="text-neutral-900 dark:text-neutral-200 font-medium">
-              <Link to={data?.user_id === user.id ? "/account-items" : `/author/${data?.user_id}`}>
+              <Link to={data?.user_id === user?.id ? "/account-items" : `/author/${data?.user_id}`}>
                 {data?.user?.name ?? ""}
                 {data?.user?.surname ?? ""}
               </Link>
