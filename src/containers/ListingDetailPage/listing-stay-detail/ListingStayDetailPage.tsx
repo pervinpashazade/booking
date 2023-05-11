@@ -125,14 +125,14 @@ const StayDetailPageContainer: FC<{}> = () => {
         </h2>
 
         {/* 3 */}
-        {/* <div className="flex items-center space-x-4">
-          <StartRating />
-          <span>·</span>
+        <div className="flex items-center space-x-4">
+          {/* <StartRating />
+          <span>·</span> */}
           <span>
             <i className="las la-map-marker-alt"></i>
-            <span className="ml-1"> Tokyo, Jappan</span>
+            <span className="ml-1"> {data?.city?.name ?? ""}, {data?.address ?? ""}</span>
           </span>
-        </div> */}
+        </div>
 
         {/* 4 */}
         <div className="flex items-center">
@@ -630,7 +630,7 @@ const StayDetailPageContainer: FC<{}> = () => {
         </div> */}
 
         {/* SUBMIT */}
-        <ButtonPrimary href={"/checkout"}>Zəng et</ButtonPrimary>
+        <ButtonPrimary href={`tel:055-279-06-34`}>Zəng et</ButtonPrimary>
       </div>
     );
   };
