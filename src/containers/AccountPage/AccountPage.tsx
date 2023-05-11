@@ -1,5 +1,5 @@
+import {FC, useEffect, useState} from "react";
 import Label from "components/Label/Label";
-import React, {FC, useEffect, useState} from "react";
 import Avatar from "shared/Avatar/Avatar";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import Input from "shared/Input/Input";
@@ -95,9 +95,9 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
               {/*  <Label>About you</Label>*/}
               {/*  <Textarea className="mt-1.5" defaultValue="..." />*/}
               {/*</div>*/}
-              <div className="pt-2">
+              {/* <div className="pt-2">
                 <ButtonPrimary>Update info</ButtonPrimary>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

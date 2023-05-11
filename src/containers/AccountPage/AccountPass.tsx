@@ -3,14 +3,19 @@ import React from "react";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import Input from "shared/Input/Input";
 import CommonLayout from "./CommonLayout";
+import { appName } from "config";
+import Helmet from "react-helmet";
 
 const AccountPass = () => {
   return (
     <div>
+      <Helmet>
+        <title>Şifrəni dəyiş | {appName}</title>
+      </Helmet>
       <CommonLayout>
         <div className="space-y-6 sm:space-y-8">
           {/* HEADING */}
-          <h2 className="text-3xl font-semibold">Şifrəni dəyişmək</h2>
+          <h2 className="text-3xl font-semibold">Şifrəni dəyiş</h2>
           <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
           <div className=" max-w-xl space-y-6">
             <div>

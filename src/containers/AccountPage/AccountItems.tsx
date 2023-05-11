@@ -7,16 +7,17 @@ import {
   DEMO_EXPERIENCES_LISTINGS,
   DEMO_STAY_LISTINGS,
 } from "data/listings";
-import React, {Fragment, useEffect, useState} from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import ButtonSecondary from "shared/Button/ButtonSecondary";
 import CommonLayout from "./CommonLayout";
-import {IStayProps} from "../../data/types";
+import { IStayProps } from "../../data/types";
 import axios from "axios";
-import {apiUrl} from "../../config";
+import { apiUrl, appName } from "../../config";
+import Helmet from "react-helmet"
 
 const AccountItems = () => {
 
-  let [categories] = useState(["Hazırda saytda","Gözləmədə", "Müddəti bitmiş","Dərc olunmayan"]);
+  let [categories] = useState(["Hazırda saytda", "Gözləmədə", "Müddəti bitmiş", "Dərc olunmayan"]);
 
 
   const [list, setList] = useState<Array<IStayProps>>([])
@@ -55,11 +56,10 @@ const AccountItems = () => {
                 <Tab key={item} as={Fragment}>
                   {({ selected }) => (
                     <button
-                      className={`flex-shrink-0 block !leading-none font-medium px-5 py-2.5 text-sm sm:text-base sm:px-6 sm:py-3 capitalize rounded-full focus:outline-none ${
-                        selected
-                          ? "bg-secondary-900 text-secondary-50 "
-                          : "text-neutral-500 dark:text-neutral-400 dark:hover:text-neutral-100 hover:text-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                      } `}
+                      className={`flex-shrink-0 block !leading-none font-medium px-5 py-2.5 text-sm sm:text-base sm:px-6 sm:py-3 capitalize rounded-full focus:outline-none ${selected
+                        ? "bg-secondary-900 text-secondary-50 "
+                        : "text-neutral-500 dark:text-neutral-400 dark:hover:text-neutral-100 hover:text-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                        } `}
                     >
                       {item}
                     </button>
@@ -99,6 +99,9 @@ const AccountItems = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Elanlarım | {appName}</title>
+      </Helmet>
       <CommonLayout>{renderSection1()}</CommonLayout>
     </div>
   );
