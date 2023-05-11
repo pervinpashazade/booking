@@ -6,22 +6,23 @@ import { getNewParam } from "../ListingImageGallery";
 import type { ListingGalleryImage } from "../utils/types";
 import SharedModal from "./SharedModal";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { IImageProps } from "data/types";
 
 export default function Modal({
   images,
   onClose,
 }: {
-  images: ListingGalleryImage[];
+  images: IImageProps[];
   onClose?: () => void;
 }) {
   let overlayRef = useRef<HTMLDivElement>(null);
 
   let [searchParams] = useSearchParams();
-  const photoId = searchParams?.get("photoId");
+  const photoIndex = searchParams?.get("photoIndex");
   const navigate = useNavigate();
   const thisPathname = useLocation().pathname;
 
-  let index = Number(photoId);
+  let index = Number(photoIndex);
 
   const [direction, setDirection] = useState(0);
   const [curIndex, setCurIndex] = useState(index);
@@ -37,7 +38,8 @@ export default function Modal({
       setDirection(-1);
     }
     setCurIndex(newVal);
-    navigate(`${thisPathname}/?${getNewParam({ value: newVal })}`);
+    // navigate(`${thisPathname}/?${getNewParam({ value: newVal })}`);
+    navigate(`?${getNewParam({ value: newVal })}`);
   }
 
   useKeypress("ArrowRight", () => {

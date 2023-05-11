@@ -28,9 +28,6 @@ const StayDetailPageContainer: FC<{}> = () => {
   //get slug from url
   const { slug } = useParams();
 
-  console.log("slug", slug);
-  
-
   let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false);
 
   const thisPathname = useLocation().pathname;
@@ -45,7 +42,8 @@ const StayDetailPageContainer: FC<{}> = () => {
   }
 
   const handleOpenModalImageGallery = () => {
-    router(`${thisPathname}/?modal=PHOTO_TOUR_SCROLLABLE`);
+    // router(`${thisPathname}/?modal=PHOTO_TOUR_SCROLLABLE`);
+    router(`?modal=PHOTO_TOUR_SCROLLABLE`);
   };
 
   // //

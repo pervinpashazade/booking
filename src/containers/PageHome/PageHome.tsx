@@ -68,9 +68,6 @@ function PageHome() {
               total: res.data.data.total
             })
 
-            console.log("test", res.data.data);
-            
-
             const params = {
               page: res.data.data.current_page,
               per_page: res.data.data.per_page,

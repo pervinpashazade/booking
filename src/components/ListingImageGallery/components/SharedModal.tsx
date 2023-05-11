@@ -15,11 +15,12 @@ import { range } from "../utils/range";
 import type { ListingGalleryImage } from "../utils/types";
 import Twitter from "./Icons/Twitter";
 import { variants } from "utils/animationVariants";
+import { IImageProps } from "data/types";
 
 interface SharedModalProps {
   index: number;
-  images?: ListingGalleryImage[];
-  currentPhoto?: ListingGalleryImage;
+  images?: IImageProps[];
+  currentPhoto?: IImageProps;
   changePhotoId: (newVal: number) => void;
   closeModal: () => void;
   navigation: boolean;
@@ -28,7 +29,7 @@ interface SharedModalProps {
 
 export default function SharedModal({
   index,
-  images = DEMO_IMAGE,
+  images = [],
   changePhotoId,
   closeModal,
   navigation,
@@ -37,7 +38,7 @@ export default function SharedModal({
 }: SharedModalProps) {
   const [loaded, setLoaded] = useState(false);
 
-  let filteredImages = images?.filter((img: ListingGalleryImage) =>
+  let filteredImages = images?.filter((img: IImageProps) =>
     range(index - 15, index + 15).includes(img.id)
   );
 
@@ -82,7 +83,7 @@ export default function SharedModal({
                 className="absolute"
               >
                 <img
-                  src={currentImage?.url || ""}
+                  src={currentImage?.url_full || ""}
                   width={navigation ? 1280 : 1920}
                   height={navigation ? 853 : 1280}
                   alt="Chisfis listing gallery"
@@ -124,7 +125,7 @@ export default function SharedModal({
               <div className="absolute top-0 right-0 flex items-center gap-2 p-3 text-white">
                 {navigation ? (
                   <a
-                    href={currentImage?.url}
+                    href={currentImage?.url_full}
                     className="rounded-full bg-black/50 p-2 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white"
                     target="_blank"
                     title="Open fullsize version"
@@ -145,7 +146,7 @@ export default function SharedModal({
                 )}
                 <button
                   onClick={() =>
-                    downloadPhoto(currentImage?.url || "", `${index}.jpg`)
+                    downloadPhoto(currentImage?.url_full || "", `${index}.jpg`)
                   }
                   className="rounded-full bg-black/50 p-2 text-white/75 backdrop-blur-lg transition hover:bg-black/75 hover:text-white"
                   title="Download fullsize version"
@@ -175,7 +176,7 @@ export default function SharedModal({
                 className="mx-auto mt-6 mb-6 flex aspect-[3/2] h-14"
               >
                 <AnimatePresence initial={false}>
-                  {filteredImages.map(({ id, url }) => (
+                  {filteredImages.map(({ id, url_full }) => (
                     <motion.button
                       initial={{
                         width: "0%",
@@ -206,7 +207,7 @@ export default function SharedModal({
                             ? "brightness-110 hover:brightness-110"
                             : "brightness-50 contrast-125 hover:brightness-75"
                         } h-full transform object-cover transition`}
-                        src={url || ""}
+                        src={url_full || ""}
                       />
                     </motion.button>
                   ))}

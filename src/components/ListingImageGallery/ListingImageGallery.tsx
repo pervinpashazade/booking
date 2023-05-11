@@ -8,6 +8,7 @@ import { ArrowSmallLeftIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import LikeSaveBtns from "components/LikeSaveBtns";
+import { IImageProps } from "data/types";
 
 const PHOTOS: string[] = [
   "https://images.pexels.com/photos/6129967/pexels-photo-6129967.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
@@ -30,7 +31,7 @@ export const DEMO_IMAGE: ListingGalleryImage[] = [...PHOTOS].map(
 );
 
 export const getNewParam = ({
-  paramName = "photoId",
+  paramName = "photoIndex",
   value,
 }: {
   paramName?: string;
@@ -42,18 +43,18 @@ export const getNewParam = ({
 };
 
 interface Props {
-  images?: ListingGalleryImage[];
+  images?: IImageProps[];
   onClose?: () => void;
   isShowModal: boolean;
 }
 
 const ListingImageGallery: FC<Props> = ({
-  images = DEMO_IMAGE,
+  images = [],
   onClose,
   isShowModal,
 }) => {
   let [searchParams] = useSearchParams();
-  const photoId = searchParams?.get("photoId");
+  const photoIndex = searchParams?.get("photoIndex");
   const navigate = useNavigate();
   const [lastViewedPhoto, setLastViewedPhoto] = useLastViewedPhoto();
 
@@ -63,11 +64,11 @@ const ListingImageGallery: FC<Props> = ({
   //
   useEffect(() => {
     // This effect keeps track of the last viewed photo in the modal to keep the index page in sync when the user navigates back
-    if (lastViewedPhoto && !photoId) {
+    if (lastViewedPhoto && !photoIndex) {
       lastViewedPhotoRef.current?.scrollIntoView({ block: "center" });
       setLastViewedPhoto(null);
     }
-  }, [photoId, lastViewedPhoto, setLastViewedPhoto]);
+  }, [photoIndex, lastViewedPhoto, setLastViewedPhoto]);
 
   const handleClose = () => {
     onClose && onClose();
@@ -76,26 +77,28 @@ const ListingImageGallery: FC<Props> = ({
   const renderContent = () => {
     return (
       <div className=" ">
-        {photoId && (
+        {photoIndex && (
           <Modal
             images={images}
             onClose={() => {
               // @ts-ignore
-              setLastViewedPhoto(photoId);
+              setLastViewedPhoto(photoIndex);
               let params = new URLSearchParams(document.location.search);
-              params.delete("photoId");
-              navigate(`${thisPathname}/?${params.toString()}`);
+              params.delete("photoIndex");
+              // navigate(`${thisPathname}/?${params.toString()}`);
+              navigate(`?${params.toString()}`);
             }}
           />
         )}
 
         <div className="columns-1 gap-4 sm:columns-2 xl:columns-3">
-          {images.map(({ id, url }) => (
+          {images.map(({ id, url_full }, index) => (
             <div
               key={id}
               onClick={() => {
-                const newPathname = getNewParam({ value: id });
-                navigate(`${thisPathname}/?${newPathname}`);
+                const newPathname = getNewParam({ value: index });
+                // navigate(`${thisPathname}/?${newPathname}`);
+                navigate(`?${newPathname}`);
               }}
               ref={id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null}
               className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight focus:outline-none"
@@ -106,7 +109,7 @@ const ListingImageGallery: FC<Props> = ({
                 style={{
                   transform: "translate3d(0, 0, 0)",
                 }}
-                src={url}
+                src={url_full}
                 width={720}
                 height={480}
                 sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 350px"
