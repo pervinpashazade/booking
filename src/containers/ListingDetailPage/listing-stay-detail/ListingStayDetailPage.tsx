@@ -21,10 +21,12 @@ import { apiUrl, appName } from "config";
 import { IStayProps } from "data/types";
 import Helmet from "react-helmet";
 import { manat_icon } from "contains/contants";
-import { useAppSelector } from "store/store";
+import { useAppDispatch, useAppSelector } from "store/store";
+import { setData as setStoreData } from "store/action";
 
 const StayDetailPageContainer: FC<{}> = () => {
 
+  const dispatch = useAppDispatch()
   const { isAuth, user } = useAppSelector(store => store)
 
   //get slug from url
@@ -63,7 +65,7 @@ const StayDetailPageContainer: FC<{}> = () => {
     }).catch(err => {
       console.log("account vendor/announcement error", err);
     }).finally(() => {
-
+      dispatch(setStoreData("preLoader", false))
     })
   }, [])
 
