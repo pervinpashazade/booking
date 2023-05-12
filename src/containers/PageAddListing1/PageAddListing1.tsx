@@ -17,15 +17,14 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
 
   const dispatch = useAppDispatch()
   const room = useAppSelector(store => store.room)
+  const cityList = useAppSelector(store => store.staticData.cityList)
 
   const [categoryList, setCategoryList] = useState<Array<ICategoryProps>>([])
-  const [cityList, setCityList] = useState<Array<ICityProps>>([])
 
   const [isDraggingOver, setIsDraggingOver] = useState(false);
 
   useEffect(() => {
     getCategoryList()
-    getCityList()
   }, [])
 
   const getCategoryList = () => {
@@ -38,18 +37,6 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
       console.log("shared/categories err", err);
     })
   }
-
-  const getCityList = () => {
-    axios.get(apiUrl + 'shared/cities').then(res => {
-      // console.log("res.data", res.data.data);
-      if (res.data.success) {
-        setCityList(res.data.data)
-      }
-    }).catch(err => {
-      console.log("shared/cities err", err);
-    })
-  }
-
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
@@ -104,10 +91,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
           // desc="Adətən öz brendini və dekorasiyasını müəyyən edən unikal üsluba və ya mövzuya malik olan peşəkar qonaqpərvərlik müəssisələri"
           >
             <Select
-              value={
-                // @ts-ignore
-                room.category?.id
-              }
+              value={room.category?.id}
               onChange={e => dispatch(changeValue("room", "category", categoryList.find(x => x.id === Number(e.target.value))))}
             >
               {
@@ -120,20 +104,14 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
           // desc="Cazibədar ad adətən daxildir: Ev adı + Otaq adı + Seçilmiş əmlak + Turist təyinatı"
           >
             <Input
-              value={
-                // @ts-ignore
-                room.title ?? ""
-              }
+              value={room.title ?? ""}
               placeholder="Məs.: Dağ mənzərəli A Frame villa"
               onChange={e => dispatch(changeValue("room", "title", e.target.value))}
             />
           </FormItem>
           <FormItem label="Şəhər">
             <Select
-              value={
-                // @ts-ignore
-                room.city?.id
-              }
+              value={room.city?.id}
               onChange={e => dispatch(changeValue("room", "city", cityList.find(x => x.id === Number(e.target.value))))}
             >
               {
@@ -143,10 +121,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
           </FormItem>
           <FormItem label="Küçə">
             <Input
-              value={
-                // @ts-ignore
-                room.address ?? ""
-              }
+              value={room.address ?? ""}
               placeholder="..."
               onChange={e => dispatch(changeValue("room", "address", e.target.value))}
             />
@@ -159,10 +134,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
               <Input
                 className="!pl-8 !pr-10"
                 placeholder="0.00"
-                value={
-                  // @ts-ignore
-                  room.price ?? ""
-                }
+                value={room.price ?? ""}
                 onChange={e => dispatch(changeValue("room", "price", e.target.value))}
               />
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
@@ -174,10 +146,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
             <Textarea
               placeholder="..."
               rows={14}
-              value={
-                // @ts-ignore
-                room.content ?? ""
-              }
+              value={room.content ?? ""}
               onChange={e => dispatch(changeValue("room", "content", e.target.value))}
             />
           </FormItem>

@@ -14,9 +14,12 @@ import { IPaginationProps, IStayProps } from "../../data/types";
 import axios from "axios";
 import { apiUrl, appName } from "../../config";
 import Helmet from "react-helmet";
+import { useAppSelector } from "store/store";
 
 const AccountSavelists = () => {
   let [categories] = useState(["Kirayə", "Turlar"]);
+
+  // const cities = useAppSelector(store => store.staticData.cityList)
 
   const [pagination, setPagination] = useState<IPaginationProps>({
     page: 1,
@@ -28,25 +31,41 @@ const AccountSavelists = () => {
 
   useEffect(() => {
 
-    axios.get(apiUrl + "shared/cities").then((cityRes) => {
-      if (cityRes.data.success) {
+    // axios.get(apiUrl + "shared/cities").then((cityRes) => {
+    //   if (cityRes.data.success) {
 
-        getData({
-          page: pagination.page,
-          per_page: pagination.per_page,
-        }).then((res: any) => {
-          if (res.data.success) {
-            setList(res.data.data.data)
-            setPagination({
-              page: res.data.data.current_page,
-              per_page: res.data.per_page,
-              total: res.data.data.total
-            })
-          }
-        }).catch(err => {
-          console.log("account vendor/announcement-favorite/ error", err);
+    //     getData({
+    //       page: pagination.page,
+    //       per_page: pagination.per_page,
+    //     }).then((res: any) => {
+    //       if (res.data.success) {
+    //         setList(res.data.data.data)
+    //         setPagination({
+    //           page: res.data.data.current_page,
+    //           per_page: res.data.per_page,
+    //           total: res.data.data.total
+    //         })
+    //       }
+    //     }).catch(err => {
+    //       console.log("account vendor/announcement-favorite/ error", err);
+    //     })
+    //   }
+    // })
+
+    getData({
+      page: pagination.page,
+      per_page: pagination.per_page,
+    }).then((res: any) => {
+      if (res.data.success) {
+        setList(res.data.data.data)
+        setPagination({
+          page: res.data.data.current_page,
+          per_page: res.data.per_page,
+          total: res.data.data.total
         })
       }
+    }).catch(err => {
+      console.log("account vendor/announcement-favorite/ error", err);
     })
 
   }, [])

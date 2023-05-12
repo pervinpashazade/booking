@@ -7,8 +7,16 @@ import { useTimeoutFn } from "react-use";
 import StaySearchForm from "./(stay-search-form)/StaySearchForm";
 import CarsSearchForm from "./(car-search-form)/CarsSearchForm";
 import FlightSearchForm from "./(flight-search-form)/FlightSearchForm";
+import { useAppDispatch } from "store/store";
+import { changeValue, setData } from "store/action";
+import axios from "axios";
+import { apiUrl } from "config";
+import { ISearchRoomParams } from "data/types";
 
 const HeroSearchForm2Mobile = () => {
+
+  const dispatch = useAppDispatch()
+
   const [showModal, setShowModal] = useState(false);
 
   // FOR RESET ALL DATA WHEN CLICK CLEAR BUTTON
@@ -32,7 +40,7 @@ const HeroSearchForm2Mobile = () => {
         <MagnifyingGlassIcon className="flex-shrink-0 w-5 h-5" />
 
         <div className="ml-3 flex-1 text-left overflow-hidden">
-          <span className="block font-medium text-sm">Hara səyahət edirsən?</span>
+          <span className="block font-medium text-sm">Hansı şəhərə səyahət edirsən?</span>
           <span className="block mt-0.5 text-xs font-light text-neutral-500 dark:text-neutral-400 line-clamp-1">
             Kirayələr • Turlar
           </span>
@@ -53,6 +61,29 @@ const HeroSearchForm2Mobile = () => {
       </button>
     );
   };
+
+  // const getData = async (params: ISearchRoomParams) => {
+  //   dispatch(setData("preLoader", true))
+  //   return axios.get(apiUrl + "vendor/announcement", {
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("access_token")}`
+  //     },
+  //     params: {
+  //       "page": params.page,
+  //       "per_page": params.per_page,
+  //       "filter[city_id]": params.city_id,
+  //       "filter[price_from]": params.price_from,
+  //       "filter[price_to]": params.price_to,
+  //     }
+  //   }).finally(() => {
+  //     dispatch(setData("preLoader", false))
+  //   })
+  // }
+
+  const handleSearch = () => {
+    closeModal()
+    // getData()
+  }
 
   return (
     <div className="HeroSearchForm2Mobile">
@@ -82,7 +113,6 @@ const HeroSearchForm2Mobile = () => {
                           <XMarkIcon className="w-5 h-5 text-black dark:text-white" />
                         </button>
                       </div>
-
                       <Tab.List className="pt-12 flex w-full justify-center font-semibold text-sm sm:text-base text-neutral-500 dark:text-neutral-400 space-x-6 sm:space-x-8">
                         {["Kirayə", "Turlar"].map(
                           (item, index) => (
@@ -90,11 +120,10 @@ const HeroSearchForm2Mobile = () => {
                               {({ selected }) => (
                                 <div className="relative focus:outline-none focus-visible:ring-0 outline-none select-none">
                                   <div
-                                    className={`${
-                                      selected
-                                        ? "text-black dark:text-white"
-                                        : ""
-                                    }  `}
+                                    className={`${selected
+                                      ? "text-black dark:text-white"
+                                      : ""
+                                      }  `}
                                   >
                                     {item}
                                   </div>
@@ -119,16 +148,6 @@ const HeroSearchForm2Mobile = () => {
                               <StaySearchForm />
                             </div>
                           </Tab.Panel>
-                          <Tab.Panel>
-                            <div className="transition-opacity animate-[myblur_0.4s_ease-in-out]">
-                              <CarsSearchForm />
-                            </div>
-                          </Tab.Panel>
-                          <Tab.Panel>
-                            <div className="transition-opacity animate-[myblur_0.4s_ease-in-out]">
-                              <FlightSearchForm />
-                            </div>
-                          </Tab.Panel>
                         </Tab.Panels>
                       </div>
                       <div className="px-4 py-3 bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 flex justify-between">
@@ -138,14 +157,14 @@ const HeroSearchForm2Mobile = () => {
                           onClick={() => {
                             setShowDialog(false);
                             resetIsShowingDialog();
+
+                            dispatch(changeValue("searchParams", "city", null))
                           }}
                         >
                           Sıfırla
                         </button>
                         <ButtonSubmit
-                          onClick={() => {
-                            closeModal();
-                          }}
+                          onClick={handleSearch}
                         />
                       </div>
                     </Tab.Group>

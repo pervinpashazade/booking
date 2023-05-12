@@ -54,6 +54,7 @@ const StayDetailPageContainer: FC<{}> = () => {
   const [data, setData] = useState<IStayProps>();
 
   useEffect(() => {
+    dispatch(setStoreData("preLoader", true))
     axios.get(apiUrl + `vendor/announcement/${slug}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`

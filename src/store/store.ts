@@ -10,7 +10,7 @@ const persistConfig = {
     key: 'root-booking',
     storage: storage,
     whitelist: [
-        // 'searchParams',
+        'staticData',
     ]
 };
 

@@ -1,4 +1,4 @@
-import { IStayProps, IUserProps } from "data/types";
+import { ICategoryProps, ICityProps, IStayProps, IUserProps } from "data/types";
 import { actionTypes } from "./action";
 
 interface initialStateProps {
@@ -12,7 +12,11 @@ interface initialStateProps {
     page: string,
     per_page: string
   },
-  preLoader: boolean
+  preLoader: boolean,
+  staticData: {
+    cityList: Array<ICityProps>,
+    categoryList: Array<ICategoryProps>
+  }
 }
 
 function getItemFromLocaleStorage(key: string) {
@@ -33,6 +37,10 @@ export const initialState: initialStateProps = {
     per_page: "16"
   },
   preLoader: true,
+  staticData: {
+    cityList: [],
+    categoryList: [],
+  }
 };
 
 export default (state = initialState, action: any) => {

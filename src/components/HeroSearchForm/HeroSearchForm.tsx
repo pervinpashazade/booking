@@ -6,6 +6,7 @@ import ExperiencesSearchForm from "./(experiences-search-form)/ExperiencesSearch
 import axios from "axios";
 import { apiUrl } from "../../config";
 import { ICityProps } from "../../data/types";
+import { useAppSelector } from "store/store";
 
 export type SearchTab = "Kirayə" | "Turlar";
 
@@ -22,15 +23,11 @@ const HeroSearchForm: FC<HeroSearchFormProps> = ({
   currentPage,
   getRoomData,
 }) => {
+
+  const cities = useAppSelector(store => store.staticData.cityList)
+
   const tabs: SearchTab[] = ["Kirayə", "Turlar"];
   const [tabActive, setTabActive] = useState<SearchTab>(currentTab);
-  const [cities, setCities] = useState<Array<ICityProps>>([]);
-
-  useEffect(() => {
-    axios.get(apiUrl + "shared/cities").then((res) => {
-      setCities(res.data.data);
-    })
-  }, []);
 
   const renderTab = () => {
     return (

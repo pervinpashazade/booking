@@ -14,7 +14,7 @@ import { apiUrl, appName } from "config";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import { useAppDispatch } from "store/store";
+import { useAppDispatch, useAppSelector } from "store/store";
 import { setData } from "store/action";
 
 function PageHome() {
@@ -27,8 +27,8 @@ function PageHome() {
     total: 0
   })
 
-  // @ts-ignores
-  const searchParams = useSelector(store => store.searchParams)
+  const searchParams = useAppSelector(store => store.searchParams)
+  const cityList = useAppSelector(store => store.staticData.cityList)
 
   let [urlParams] = useSearchParams()
 
@@ -39,43 +39,38 @@ function PageHome() {
 
     let page = urlParams.get("page") ?? searchParams.page;
     let per_page = urlParams.get("per_page") ?? searchParams.per_page;
-    let city_id = urlParams.get("city_id") ?? searchParams.city_id;
+    let city_id = urlParams.get("city_id") ?? searchParams.city?.id;
     let price_from = urlParams.get("price_from") ?? searchParams.price_from;
     let price_to = urlParams.get("price_to") ?? searchParams.price_to;
 
-    axios.get(apiUrl + "shared/cities").then((cityRes) => {
-      if (cityRes.data.success) {
+    getData({
+      page,
+      per_page,
+      city_id,
+      price_from,
+      price_to,
+    }).then(res => {
+      if (res.data.success) {
+        setList(res.data.data.data)
+        setPagination({
+          page: res.data.data.current_page,
+          per_page: res.data.per_page,
+          total: res.data.data.total
+        })
 
-        getData({
-          page,
-          per_page,
-          city_id,
+        const params = {
+          page: res.data.data.current_page,
+          per_page: res.data.data.per_page,
+          city: cityList.find((x: ICityProps) => x.id === Number(city_id)),
           price_from,
           price_to,
-        }).then(res => {
-          if (res.data.success) {
-            setList(res.data.data.data)
-            setPagination({
-              page: res.data.data.current_page,
-              per_page: res.data.per_page,
-              total: res.data.data.total
-            })
+        }
 
-            const params = {
-              page: res.data.data.current_page,
-              per_page: res.data.data.per_page,
-              city: cityRes.data.data.find((x: ICityProps) => x.id === Number(city_id)),
-              price_from,
-              price_to,
-            }
-
-            dispatch(setData("searchParams", params))
-          }
-        }).catch(err => {
-          console.log("account vendor/announcement error", err);
-        }).finally(() => {
-        })
+        dispatch(setData("searchParams", params))
       }
+    }).catch(err => {
+      console.log("account vendor/announcement error", err);
+    }).finally(() => {
     })
 
   }, [])

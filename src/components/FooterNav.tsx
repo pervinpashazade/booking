@@ -7,43 +7,47 @@ import React, { useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { PathName } from "routers/types";
 import MenuBar from "shared/MenuBar/MenuBar";
+import { useAppSelector } from "store/store";
 import isInViewport from "utils/isInViewport";
 
 let WIN_PREV_POSITION = window.pageYOffset;
 
 interface NavItem {
   name: string;
-  link?: PathName;
+  link?: PathName | string;
   icon: any;
 }
-
-const NAV: NavItem[] = [
-  {
-    name: "Explore",
-    link: "/",
-    icon: MagnifyingGlassIcon,
-  },
-  {
-    name: "Wishlists",
-    link: "/account-savelists",
-    icon: HeartIcon,
-  },
-  {
-    name: "Log in",
-    link: "/account",
-    icon: UserCircleIcon,
-  },
-  {
-    name: "Menu",
-    icon: MenuBar,
-  },
-];
 
 const FooterNav = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   //
 
   const location = useLocation();
+
+  const isAuth = useAppSelector(store => store.isAuth)
+
+  const NAV: NavItem[] = [
+    {
+      name: "Axtar",
+      link: "/",
+      icon: MagnifyingGlassIcon,
+    },
+    {
+      name: "Bəyəndiklərim",
+      // link: "/account-savelists",
+      link: !isAuth ? "/login?redirect=/account-savelists" : "/account-savelists",
+      icon: HeartIcon,
+    },
+    {
+      name: !isAuth ? "Daxil ol" : "Profil",
+      link: !isAuth ? "/login" : "/account",
+      icon: UserCircleIcon,
+    },
+    {
+      name: "Menu",
+      icon: MenuBar,
+    },
+  ];
 
   useEffect(() => {
     window.addEventListener("scroll", handleEvent);
@@ -94,9 +98,8 @@ const FooterNav = () => {
             <Link
               key={index}
               to={item.link}
-              className={`flex flex-col items-center justify-between text-neutral-500 dark:text-neutral-300/90 ${
-                active ? "text-neutral-900 dark:text-neutral-100" : ""
-              }`}
+              className={`flex flex-col items-center justify-between text-neutral-500 dark:text-neutral-300/90 ${active ? "text-neutral-900 dark:text-neutral-100" : ""
+                }`}
             >
               <item.icon
                 className={`w-6 h-6 ${active ? "text-red-600" : ""}`}
@@ -106,9 +109,8 @@ const FooterNav = () => {
           ) : (
             <div
               key={index}
-              className={`flex flex-col items-center justify-between text-neutral-500 dark:text-neutral-300/90 ${
-                active ? "text-neutral-900 dark:text-neutral-100" : ""
-              }`}
+              className={`flex flex-col items-center justify-between text-neutral-500 dark:text-neutral-300/90 ${active ? "text-neutral-900 dark:text-neutral-100" : ""
+                }`}
             >
               <item.icon iconClassName="w-6 h-6" className={``} />
               <span className="text-[11px] leading-none mt-1">{item.name}</span>
