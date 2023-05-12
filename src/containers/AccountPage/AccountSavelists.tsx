@@ -32,7 +32,6 @@ const AccountSavelists = () => {
         per_page: wishlist.pagination.per_page,
       }).then((res: any) => {
         if (res.data.success) {
-          // setList(res.data.data.data)
           dispatch(changeValue("account", "wishlist", res.data.data.data, "data"))
           dispatch(changeValue(
             "account",

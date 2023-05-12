@@ -18,6 +18,10 @@ interface initialStateProps {
     categoryList: Array<ICategoryProps>
   }
   account: {
+    active_items: {
+      data: Array<IStayProps>,
+      pagination: IPaginationProps
+    },
     wishlist: {
       data: Array<IStayProps>,
       pagination: IPaginationProps
@@ -34,11 +38,19 @@ export const initialState: initialStateProps = {
   isAuth: !!localStorage.getItem("access_token"),
   user: getItemFromLocaleStorage("user"),
   account: {
+    active_items: {
+      data: [],
+      pagination: {
+        page: 1,
+        per_page: 10,
+        total: 0,
+      }
+    },
     wishlist: {
       data: [],
       pagination: {
         page: 1,
-        per_page: 1,
+        per_page: 10,
         total: 0,
       }
     }
