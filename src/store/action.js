@@ -56,8 +56,8 @@ export const changeValue = (section, field, value, subKey) => {
 
 export const setData = (section, value) => {
 
-  console.log("section", section);
-  console.log("value", value);
+  // console.log("section", section);
+  // console.log("value", value);
 
   return (dispatch) => {
     dispatch({
