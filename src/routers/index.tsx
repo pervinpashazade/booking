@@ -128,7 +128,9 @@ const MyRoutes = () => {
   const isAuth = useAppSelector(state => state.isAuth)
 
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      basename="/"
+    >
       <ScrollToTop />
       <SiteHeader />
 
