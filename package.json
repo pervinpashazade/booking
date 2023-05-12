@@ -2,7 +2,7 @@
   "name": "Qal.az",
   "version": "0.1.1",
   "private": true,
-  "homepage": ".",
+  "homepage": "/",
   "dependencies": {
     "@glidejs/glide": "^3.6.0",
     "@headlessui/react": "^1.7.13",
