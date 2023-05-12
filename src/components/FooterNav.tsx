@@ -92,31 +92,33 @@ const FooterNav = () => {
     >
       <div className="w-full max-w-lg flex justify-around mx-auto text-sm text-center ">
         {/* MENU */}
-        {NAV.map((item, index) => {
-          const active = location.pathname === item.link;
-          return item.link ? (
-            <Link
-              key={index}
-              to={item.link}
-              className={`flex flex-col items-center justify-between text-neutral-500 dark:text-neutral-300/90 ${active ? "text-neutral-900 dark:text-neutral-100" : ""
-                }`}
-            >
-              <item.icon
-                className={`w-6 h-6 ${active ? "text-red-600" : ""}`}
-              />
-              <span className="text-[11px] leading-none mt-1">{item.name}</span>
-            </Link>
-          ) : (
-            <div
-              key={index}
-              className={`flex flex-col items-center justify-between text-neutral-500 dark:text-neutral-300/90 ${active ? "text-neutral-900 dark:text-neutral-100" : ""
-                }`}
-            >
-              <item.icon iconClassName="w-6 h-6" className={``} />
-              <span className="text-[11px] leading-none mt-1">{item.name}</span>
-            </div>
-          );
-        })}
+        {
+          NAV.map((item, index) => {
+            const active = location.pathname === item.link;
+            return item.link ? (
+              <Link
+                key={index}
+                to={item.link}
+                className={`flex flex-col items-center justify-between text-neutral-500 dark:text-neutral-300/90 ${active ? "text-neutral-900 dark:text-neutral-100" : ""
+                  }`}
+              >
+                <item.icon
+                  className={`w-6 h-6 ${active ? "text-red-600" : ""}`}
+                />
+                <span className="text-[11px] leading-none mt-1">{item.name}</span>
+              </Link>
+            ) : (
+              <div
+                key={index}
+                className={`flex flex-col items-center justify-between text-neutral-500 dark:text-neutral-300/90 ${active ? "text-neutral-900 dark:text-neutral-100" : ""
+                  }`}
+              >
+                <item.icon iconClassName="w-6 h-6" className={``} />
+                <span className="text-[11px] leading-none mt-1">{item.name}</span>
+              </div>
+            );
+          })
+        }
       </div>
     </div>
   );

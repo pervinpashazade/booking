@@ -31,8 +31,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
                 pathname: i.href || undefined,
               }}
               className={({ isActive }) =>
-                `flex px-4 text-neutral-900 dark:text-neutral-200 text-sm font-medium rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5 ${
-                  isActive ? "text-secondary" : ""
+                `flex px-4 text-neutral-900 dark:text-neutral-200 text-sm font-medium rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 mt-0.5 ${isActive ? "text-secondary" : ""
                 }`
               }
             >
@@ -77,8 +76,7 @@ const NavMobile: React.FC<NavMobileProps> = ({
         <NavLink
           end
           className={({ isActive }) =>
-            `flex w-full px-4 font-medium uppercase tracking-wide text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg ${
-              isActive ? "text-secondary" : ""
+            `flex w-full px-4 font-medium uppercase tracking-wide text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800 rounded-lg ${isActive ? "text-secondary" : ""
             }`
           }
           to={{
@@ -117,24 +115,22 @@ const NavMobile: React.FC<NavMobileProps> = ({
         <Logo />
         <div className="flex flex-col mt-5 text-neutral-700 dark:text-neutral-300 text-sm">
           <span>
-            Discover the most outstanding articles on all topics of life. Write
-            your stories and share them
+            Həyatın bütün mövzularında ən görkəmli məqalələri kəşf edin. Hekayələrinizi yazın və paylaşın
           </span>
-
           <div className="flex justify-between items-center mt-4">
-            <SocialsList itemClass="w-9 h-9 flex items-center justify-center rounded-full bg-neutral-100 text-xl dark:bg-neutral-800 dark:text-neutral-300" />
-            <span className="block">
+            {/* <SocialsList itemClass="w-9 h-9 flex items-center justify-center rounded-full bg-neutral-100 text-xl dark:bg-neutral-800 dark:text-neutral-300" /> */}
+            {/* <span className="block">
               <SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800" />
-            </span>
+            </span> */}
           </div>
         </div>
         <span className="absolute right-2 top-2 p-1">
           <ButtonClose onClick={onClickClose} />
         </span>
       </div>
-      <ul className="flex flex-col py-6 px-2 space-y-1">
+      {/* <ul className="flex flex-col py-6 px-2 space-y-1">
         {data.map(_renderItem)}
-      </ul>
+      </ul> */}
       <div className="flex items-center justify-between py-6 px-5">
         <a
           className="inline-block"
@@ -142,10 +138,11 @@ const NavMobile: React.FC<NavMobileProps> = ({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <ButtonPrimary>Get Template</ButtonPrimary>
+          <ButtonPrimary href="/new/step/1">Elan yerləşdir</ButtonPrimary>
         </a>
 
-        <LangDropdown panelClassName="z-10 w-screen max-w-[280px] px-4 mb-3 -right-3 bottom-full sm:px-0" />
+        {/* <LangDropdown panelClassName="z-10 w-screen max-w-[280px] px-4 mb-3 -right-3 bottom-full sm:px-0" /> */}
+        <SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800" />
       </div>
     </div>
   );
