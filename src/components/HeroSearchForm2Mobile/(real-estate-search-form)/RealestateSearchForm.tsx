@@ -12,7 +12,7 @@ const RealestateSearchForm = () => {
   >("location");
   //
   const [locationInputTo, setLocationInputTo] = useState("");
-  const [rangePrices, setRangePrices] = useState([100000, 4000000]);
+  const [rangePrices, setRangePrices] = useState([10, 5000]);
   const [typeOfProperty, setTypeOfProperty] = useState<ClassOfProperties[]>([
     {
       name: "Duplex House",
@@ -57,7 +57,7 @@ const RealestateSearchForm = () => {
           </button>
         ) : (
           <LocationInput
-            headingText="Where to find?"
+            headingText="aaaWhere to find?"
             defaultValue={locationInputTo}
             onChange={(value) => {
               setLocationInputTo(value);

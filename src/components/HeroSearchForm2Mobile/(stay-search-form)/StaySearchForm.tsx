@@ -4,12 +4,18 @@ import LocationInput from "../LocationInput";
 import DatesRangeInput from "../DatesRangeInput";
 import { GuestsObject } from "components/HeroSearchForm/type";
 import converSelectedDateToString from "utils/converSelectedDateToString";
+import convertNumbThousand from "utils/convertNumbThousand";
+import PriceRangeInput from "./PriceRangeInput";
+import { manat_icon } from "contains/contants";
 
 const StaySearchForm = () => {
   //
   const [fieldNameShow, setFieldNameShow] = useState<
-    "location" | "dates" | "guests"
+    "location" | "propertyType" | "price"
   >("location");
+
+  const [rangePrices, setRangePrices] = useState([10, 5000]);
+
   //
   const [locationInputTo, setLocationInputTo] = useState("");
   const [guestInput, setGuestInput] = useState<GuestsObject>({
@@ -25,26 +31,25 @@ const StaySearchForm = () => {
     const isActive = fieldNameShow === "location";
     return (
       <div
-        className={`w-full bg-white dark:bg-neutral-800 ${
-          isActive
+        className={`w-full bg-white dark:bg-neutral-800 ${isActive
             ? "rounded-2xl shadow-lg"
             : "rounded-xl shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)]"
-        }`}
+          }`}
       >
         {!isActive ? (
           <button
             className={`w-full flex justify-between text-sm font-medium p-4`}
             onClick={() => setFieldNameShow("location")}
           >
-            <span className="text-neutral-400">Where</span>
-            <span>{locationInputTo || "Location"}</span>
+            <span className="text-neutral-400">Şəhər</span>
+            <span>{locationInputTo || "Seçin"}</span>
           </button>
         ) : (
           <LocationInput
             defaultValue={locationInputTo}
             onChange={(value) => {
               setLocationInputTo(value);
-              setFieldNameShow("dates");
+              // setFieldNameShow("dates");
             }}
           />
         )}
@@ -52,67 +57,95 @@ const StaySearchForm = () => {
     );
   };
 
-  const renderInputDates = () => {
-    const isActive = fieldNameShow === "dates";
+  // const renderInputDates = () => {
+  //   const isActive = fieldNameShow === "dates";
+
+  //   return (
+  //     <div
+  //       className={`w-full bg-white dark:bg-neutral-800 overflow-hidden ${isActive
+  //           ? "rounded-2xl shadow-lg"
+  //           : "rounded-xl shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)]"
+  //         }`}
+  //     >
+  //       {!isActive ? (
+  //         <button
+  //           className={`w-full flex justify-between text-sm font-medium p-4  `}
+  //           onClick={() => setFieldNameShow("dates")}
+  //         >
+  //           <span className="text-neutral-400">When</span>
+  //           <span>
+  //             {startDate
+  //               ? converSelectedDateToString([startDate, endDate])
+  //               : "Add date"}
+  //           </span>
+  //         </button>
+  //       ) : (
+  //         <DatesRangeInput />
+  //       )}
+  //     </div>
+  //   );
+  // };
+
+  // const renderInputGuests = () => {
+  //   const isActive = fieldNameShow === "guests";
+  //   let guestSelected = "";
+  //   if (guestInput.guestAdults || guestInput.guestChildren) {
+  //     const guest =
+  //       (guestInput.guestAdults || 0) + (guestInput.guestChildren || 0);
+  //     guestSelected += `${guest} guests`;
+  //   }
+
+  //   if (guestInput.guestInfants) {
+  //     guestSelected += `, ${guestInput.guestInfants} infants`;
+  //   }
+
+  //   return (
+  //     <div
+  //       className={`w-full bg-white dark:bg-neutral-800 overflow-hidden ${isActive
+  //           ? "rounded-2xl shadow-lg"
+  //           : "rounded-xl shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)]"
+  //         }`}
+  //     >
+  //       {!isActive ? (
+  //         <button
+  //           className={`w-full flex justify-between text-sm font-medium p-4`}
+  //           onClick={() => setFieldNameShow("guests")}
+  //         >
+  //           <span className="text-neutral-400">Who</span>
+  //           <span>{guestSelected || `Add guests`}</span>
+  //         </button>
+  //       ) : (
+  //         <GuestsInput defaultValue={guestInput} onChange={setGuestInput} />
+  //       )}
+  //     </div>
+  //   );
+  // };
+
+  const renderInputPrice = () => {
+    const isActive = fieldNameShow === "price";
 
     return (
       <div
-        className={`w-full bg-white dark:bg-neutral-800 overflow-hidden ${
-          isActive
+        className={`w-full bg-white dark:bg-neutral-800 overflow-hidden ${isActive
             ? "rounded-2xl shadow-lg"
             : "rounded-xl shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)]"
-        }`}
-      >
-        {!isActive ? (
-          <button
-            className={`w-full flex justify-between text-sm font-medium p-4  `}
-            onClick={() => setFieldNameShow("dates")}
-          >
-            <span className="text-neutral-400">When</span>
-            <span>
-              {startDate
-                ? converSelectedDateToString([startDate, endDate])
-                : "Add date"}
-            </span>
-          </button>
-        ) : (
-          <DatesRangeInput />
-        )}
-      </div>
-    );
-  };
-
-  const renderInputGuests = () => {
-    const isActive = fieldNameShow === "guests";
-    let guestSelected = "";
-    if (guestInput.guestAdults || guestInput.guestChildren) {
-      const guest =
-        (guestInput.guestAdults || 0) + (guestInput.guestChildren || 0);
-      guestSelected += `${guest} guests`;
-    }
-
-    if (guestInput.guestInfants) {
-      guestSelected += `, ${guestInput.guestInfants} infants`;
-    }
-
-    return (
-      <div
-        className={`w-full bg-white dark:bg-neutral-800 overflow-hidden ${
-          isActive
-            ? "rounded-2xl shadow-lg"
-            : "rounded-xl shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)]"
-        }`}
+          }`}
       >
         {!isActive ? (
           <button
             className={`w-full flex justify-between text-sm font-medium p-4`}
-            onClick={() => setFieldNameShow("guests")}
+            onClick={() => setFieldNameShow("price")}
           >
-            <span className="text-neutral-400">Who</span>
-            <span>{guestSelected || `Add guests`}</span>
+            <span className="text-neutral-400">Qiymət</span>
+            <span>
+              {`${rangePrices[0]} ${manat_icon} ~ ${rangePrices[1]} ${manat_icon}`}
+            </span>
           </button>
         ) : (
-          <GuestsInput defaultValue={guestInput} onChange={setGuestInput} />
+          <PriceRangeInput
+            defaultValue={rangePrices}
+            onChange={setRangePrices}
+          />
         )}
       </div>
     );
@@ -124,9 +157,11 @@ const StaySearchForm = () => {
         {/*  */}
         {renderInputLocation()}
         {/*  */}
-        {renderInputDates()}
+        {/* {renderInputDates()} */}
         {/*  */}
-        {renderInputGuests()}
+        {/* {renderInputGuests()} */}
+        {/*  */}
+        {renderInputPrice()}
       </div>
     </div>
   );

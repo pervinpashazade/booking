@@ -10,17 +10,17 @@ interface Props {
 }
 
 const LocationInput: FC<Props> = ({
-  onChange = () => {},
+  onChange = () => { },
   className = "",
   defaultValue = "United States",
-  headingText = "Where to?",
+  headingText = "Haraya?",
 }) => {
   const [value, setValue] = useState("");
   const containerRef = useRef(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
-    setValue(defaultValue);
+    defaultValue && setValue(defaultValue);
   }, [defaultValue]);
 
   const handleSelectLocation = (item: string) => {
@@ -70,7 +70,7 @@ const LocationInput: FC<Props> = ({
         <div className="relative mt-5">
           <input
             className={`block w-full bg-transparent border px-4 py-3 pr-12 border-neutral-900 dark:border-neutral-200 rounded-xl focus:ring-0 focus:outline-none text-base leading-none placeholder-neutral-500 dark:placeholder-neutral-300 truncate font-bold placeholder:truncate`}
-            placeholder={"Search destinations"}
+            placeholder={"Şəhər axtar"}
             value={value}
             onChange={(e) => setValue(e.currentTarget.value)}
             ref={inputRef}
@@ -80,9 +80,10 @@ const LocationInput: FC<Props> = ({
           </span>
         </div>
         <div className="mt-7">
-          {value
-            ? renderSearchValues({
-                heading: "Locations",
+          {
+            value
+              ? renderSearchValues({
+                heading: "Şəhərlər",
                 items: [
                   "Afghanistan",
                   "Albania",
@@ -91,16 +92,19 @@ const LocationInput: FC<Props> = ({
                   "Andorra",
                 ],
               })
-            : renderSearchValues({
-                heading: "Popular destinations",
-                items: [
-                  "Australia",
-                  "Canada",
-                  "Germany",
-                  "United Kingdom",
-                  "United Arab Emirates",
-                ],
-              })}
+              :
+              null
+              // renderSearchValues({
+              //   heading: "Popular destinations",
+              //   items: [
+              //     "Australia",
+              //     "Canada",
+              //     "Germany",
+              //     "United Kingdom",
+              //     "United Arab Emirates",
+              //   ],
+              // })
+          }
         </div>
       </div>
     </div>

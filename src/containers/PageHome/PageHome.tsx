@@ -1,25 +1,21 @@
+import { useEffect, useState } from "react";
 import SectionHero from "components/SectionHero/SectionHero";
-import SectionSliderNewCategories from "components/SectionSliderNewCategories/SectionSliderNewCategories";
-import React, { useEffect, useState } from "react";
-import SectionSubscribe2 from "components/SectionSubscribe2/SectionSubscribe2";
-import SectionOurFeatures from "components/SectionOurFeatures/SectionOurFeatures";
 import SectionGridFeaturePlaces from "./SectionGridFeaturePlaces";
-import SectionHowItWork from "components/SectionHowItWork/SectionHowItWork";
 import BackgroundSection from "components/BackgroundSection/BackgroundSection";
 import BgGlassmorphism from "components/BgGlassmorphism/BgGlassmorphism";
-import { ICityProps, IPaginationProps, ISearchRoomParams, IStayProps, TaxonomyType } from "data/types";
-import SectionGridAuthorBox from "components/SectionGridAuthorBox/SectionGridAuthorBox";
-import SectionGridCategoryBox from "components/SectionGridCategoryBox/SectionGridCategoryBox";
-import SectionBecomeAnAuthor from "components/SectionBecomeAnAuthor/SectionBecomeAnAuthor";
-import SectionVideos from "./SectionVideos";
-import SectionClientSay from "components/SectionClientSay/SectionClientSay";
+import {
+  ICityProps,
+  IPaginationProps,
+  ISearchRoomParams,
+  IStayProps,
+} from "data/types";
 import { Helmet } from "react-helmet";
 import { apiUrl, appName } from "config";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch } from "store/store";
-import { changeValue, setData } from "store/action";
+import { setData } from "store/action";
 
 function PageHome() {
 
@@ -143,10 +139,10 @@ function PageHome() {
 
       <div className="container relative space-y-24 mb-24 lg:space-y-28 lg:mb-28">
         {/* SECTION HERO */}
-        <SectionHero className="pt-10 lg:pt-6" getRoomData={filteredData} />
+        <SectionHero className="pt-0 lg:pt-6" getRoomData={filteredData} />
 
         {/* SECTION */}
-        <div className="relative py-16">
+        <div className="relative py-16 !mt-0 lg:!mt-16">
           <BackgroundSection />
           <SectionGridFeaturePlaces
             loading={loading}
