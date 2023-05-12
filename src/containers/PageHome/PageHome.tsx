@@ -73,6 +73,7 @@ function PageHome() {
           }
         }).catch(err => {
           console.log("account vendor/announcement error", err);
+        }).finally(() => {
         })
       }
     })
@@ -81,6 +82,7 @@ function PageHome() {
 
   const getData = async (params: ISearchRoomParams) => {
     setLoading(true)
+    // dispatch(setData("preLoader", true))
     return axios.get(apiUrl + "vendor/announcement", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
@@ -94,6 +96,7 @@ function PageHome() {
       }
     }).finally(() => {
       setLoading(false)
+      dispatch(setData("preLoader", false))
     })
   }
 
