@@ -1,4 +1,4 @@
-import { ICategoryProps, ICityProps, IStayProps, IUserProps } from "data/types";
+import { ICategoryProps, ICityProps, IPaginationProps, IStayProps, IUserProps } from "data/types";
 import { actionTypes } from "./action";
 
 interface initialStateProps {
@@ -17,6 +17,12 @@ interface initialStateProps {
     cityList: Array<ICityProps>,
     categoryList: Array<ICategoryProps>
   }
+  account: {
+    wishlist: {
+      data: Array<IStayProps>,
+      pagination: IPaginationProps
+    }
+  },
 }
 
 function getItemFromLocaleStorage(key: string) {
@@ -27,6 +33,16 @@ function getItemFromLocaleStorage(key: string) {
 export const initialState: initialStateProps = {
   isAuth: !!localStorage.getItem("access_token"),
   user: getItemFromLocaleStorage("user"),
+  account: {
+    wishlist: {
+      data: [],
+      pagination: {
+        page: 1,
+        per_page: 1,
+        total: 0,
+      }
+    }
+  },
   // @ts-ignore
   room: {},
   searchParams: {

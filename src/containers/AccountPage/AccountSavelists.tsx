@@ -14,74 +14,70 @@ import { IPaginationProps, IStayProps } from "../../data/types";
 import axios from "axios";
 import { apiUrl, appName } from "../../config";
 import Helmet from "react-helmet";
-import { useAppSelector } from "store/store";
+import { useAppDispatch, useAppSelector } from "store/store";
+import { changeValue, setData } from "store/action";
 
 const AccountSavelists = () => {
   let [categories] = useState(["Kirayə", "Turlar"]);
 
-  // const cities = useAppSelector(store => store.staticData.cityList)
+  const wishlist = useAppSelector(store => store.account.wishlist)
+  const preLoader = useAppSelector(store => store.preLoader)
 
-  const [pagination, setPagination] = useState<IPaginationProps>({
-    page: 1,
-    per_page: 10,
-    total: 0,
-  })
-  const [list, setList] = useState<Array<IStayProps>>([])
-  const [loading, setLoading] = useState<boolean>(false)
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
-
-    // axios.get(apiUrl + "shared/cities").then((cityRes) => {
-    //   if (cityRes.data.success) {
-
-    //     getData({
-    //       page: pagination.page,
-    //       per_page: pagination.per_page,
-    //     }).then((res: any) => {
-    //       if (res.data.success) {
-    //         setList(res.data.data.data)
-    //         setPagination({
-    //           page: res.data.data.current_page,
-    //           per_page: res.data.per_page,
-    //           total: res.data.data.total
-    //         })
-    //       }
-    //     }).catch(err => {
-    //       console.log("account vendor/announcement-favorite/ error", err);
-    //     })
-    //   }
-    // })
-
-    getData({
-      page: pagination.page,
-      per_page: pagination.per_page,
-    }).then((res: any) => {
-      if (res.data.success) {
-        setList(res.data.data.data)
-        setPagination({
-          page: res.data.data.current_page,
-          per_page: res.data.per_page,
-          total: res.data.data.total
-        })
-      }
-    }).catch(err => {
-      console.log("account vendor/announcement-favorite/ error", err);
-    })
+    if (!wishlist.data.length) {
+      getData({
+        page: wishlist.pagination.page,
+        per_page: wishlist.pagination.per_page,
+      }).then((res: any) => {
+        if (res.data.success) {
+          // setList(res.data.data.data)
+          dispatch(changeValue("account", "wishlist", res.data.data.data, "data"))
+          dispatch(changeValue(
+            "account",
+            "wishlist",
+            {
+              page: res.data.data.current_page,
+              per_page: res.data.data.per_page,
+              total: res.data.data.total
+            },
+            "pagination"))
+        }
+      }).catch(err => {
+        console.log("account vendor/announcement-favorite/ error", err);
+      })
+    }
 
   }, [])
 
   const getData = async (params: { page: number, per_page: number }) => {
-    setLoading(true)
-    return axios.get(apiUrl + "vendor/announcement-favorite/", {
+    dispatch(setData("preLoader", true))
+    return axios.get(apiUrl + "vendor/announcement-favorite", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
       },
-      params: {
-        "page": params.page,
-        "per_page": params.per_page,
-      }
+      params,
     }).finally(() => {
-      setLoading(false)
+      dispatch(setData("preLoader", false))
+    })
+  }
+
+  const getMoreData = () => {
+    getData({ page: wishlist.pagination.page + 1, per_page: wishlist.pagination.per_page }).then(res => {
+      if (res.data.success) {
+        dispatch(changeValue("account", "wishlist", [...wishlist.data, ...res.data.data.data], "data"))
+        dispatch(changeValue(
+          "account",
+          "wishlist",
+          {
+            ...wishlist.pagination,
+            page: wishlist.pagination.page + 1,
+
+          },
+          "pagination"
+        ))
+      }
     })
   }
 
@@ -117,13 +113,21 @@ const AccountSavelists = () => {
             <Tab.Panels>
               <Tab.Panel className="mt-8">
                 <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {list.map((stay: any) => (
+                  {wishlist.data.map((stay: any) => (
                     <ProStayCard key={stay.id} data={stay} />
                   ))}
                 </div>
-                <div className="flex mt-11 justify-center items-center">
-                  <ButtonSecondary>Show me more</ButtonSecondary>
-                </div>
+                {
+                  wishlist.data.length < wishlist.pagination.total &&
+                  <div className="flex mt-11 justify-center items-center">
+                    <ButtonSecondary
+                      loading={preLoader}
+                      onClick={getMoreData}
+                    >
+                      Daha çox
+                    </ButtonSecondary>
+                  </div>
+                }
               </Tab.Panel>
               <Tab.Panel className="mt-8">
                 <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -134,7 +138,7 @@ const AccountSavelists = () => {
                   )}
                 </div>
                 <div className="flex mt-11 justify-center items-center">
-                  <ButtonSecondary>Show me more</ButtonSecondary>
+                  <ButtonSecondary>Daha çox</ButtonSecondary>
                 </div>
               </Tab.Panel>
             </Tab.Panels>
