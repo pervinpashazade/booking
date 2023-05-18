@@ -92,7 +92,7 @@ const DetailPagetLayout = ({ children }: { children: ReactNode }) => {
       </div>
 
       {/* STICKY FOOTER MOBILE */}
-      <MobileFooterSticky />
+      {/* <MobileFooterSticky /> */}
     </div>
   );
 };
