@@ -71,12 +71,16 @@ export type TwMainColor =
   | "purple"
   | "gray";
 
+export enum DataTypes {
+  room = "room",
+  tour = "tour"
+}
+
 export enum ConditionTypes {
-  bad = 1,
-  poor = 2,
-  good = 3,
-  excelent = 4,
-  lux = 5
+  poor = 1, // zeif
+  normal = 2, // nomral
+  good = 3, // yaxshi
+  excelent = 4 // ela
 }
 
 export interface IImageProps {

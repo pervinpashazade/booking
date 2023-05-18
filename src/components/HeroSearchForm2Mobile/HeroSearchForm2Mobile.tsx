@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Tab, Transition } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/solid";
@@ -7,15 +7,81 @@ import { useTimeoutFn } from "react-use";
 import StaySearchForm from "./(stay-search-form)/StaySearchForm";
 import CarsSearchForm from "./(car-search-form)/CarsSearchForm";
 import FlightSearchForm from "./(flight-search-form)/FlightSearchForm";
-import { useAppDispatch } from "store/store";
+import { useAppDispatch, useAppSelector } from "store/store";
 import { changeValue, setData } from "store/action";
 import axios from "axios";
 import { apiUrl } from "config";
-import { ISearchRoomParams } from "data/types";
+import { ICityProps, ISearchRoomParams } from "data/types";
+import { useSearchParams } from "react-router-dom";
 
 const HeroSearchForm2Mobile = () => {
 
   const dispatch = useAppDispatch()
+  const searchParams = useAppSelector(store => store.searchParams)
+  const cityList = useAppSelector(store => store.staticData.cityList)
+
+  let [urlParams, setUrlParams] = useSearchParams();
+
+  const getData = async (params: ISearchRoomParams) => {
+    dispatch(setData("preLoader", true))
+    return axios.get(apiUrl + "vendor/announcement", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      },
+      params: {
+        "page": params.page,
+        "per_page": params.per_page,
+        "filter[city_id]": params.city_id,
+        "filter[price_from]": params.price_from,
+        "filter[price_to]": params.price_to,
+      }
+    }).finally(() => {
+      dispatch(setData("preLoader", false))
+    })
+  }
+
+  const handleSearch = () => {
+
+    // console.log("searchProps", searchProps);
+
+    getData({
+      city_id: searchParams.city?.id,
+      price_from: searchParams.price_from,
+      price_to: searchParams.price_to,
+    }).then(res => {
+      if (res.data.success) {
+        dispatch(changeValue("data", "list", res.data.data.data))
+        // setList(res.data.data.data)
+
+        // setPagination({
+        //   page: res.data.data.current_page,
+        //   per_page: res.data.per_page,
+        //   total: res.data.data.total
+        // })
+
+        // const params = {
+        //   page: res.data.data.current_page,
+        //   per_page: res.data.data.per_page,
+        //   city: cityList.find((x: ICityProps) => x.id === Number(city_id)),
+        //   price_from,
+        //   price_to,
+        // }
+
+        // dispatch(setData("searchParams", params))
+      }
+    })
+
+    urlParams.set("city_id", searchParams.city?.id.toString() ?? "")
+    urlParams.set("price_from", searchParams.price_from?.toString() ?? "")
+    urlParams.set("price_to", searchParams.price_to?.toString() ?? "")
+
+    setUrlParams(urlParams);
+
+    closeModal()
+
+  }
+
+
 
   const [showModal, setShowModal] = useState(false);
 
@@ -40,7 +106,13 @@ const HeroSearchForm2Mobile = () => {
         <MagnifyingGlassIcon className="flex-shrink-0 w-5 h-5" />
 
         <div className="ml-3 flex-1 text-left overflow-hidden">
-          <span className="block font-medium text-sm">Hansı şəhərə səyahət edirsən?</span>
+          <span className="block font-medium text-sm">
+            {
+              searchParams.city?.id ?
+                searchParams.city.name :
+                "Hansı şəhərə səyahət edirsən?"
+            }
+          </span>
           <span className="block mt-0.5 text-xs font-light text-neutral-500 dark:text-neutral-400 line-clamp-1">
             Kirayələr • Turlar
           </span>
@@ -61,29 +133,6 @@ const HeroSearchForm2Mobile = () => {
       </button>
     );
   };
-
-  // const getData = async (params: ISearchRoomParams) => {
-  //   dispatch(setData("preLoader", true))
-  //   return axios.get(apiUrl + "vendor/announcement", {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem("access_token")}`
-  //     },
-  //     params: {
-  //       "page": params.page,
-  //       "per_page": params.per_page,
-  //       "filter[city_id]": params.city_id,
-  //       "filter[price_from]": params.price_from,
-  //       "filter[price_to]": params.price_to,
-  //     }
-  //   }).finally(() => {
-  //     dispatch(setData("preLoader", false))
-  //   })
-  // }
-
-  const handleSearch = () => {
-    closeModal()
-    // getData()
-  }
 
   return (
     <div className="HeroSearchForm2Mobile">

@@ -1,7 +1,11 @@
-import { ICategoryProps, ICityProps, IPaginationProps, IStayProps, IUserProps } from "data/types";
+import { DataTypes, ICategoryProps, ICityProps, IPaginationProps, IStayProps, IUserProps } from "data/types";
 import { actionTypes } from "./action";
 
 interface initialStateProps {
+  data: {
+    type: DataTypes,
+    list: Array<IStayProps | IStayProps>
+  }
   isAuth: boolean
   user: IUserProps
   room: IStayProps,
@@ -35,6 +39,10 @@ function getItemFromLocaleStorage(key: string) {
 }
 
 export const initialState: initialStateProps = {
+  data: {
+    type: DataTypes.room,
+    list: []
+  },
   isAuth: !!localStorage.getItem("access_token"),
   user: getItemFromLocaleStorage("user"),
   account: {
@@ -62,7 +70,7 @@ export const initialState: initialStateProps = {
     price_from: null,
     price_to: null,
     page: "1",
-    per_page: "16"
+    per_page: "15"
   },
   preLoader: true,
   staticData: {

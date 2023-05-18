@@ -15,7 +15,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "store/store";
-import { setData } from "store/action";
+import { changeValue, setData } from "store/action";
 
 function PageHome() {
 
@@ -32,7 +32,9 @@ function PageHome() {
 
   let [urlParams] = useSearchParams()
 
-  const [list, setList] = useState<Array<IStayProps>>([])
+  const list = useAppSelector(store => store.data.list)
+
+  // const [list, setList] = useState<Array<IStayProps>>([])
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
@@ -51,7 +53,10 @@ function PageHome() {
       price_to,
     }).then(res => {
       if (res.data.success) {
-        setList(res.data.data.data)
+
+        dispatch(changeValue("data", "list", res.data.data.data))
+        // setList(res.data.data.data)
+
         setPagination({
           page: res.data.data.current_page,
           per_page: res.data.per_page,
@@ -98,10 +103,12 @@ function PageHome() {
   const getMoreData = () => {
     getData({ page: pagination.page + 1, per_page: pagination.per_page }).then(res => {
       if (res.data.success) {
-        setList(prevState => [
-          ...prevState,
-          ...res.data.data.data
-        ])
+        dispatch(changeValue("data", "list", [...list, ...res.data.data.data]))
+        // setList(prevState => [
+        //   ...prevState,
+        //   ...res.data.data.data
+        // ])
+
         setPagination(prevState => {
           return {
             ...prevState,
@@ -115,7 +122,9 @@ function PageHome() {
   const filteredData = (params: ISearchRoomParams) => {
     getData(params).then(res => {
       if (res.data.success) {
-        setList(res.data.data.data)
+        dispatch(changeValue("data", "list", res.data.data.data))
+        // setList(res.data.data.data)
+
         setPagination(prevState => {
           return {
             ...prevState,
