@@ -150,7 +150,7 @@ function PageHome() {
 
         {/* SECTION */}
         <div className="relative py-16 !mt-0 lg:!mt-16">
-          <BackgroundSection />
+          {/* <BackgroundSection /> */}
           <SectionGridFeaturePlaces
             loading={loading}
             data={list}
