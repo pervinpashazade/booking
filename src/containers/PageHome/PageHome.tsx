@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import SectionHero from "components/SectionHero/SectionHero";
 import SectionGridFeaturePlaces from "./SectionGridFeaturePlaces";
-import BackgroundSection from "components/BackgroundSection/BackgroundSection";
-import BgGlassmorphism from "components/BgGlassmorphism/BgGlassmorphism";
 import {
   ICityProps,
   IPaginationProps,
   ISearchRoomParams,
-  IStayProps,
 } from "data/types";
 import { Helmet } from "react-helmet";
 import { apiUrl, appName } from "config";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "store/store";
 import { changeValue, setData } from "store/action";
@@ -34,7 +30,6 @@ function PageHome() {
 
   const list = useAppSelector(store => store.data.list)
 
-  // const [list, setList] = useState<Array<IStayProps>>([])
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
@@ -55,7 +50,6 @@ function PageHome() {
       if (res.data.success) {
 
         dispatch(changeValue("data", "list", res.data.data.data))
-        // setList(res.data.data.data)
 
         setPagination({
           page: res.data.data.current_page,

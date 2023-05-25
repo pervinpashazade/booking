@@ -150,7 +150,8 @@ const MyRoutes = () => {
         <Route path="*" element={<Page404 />} />
       </Routes>
 
-      {WIN_WIDTH < 768 && <FooterNav />}
+      {/* {WIN_WIDTH < 768 && <FooterNav />} */}
+      {WIN_WIDTH < 1200 && <FooterNav />}
       <Footer />
     </BrowserRouter>
   );
