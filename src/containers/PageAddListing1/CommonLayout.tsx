@@ -88,7 +88,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({
     }).then(res => {
       if (res.data.success) {
         console.log("res.data.data", res.data.data);
-        navigate("/account")
+        navigate("/account-items")
       }
     }).catch((err: any) => {
       console.log("post vendor/announcement err", err);

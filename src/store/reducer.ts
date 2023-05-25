@@ -72,7 +72,7 @@ export const initialState: initialStateProps = {
     page: "1",
     per_page: "15"
   },
-  preLoader: true,
+  preLoader: false,
   staticData: {
     cityList: [],
     categoryList: [],

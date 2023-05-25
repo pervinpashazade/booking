@@ -94,6 +94,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
               value={room.category?.id}
               onChange={e => dispatch(changeValue("room", "category", categoryList.find(x => x.id === Number(e.target.value))))}
             >
+              <option value="" hidden>Seçin</option>
               {
                 categoryList.map(item => <option key={item.id} value={item.id}>{item.title}</option>)
               }
