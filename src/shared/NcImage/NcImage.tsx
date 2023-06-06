@@ -84,7 +84,7 @@ const NcImage: FC<NcImageProps> = ({
       </div>
     );
   };
-
+  console.log("src")
   return (
     <div
       className={`nc-NcImage ${containerClassName}`}
