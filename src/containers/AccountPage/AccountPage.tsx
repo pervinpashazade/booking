@@ -10,12 +10,15 @@ import { Helmet } from "react-helmet";
 import {apiUrl, appName} from "config";
 import {IUserProps} from "../../data/types";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export interface AccountPageProps {
   className?: string;
 }
 
 const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
+
+  const navigate = useNavigate()
 
   const [list, setList] = useState<IUserProps>({})
 
@@ -30,6 +33,7 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
       }
     }).catch(err => {
       console.log("account vendor/announcement error", err);
+      navigate("/")
     }).finally(() => {
 
     })

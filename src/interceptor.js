@@ -22,15 +22,10 @@ axios.interceptors.response.use(
   response => {
     return response;
   }, error => {
-    console.log('interceptor', error.response);
+    // console.log('interceptor', error.response);
 
     if (!error.response) {
-      alert("Serverlə əlaqə qurmaq mümkün olmadı.")
-      // toast.notify(({ onClose }) => (
-      //   <div className="alert alert-danger m-3">
-      //     <h5>Xəta baş verdi!</h5>
-      //     <p className="mb-0">Serverlə əlaqə qurmaq mümkün olmadı.</p>
-      //   </div>), { position: "top-right", duration: 3500 });
+      // alert("Serverlə əlaqə qurmaq mümkün olmadı.")
       return Promise.reject(error)
     }
 
@@ -80,21 +75,28 @@ axios.interceptors.response.use(
     // }
 
     return new Promise((resolve) => {
+
+      console.log("test func");
+
       const originalRequest = error.config;
 
+      debugger
       if (error.response.status === 401) {
         const { dispatch } = store;
         const access_token = localStorage.getItem("access_token")
         if (access_token) {
           axios.post(apiUrl + "user/auth/refresh").then(res => {
             console.log(res.data.data);
+          }).catch(err => {
+            console.log("interceptor refresh token error");
+            dispatch(logout())
+            return Promise.reject(error)
           })
         } else {
-          alert("sisteme daxil olmalisiniz")
-          return Promise.reject(error)
+          dispatch(logout())
         }
 
-        console.log();
+        return Promise.reject(error)
 
         // toast.notify(({ onClose }) => (
         //   <div className="alert alert-danger m-3">
@@ -107,6 +109,8 @@ axios.interceptors.response.use(
         //   </div>), { position: "top-right", duration: 3500 });
         // dispatch(logout());
       }
+
+      
 
       // if (error.response.status === 401 &&
       //   error.response.data.status === "fail" &&

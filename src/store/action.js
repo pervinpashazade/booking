@@ -32,7 +32,7 @@ export const login = (data) => {
 
 export const logout = () => {
   return (dispatch) => {
-    localStorage.clear();
+    localStorage.removeItem("access_token")
     dispatch({
       type: actionTypes.LOGOUT,
     });
