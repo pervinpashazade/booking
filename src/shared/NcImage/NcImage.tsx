@@ -34,16 +34,16 @@ const NcImage: FC<NcImageProps> = ({
 
   const _checkInViewPort = () => {
     if (!_containerRef.current) return;
-    checkInViewIntersectionObserver({
-      target: _containerRef.current,
-      options: {
-        root: null,
-        rootMargin: "0%",
-        threshold: 0,
-      },
-      freezeOnceVisible: true,
-      callback: _imageOnViewPort,
-    });
+    // checkInViewIntersectionObserver({
+    //   target: _containerRef.current,
+    //   options: {
+    //     root: null,
+    //     rootMargin: "0%",
+    //     threshold: 0,
+    //   },
+    //   freezeOnceVisible: true,
+    //   callback: _imageOnViewPort,
+    // });
   };
 
   const _imageOnViewPort = () => {
@@ -91,11 +91,12 @@ const NcImage: FC<NcImageProps> = ({
       data-nc-id="NcImage"
       ref={_containerRef}
     >
-      {__src && imageLoaded ? (
-        <img src={__src} className={className} alt={alt} {...args} />
-      ) : (
-        renderLoadingPlaceholder()
-      )}
+      {/*{__src && imageLoaded ? (*/}
+      {/*  <img src={__src} className={className} alt={alt} {...args} />*/}
+      {/*) : (*/}
+      {/*  renderLoadingPlaceholder()*/}
+      {/*)}*/}
+      <img src={src} className={className} alt={alt} {...args} />
     </div>
   );
 };
