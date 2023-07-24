@@ -12,6 +12,7 @@ import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "store/store";
 import { changeValue, setData } from "store/action";
+import ProStayCard from "components/StayCard/ProStayCard";
 
 function PageHome() {
 
@@ -143,14 +144,20 @@ function PageHome() {
         <SectionHero className="pt-0 lg:pt-6" getRoomData={filteredData} />
 
         {/* SECTION */}
-        <div className="relative py-16 !mt-0 lg:!mt-16">
-          {/* <BackgroundSection /> */}
+        {/* <div className="relative py-16 !mt-0 lg:!mt-16">
+          <BackgroundSection />
           <SectionGridFeaturePlaces
             loading={loading}
             data={list}
             getData={getMoreData}
             totalData={pagination.total}
           />
+        </div> */}
+
+        <div
+          className={`grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`}
+        >
+          {list.map((item) => <ProStayCard key={item.id} data={item} />)}
         </div>
       </div>
     </div>
