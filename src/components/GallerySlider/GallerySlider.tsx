@@ -54,6 +54,7 @@ const GallerySlider: FC<GallerySliderProps> = ({
   };
 
   const renderSliderGallery = () => {
+    console.log("galleryImgs",galleryImgs)
     return (
       <div className={`${UNIQUE_CLASS} relative group overflow-hidden`}>
         <div className="glide__track" data-glide-el="track">
@@ -61,7 +62,8 @@ const GallerySlider: FC<GallerySliderProps> = ({
             {galleryImgs.map((item, index) => (
               <li key={index} className="glide__slide">
                 <Link to={href} className={`block ${ratioClass}`}>
-                  <NcImage src={item} />
+                  {/*<NcImage src={item} />*/}
+                  <img src={item} className="object-cover w-full h-full" />
                 </Link>
               </li>
             ))}
