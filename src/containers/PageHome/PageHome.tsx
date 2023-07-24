@@ -13,6 +13,7 @@ import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "store/store";
 import { changeValue, setData } from "store/action";
 import ProStayCard from "components/StayCard/ProStayCard";
+import ButtonPrimary from "shared/Button/ButtonPrimary";
 
 function PageHome() {
 
@@ -159,6 +160,12 @@ function PageHome() {
         >
           {list.map((item) => <ProStayCard key={item.id} data={item} />)}
         </div>
+        <ButtonPrimary
+          loading={loading}
+          onClick={getMoreData}
+        >
+          Daha çox
+        </ButtonPrimary>
       </div>
     </div>
   );
