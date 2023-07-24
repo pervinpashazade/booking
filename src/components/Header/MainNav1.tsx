@@ -26,9 +26,9 @@ const MainNav1: FC<MainNav1Props> = ({ className = "" }) => {
           {/* <Navigation /> */}
         </div>
 
-        {/*<div className="lg:hidden flex-[3] max-w-lg !mx-auto md:px-3">*/}
-        {/*  <HeroSearchForm2MobileFactory />*/}
-        {/*</div>*/}
+        <div className="lg:hidden flex-[3] max-w-lg !mx-auto md:px-3">
+          <HeroSearchForm2MobileFactory />
+        </div>
 
         <div className="hidden md:flex flex-shrink-0 items-center justify-end flex-1 lg:flex-none text-neutral-700 dark:text-neutral-100">
           <div className="hidden xl:flex items-center space-x-0.5">
