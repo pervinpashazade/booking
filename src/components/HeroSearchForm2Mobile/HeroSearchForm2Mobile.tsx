@@ -110,7 +110,7 @@ const HeroSearchForm2Mobile = () => {
             {
               searchParams.city?.id ?
                 searchParams.city.name :
-                "Hansı şəhərə səyahət edirsən?"
+                "Hansı432432 şəhərə səyahət edirsən?"
             }
           </span>
           <span className="block mt-0.5 text-xs font-light text-neutral-500 dark:text-neutral-400 line-clamp-1">
