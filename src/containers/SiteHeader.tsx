@@ -22,7 +22,7 @@ let OPTIONS = {
   rootMargin: "0px",
   threshold: 1.0,
 };
-let OBSERVER: IntersectionObserver | null = null;
+// let OBSERVER: IntersectionObserver | null = null;
 const PAGES_HIDE_HEADER_BORDER: PathName[] = [
   "/home-3",
   "/listing-car-detail",
@@ -65,28 +65,28 @@ const SiteHeader = () => {
     });
   };
 
-  useEffect(() => {
-    // if (location.pathname === "/home-2") {
-    //   setHeaderSelected("Header 2");
-    // }
-    // if (location.pathname === "/home-3") {
-    //   setHeaderSelected("Header 3");
-    // }
-    // if (location.pathname === "/") {
-    //   setHeaderSelected("Header 1");
-    // }
+  // useEffect(() => {
+  //   // if (location.pathname === "/home-2") {
+  //   //   setHeaderSelected("Header 2");
+  //   // }
+  //   // if (location.pathname === "/home-3") {
+  //   //   setHeaderSelected("Header 3");
+  //   // }
+  //   // if (location.pathname === "/") {
+  //   //   setHeaderSelected("Header 1");
+  //   // }
 
-    // disconnect the observer
-    if (!PAGES_HIDE_HEADER_BORDER.includes(location.pathname as PathName)) {
-      OBSERVER && OBSERVER.disconnect();
-      OBSERVER = null;
-      return;
-    }
-    if (!OBSERVER) {
-      OBSERVER = new IntersectionObserver(intersectionCallback, OPTIONS);
-      anchorRef.current && OBSERVER.observe(anchorRef.current);
-    }
-  }, [location.pathname]);
+  //   // disconnect the observer
+  //   if (!PAGES_HIDE_HEADER_BORDER.includes(location.pathname as PathName)) {
+  //     OBSERVER && OBSERVER.disconnect();
+  //     OBSERVER = null;
+  //     return;
+  //   }
+  //   if (!OBSERVER) {
+  //     OBSERVER = new IntersectionObserver(intersectionCallback, OPTIONS);
+  //     anchorRef.current && OBSERVER.observe(anchorRef.current);
+  //   }
+  // }, [location.pathname]);
 
   // const renderRadioHeaders = () => {
   //   return (
