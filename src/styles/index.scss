@@ -31,3 +31,31 @@
   height: 100%;
   object-fit: cover;
 }
+
+.swiper-pagination-bullet{
+    background: #fff !important;
+    opacity: 1;
+}
+.swiper-button-prev{
+    //background: #fff !important;
+    color: #fff !important;
+    //opacity: 1;
+}
+
+.swiper-button-prev:after{
+  font-size: 25px !important;
+}
+
+.swiper-button-next{
+    //background: #fff !important;
+    color: #fff !important;
+    //opacity: 1;
+}
+
+.swiper-button-next:after{
+  font-size: 25px !important;
+}
+
+//.mySwiper:hover{
+//  opacity: 1;
+//}

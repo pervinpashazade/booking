@@ -9,11 +9,12 @@ import SaleOffBadge from "components/SaleOffBadge/SaleOffBadge";
 import Badge from "shared/Badge/Badge";
 import { manat_icon } from "contains/contants";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Pagination, Navigation } from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 export interface StayCardProps {
     className?: string;
@@ -64,11 +65,18 @@ const StayCard: FC<StayCardProps> = ({
                 {/*/>*/}
 
                 {/*@ts-ignore*/}
-                <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
+                <Swiper navigation={true} pagination={true} modules={[Pagination,Navigation]} className="mySwiper">
                     {
                         data.images.map(item => {
+                            console.log("item",item)
                             return(
-                                <SwiperSlide><img src={item.url_full}/></SwiperSlide>
+                                    <SwiperSlide>
+                                        <Link to={`/room/${slug}`} className={`block aspect-w-4 aspect-h-3`}>
+                                            <img src={item.url_full}/>
+                                        </Link>
+                                    </SwiperSlide>
+
+                                // <SwiperSlide><img src={item.url_full}/></SwiperSlide>
                             )
                         })
                     }
@@ -145,6 +153,7 @@ const StayCard: FC<StayCardProps> = ({
             </div>
         );
     };
+    console.log("dsadfsa")
     return (
         <div
             className={`nc-StayCard group relative bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-2xl overflow-hidden will-change-transform hover:shadow-xl transition-shadow ${className}`}
