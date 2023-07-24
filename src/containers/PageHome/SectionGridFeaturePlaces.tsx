@@ -46,27 +46,29 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
       <div
         className={`grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${gridClass}`}
       >
-        {/* {data.map((item) => renderCard(item))} */}
-        {
-          new Array(150).fill(0).map((item, key) => (
-            <div key={key} className="card">
-              <img
-                className="card-img-top"
-                src="https://yt3.googleusercontent.com/ytc/AOPolaSYIvTrgKFP_GYCt9wGKhBdX32Z41xmVDrrntzCYQ=s900-c-k-c0x00ffffff-no-rj"
-                alt="Card image cap"
-              />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's content.
-                </p>
-                <a href="#" className="btn btn-primary">
-                  Go somewhere
-                </a>
-              </div>
-            </div>
-          ))
-        }
+         {data.map((item) => renderCard(item))}
+
+
+        {/*{*/}
+        {/*  new Array(150).fill(0).map((item, key) => (*/}
+        {/*    <div key={key} className="card">*/}
+        {/*      <img*/}
+        {/*        className="card-img-top"*/}
+        {/*        src="https://yt3.googleusercontent.com/ytc/AOPolaSYIvTrgKFP_GYCt9wGKhBdX32Z41xmVDrrntzCYQ=s900-c-k-c0x00ffffff-no-rj"*/}
+        {/*        alt="Card image cap"*/}
+        {/*      />*/}
+        {/*      <div className="card-body">*/}
+        {/*        <h5 className="card-title">Card title</h5>*/}
+        {/*        <p className="card-text">*/}
+        {/*          Some quick example text to build on the card title and make up the bulk of the card's content.*/}
+        {/*        </p>*/}
+        {/*        <a href="#" className="btn btn-primary">*/}
+        {/*          Go somewhere*/}
+        {/*        </a>*/}
+        {/*      </div>*/}
+        {/*    </div>*/}
+        {/*  ))*/}
+        {/*}*/}
       </div>
       {
         data.length < totalData &&

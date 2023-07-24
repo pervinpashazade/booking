@@ -69,6 +69,7 @@ const StayCard: FC<StayCardProps> = ({
                     {/* <span className="text-sm text-neutral-500 dark:text-neutral-400">
                         {title} · {room_count} otaq
                     </span> */}
+                    <img src="https://yt3.googleusercontent.com/ytc/AOPolaSYIvTrgKFP_GYCt9wGKhBdX32Z41xmVDrrntzCYQ=s900-c-k-c0x00ffffff-no-rj"/>
                     <div className="flex items-center space-x-2">
                         {/* {isAds && <Badge name="ADS" color="green" />} */}
                         {/* <Badge name="ADS" color="green" /> */}
@@ -131,7 +132,7 @@ const StayCard: FC<StayCardProps> = ({
             className={`nc-StayCard group relative bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-2xl overflow-hidden will-change-transform hover:shadow-xl transition-shadow ${className}`}
             data-nc-id="StayCard"
         >
-            {renderSliderGallery()}
+            {/*{renderSliderGallery()}*/}
             <Link to={`/room/${slug}`}>{renderContent()}</Link>
         </div>
     );
