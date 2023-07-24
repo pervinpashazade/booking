@@ -8,6 +8,12 @@ import BtnLikeIcon from "components/BtnLikeIcon/BtnLikeIcon";
 import SaleOffBadge from "components/SaleOffBadge/SaleOffBadge";
 import Badge from "shared/Badge/Badge";
 import { manat_icon } from "contains/contants";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 export interface StayCardProps {
     className?: string;
@@ -49,13 +55,25 @@ const StayCard: FC<StayCardProps> = ({
 
     const renderSliderGallery = () => {
         return (
-            <div className="relative w-full">
-                <GallerySlider
-                    uniqueID={`StayCard_${id}`}
-                    ratioClass="aspect-w-4 aspect-h-3 "
-                    galleryImgs={data.images.map(item => item.url_full)}
-                    href={`/room/${slug}`}
-                />
+            <div className=" w-full h-[220px]">
+                {/*<GallerySlider*/}
+                {/*    uniqueID={`StayCard_${id}`}*/}
+                {/*    ratioClass="aspect-w-4 aspect-h-3 "*/}
+                {/*    galleryImgs={data.images.map(item => item.url_full)}*/}
+                {/*    href={`/room/${slug}`}*/}
+                {/*/>*/}
+
+                {/*@ts-ignore*/}
+                <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
+                    {
+                        data.images.map(item => {
+                            return(
+                                <SwiperSlide><img src={item.url_full}/></SwiperSlide>
+                            )
+                        })
+                    }
+                </Swiper>
+
                 {/* <BtnLikeIcon isLiked={like} className="absolute right-3 top-3 z-[1]" /> */}
                 {/* {saleOff && <SaleOffBadge className="absolute left-3 top-3" />} */}
             </div>
@@ -69,7 +87,7 @@ const StayCard: FC<StayCardProps> = ({
                     {/* <span className="text-sm text-neutral-500 dark:text-neutral-400">
                         {title} · {room_count} otaq
                     </span> */}
-                    <img src="https://yt3.googleusercontent.com/ytc/AOPolaSYIvTrgKFP_GYCt9wGKhBdX32Z41xmVDrrntzCYQ=s900-c-k-c0x00ffffff-no-rj"/>
+                    {/*<img src="https://yt3.googleusercontent.com/ytc/AOPolaSYIvTrgKFP_GYCt9wGKhBdX32Z41xmVDrrntzCYQ=s900-c-k-c0x00ffffff-no-rj"/>*/}
                     <div className="flex items-center space-x-2">
                         {/* {isAds && <Badge name="ADS" color="green" />} */}
                         {/* <Badge name="ADS" color="green" /> */}
@@ -132,7 +150,7 @@ const StayCard: FC<StayCardProps> = ({
             className={`nc-StayCard group relative bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-2xl overflow-hidden will-change-transform hover:shadow-xl transition-shadow ${className}`}
             data-nc-id="StayCard"
         >
-            {/*{renderSliderGallery()}*/}
+            {renderSliderGallery()}
             <Link to={`/room/${slug}`}>{renderContent()}</Link>
         </div>
     );
