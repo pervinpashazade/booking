@@ -56,6 +56,20 @@
   font-size: 25px !important;
 }
 
-//.mySwiper:hover{
-//  opacity: 1;
-//}
+.modalClose{
+  //background-color: #f35656;
+}
+
+@media only screen and (max-width: 575px) {
+  .swiper-slide {
+    img {
+      width: 80% !important;
+    }
+  }
+  .swiper-button-prev{
+    left: -3px !important;
+  }
+  .swiper-button-next{
+    right: -3px !important;
+  }
+}

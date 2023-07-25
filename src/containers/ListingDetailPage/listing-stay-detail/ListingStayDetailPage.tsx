@@ -93,8 +93,8 @@ const StayDetailPageContainer: FC<{}> = () => {
                     {/*</Dialog.Title>*/}
                     <div className="relative flex justify-center" style={{height: "95vh", alignItems: "center"}}>
                       <button
-                          style={{zIndex:9999}}
-                          className="absolute top-3 right-3 inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                          style={{zIndex:9999, color:"white"}}
+                          className="modalClose absolute top-3 right-3 inline-flex justify-center rounded-md border border-transparent bg-neutral-800 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-neutral-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                           onClick={closeModal}>
                         X</button>
                       {/*@ts-ignore*/}
