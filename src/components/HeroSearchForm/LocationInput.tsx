@@ -20,7 +20,7 @@ export interface LocationInputProps {
 const LocationInput: FC<LocationInputProps> = ({
   autoFocus = false,
   placeHolder = "Şəhər",
-  desc = "Hansı şəhərə səyahət edirsən?",
+  desc = "Şəhər seçin",
   className = "nc-flex-1.5",
   divHideVerticalLineClass = "left-10 -right-0.5",
   cities = [],

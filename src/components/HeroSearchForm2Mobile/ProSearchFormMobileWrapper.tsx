@@ -111,7 +111,7 @@ const ProSearchFormMobileWrapper = () => {
         return (
             <button
                 onClick={openModal}
-                className="relative flex items-center w-full border border-neutral-200 dark:border-neutral-6000 px-4 py-2 pr-11 rounded-full shadow-lg"
+                className="relative flex items-center w-full border border-neutral-200 dark:border-neutral-6000 px-4 py-4 pr-11 rounded-full shadow-lg"
             >
                 <MagnifyingGlassIcon className="flex-shrink-0 w-5 h-5" />
                 <div className="ml-3 flex-1 text-left overflow-hidden">
@@ -119,12 +119,12 @@ const ProSearchFormMobileWrapper = () => {
                         {
                             searchParams.city?.id ?
                                 searchParams.city.name :
-                                "Hansı şəhərə səyahət edirsən?"
+                                "Şəhər seçin"
                         }
                     </span>
-                    <span className="block mt-0.5 text-xs font-light text-neutral-500 dark:text-neutral-400 line-clamp-1">
+                    {/* <span className="block mt-0.5 text-xs font-light text-neutral-500 dark:text-neutral-400 line-clamp-1">
                         Kirayələr • Turlar
-                    </span>
+                    </span> */}
                 </div>
                 <span className="absolute right-2 top-1/2 transform -translate-y-1/2 w-9 h-9 flex items-center justify-center rounded-full border border-neutral-200 dark:border-neutral-6000 dark:text-neutral-300">
                     <svg
