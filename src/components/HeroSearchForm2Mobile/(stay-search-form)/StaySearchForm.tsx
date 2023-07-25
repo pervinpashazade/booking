@@ -215,8 +215,8 @@ const StaySearchForm = () => {
           </button>
         ) : (
           <PriceRangeInput
-            defaultValue={rangePrices}
-            onChange={setRangePrices}
+            // defaultValue={rangePrices}
+            // onChange={setRangePrices}
           />
         )}
       </div>

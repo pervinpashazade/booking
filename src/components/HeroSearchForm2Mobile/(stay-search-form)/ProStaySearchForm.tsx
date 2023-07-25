@@ -8,11 +8,9 @@ const ProStaySearchForm = () => {
 
     const searchParams = useAppSelector(store => store.searchParams)
 
-    const [fieldNameShow, setFieldNameShow] = useState<
-        "location" | "propertyType" | "price"
-    >("location");
+    const [fieldNameShow, setFieldNameShow] = useState<"location" | "propertyType" | "price">("location");
 
-    const [rangePrices, setRangePrices] = useState([10, 5000]);
+    const [rangePrices, setRangePrices] = useState([searchParams.price_from, searchParams.price_to]);
 
     const renderInputLocation = () => {
         const isActive = fieldNameShow === "location";
@@ -65,8 +63,8 @@ const ProStaySearchForm = () => {
                     </button>
                 ) : (
                     <PriceRangeInput
-                        defaultValue={rangePrices}
-                        onChange={setRangePrices}
+                        // defaultValue={rangePrices}
+                        // onChange={setRangePrices}
                     />
                 )}
             </div>

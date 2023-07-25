@@ -17,7 +17,6 @@ const ProSearchFormMobileWrapper = () => {
 
     const dispatch = useAppDispatch()
     const searchParams = useAppSelector(store => store.searchParams)
-    const cityList = useAppSelector(store => store.staticData.cityList)
 
     let [urlParams, setUrlParams] = useSearchParams();
 
@@ -42,7 +41,6 @@ const ProSearchFormMobileWrapper = () => {
     const handleSearch = () => {
 
         console.log("searchProps", searchParams);
-        return
 
         getData({
             city_id: searchParams.city?.id,
@@ -84,6 +82,8 @@ const ProSearchFormMobileWrapper = () => {
     const handleResetForm = () => {
         resetIsShowingDialog();
         dispatch(changeValue("searchParams", "city", null))
+        dispatch(changeValue("searchParams", "price_from", ""))
+        dispatch(changeValue("searchParams", "price_to", ""))
 
         urlParams.set("city_id", "")
         urlParams.set("price_from", "")

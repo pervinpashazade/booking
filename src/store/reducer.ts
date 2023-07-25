@@ -67,8 +67,8 @@ export const initialState: initialStateProps = {
   room: {},
   searchParams: {
     city: null,
-    price_from: null,
-    price_to: null,
+    price_from: 10,
+    price_to: 5000,
     page: "1",
     per_page: "15"
   },
