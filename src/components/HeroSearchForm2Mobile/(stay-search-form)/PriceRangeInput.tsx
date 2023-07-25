@@ -1,23 +1,26 @@
 import { FC, useEffect, useState } from "react";
 import { manat_icon } from "contains/contants";
+import { useAppDispatch, useAppSelector } from "store/store";
+import { changeValue } from "store/action";
 
 export interface PriceRangeInputProps {
-  onChange: (e: number[]) => void;
-  defaultValue?: number[];
+  // onChange: (e: number[]) => void;
+  // defaultValue?: number[];
 }
 
 const PriceRangeInput: FC<PriceRangeInputProps> = ({
-  onChange,
-  defaultValue,
+  // onChange,
+  // defaultValue,
 }) => {
-  const [rangePrices, setRangePrices] = useState(
-    defaultValue || [10, 5000]
-  );
+  const searchParams = useAppSelector(store => store.searchParams)
+  const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    if (!defaultValue) return;
-    setRangePrices(defaultValue);
-  }, [defaultValue]);
+  // const [rangePrices, setRangePrices] = useState([searchParams.price_from, searchParams.price_to]);
+
+  // useEffect(() => {
+  //   if (!defaultValue) return;
+  //   setRangePrices(defaultValue);
+  // }, [defaultValue]);
 
   return (
     <div className="p-5">
@@ -42,8 +45,9 @@ const PriceRangeInput: FC<PriceRangeInputProps> = ({
                 name="minPrice"
                 id="minPrice"
                 className="focus:ring-primary-500 focus:border-primary-500 block w-full pl-7 pr-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
-                value={rangePrices[0]}
-                onChange={(e) => onChange([Number(e.target.value), rangePrices[1]])}
+                value={searchParams.price_from}
+                // onChange={(e) => onChange([Number(e.target.value), rangePrices[1]])}
+                onChange={(e) => dispatch(changeValue("searchParams", "price_from", Number(e.target.value)))}
               />
             </div>
           </div>
@@ -63,8 +67,10 @@ const PriceRangeInput: FC<PriceRangeInputProps> = ({
                 name="maxPrice"
                 id="maxPrice"
                 className="focus:ring-primary-500 focus:border-priring-primary-500 block w-full pl-7 pr-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
-                value={rangePrices[1]}
-                onChange={(e) => onChange([rangePrices[0], Number(e.target.value)])}
+                value={searchParams.price_to}
+                // onChange={(e) => onChange([rangePrices[0], Number(e.target.value)])}
+                onChange={(e) => dispatch(changeValue("searchParams", "price_to", Number(e.target.value)))}
+
               />
             </div>
           </div>
