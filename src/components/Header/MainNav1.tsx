@@ -26,8 +26,9 @@ const MainNav1: FC<MainNav1Props> = ({ className = "" }) => {
           {/* <Navigation /> */}
         </div>
 
-        <div className="lg:hidden flex-[3] max-w-lg !mx-auto md:px-3">
+        <div className="lg:hidden flex-[3] flex justify-between items-center gap-1 max-w-lg !mx-auto md:px-3">
           <HeroSearchForm2MobileFactory />
+          <SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800" />
         </div>
 
         <div className="hidden md:flex flex-shrink-0 items-center justify-end flex-1 lg:flex-none text-neutral-700 dark:text-neutral-100">
