@@ -1,4 +1,4 @@
-import { FC, Fragment, useEffect, useState } from "react";
+import React, { FC, Fragment, useEffect, useState } from "react";
 import CommentListing from "components/CommentListing/CommentListing";
 import FiveStartIconForRate from "components/FiveStartIconForRate/FiveStartIconForRate";
 import StartRating from "components/StartRating/StartRating";
@@ -24,6 +24,14 @@ import { manat_icon } from "contains/contants";
 import { useAppDispatch, useAppSelector } from "store/store";
 import { setData as setStoreData } from "store/action";
 import MobileFooterSticky from "../(components)/MobileFooterSticky";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation } from 'swiper/modules';
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
 
 const StayDetailPageContainer: FC<{}> = () => {
 
@@ -34,6 +42,88 @@ const StayDetailPageContainer: FC<{}> = () => {
   const { slug } = useParams();
 
   let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false);
+
+  let [isOpen, setIsOpen] = useState(false)
+
+  const closeModal=()=> {
+    setIsOpen(false)
+  }
+
+  const openModal=()=> {
+    setIsOpen(true)
+  }
+
+  const modalGallery =()=>{
+    console.log("data?.images",data?.images)
+    return(
+        <Transition appear show={isOpen} as={Fragment}>
+          <Dialog as="div" className="relative flex align-items-center" style={{zIndex: 999999}} onClose={closeModal}>
+            <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" style={{opacity:"0.6",backgroundColor:"black"}} />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center text-center">
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel style={{minWidth:"100%",minHeight:"100vh"}} className="w-full max-w-md transform overflow-hidden rounded-2xl p-3 bg-black text-left shadow-xl transition-all">
+                    {/*<Dialog.Title*/}
+                    {/*    as="h3"*/}
+                    {/*    className="text-lg font-medium leading-6 text-gray-900"*/}
+                    {/*>*/}
+                    {/*  <button*/}
+                    {/*      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"*/}
+                    {/*      onClick={closeModal}>*/}
+                    {/*    X</button>*/}
+                    {/*</Dialog.Title>*/}
+                    <div className="relative flex justify-center" style={{height: "95vh", alignItems: "center"}}>
+                      <button
+                          style={{zIndex:9999}}
+                          className="absolute top-3 right-3 inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                          onClick={closeModal}>
+                        X</button>
+                      {/*@ts-ignore*/}
+                      <Swiper navigation={true} pagination={true} modules={[Pagination,Navigation]} className="mySwiper" style={{height:"55vh"}}>
+                        {/*@ts-ignore*/}
+                        {data?.images.map(item => {
+                            console.log("item",item)
+                            return(
+                                <SwiperSlide className="flex justify-center align-items-center bg-black">
+                                  {/*<Link to={`/room/${slug}`} className={`block aspect-w-4 aspect-h-3`}>*/}
+                                    <img style={{width: "50%", margin: "auto", objectFit: "contain"}} src={item.url_full}/>
+                                  {/*</Link>*/}
+                                </SwiperSlide>
+
+                                // <SwiperSlide><img src={item.url_full}/></SwiperSlide>
+                            )
+                          })
+                        }
+                      </Swiper>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
+    )
+  }
+
 
   const thisPathname = useLocation().pathname;
   const router = useNavigate();
@@ -271,7 +361,7 @@ const StayDetailPageContainer: FC<{}> = () => {
   //           >
   //             <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-40" />
   //           </Transition.Child>
-
+  //
   //           {/* This element is to trick the browser into centering the modal contents. */}
   //           <span
   //             className="inline-block h-screen align-middle"
@@ -640,12 +730,15 @@ const StayDetailPageContainer: FC<{}> = () => {
         <title>{data?.title ? `${data.title} | ${appName}` : appName}</title>
       </Helmet>
 
+      {modalGallery()}
       {/*  HEADER */}
       <header className="rounded-md sm:rounded-xl pt-8">
         <div className="relative grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2">
           <div
             className="col-span-2 row-span-3 sm:row-span-2 relative rounded-md sm:rounded-xl overflow-hidden cursor-pointer "
-            onClick={handleOpenModalImageGallery}
+            // onClick={handleOpenModalImageGallery}
+            // onClick={modalGallery}
+            onClick={openModal}
           >
             <img
               className="absolute inset-0 object-cover rounded-md sm:rounded-xl w-full h-full"
@@ -675,7 +768,9 @@ const StayDetailPageContainer: FC<{}> = () => {
                   {/* OVERLAY */}
                   <div
                     className="absolute inset-0 bg-neutral-900 bg-opacity-20 opacity-0 hover:opacity-100 transition-opacity cursor-pointer"
-                    onClick={handleOpenModalImageGallery}
+                    // onClick={handleOpenModalImageGallery}
+                    onClick={openModal}
+
                   />
                 </div>
               )
@@ -683,7 +778,9 @@ const StayDetailPageContainer: FC<{}> = () => {
           })}
           <button
             className="absolute hidden md:flex md:items-center md:justify-center left-3 bottom-3 px-4 py-2 rounded-xl bg-neutral-100 text-neutral-500 hover:bg-neutral-200 z-10"
-            onClick={handleOpenModalImageGallery}
+            // onClick={handleOpenModalImageGallery}
+            onClick={openModal}
+
           >
             <Squares2X2Icon className="w-5 h-5" />
             <span className="ml-2 text-neutral-800 text-sm font-medium">
