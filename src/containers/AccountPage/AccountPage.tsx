@@ -11,6 +11,10 @@ import {apiUrl, appName} from "config";
 import {IUserProps} from "../../data/types";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {ArrowRightOnRectangleIcon} from "@heroicons/react/24/outline";
+import {logout} from "../../store/action";
+import { useAppDispatch } from "../../store/store";
+
 
 export interface AccountPageProps {
   className?: string;
@@ -19,6 +23,7 @@ export interface AccountPageProps {
 const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
 
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
   const [list, setList] = useState<IUserProps>({})
 
@@ -38,6 +43,24 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
 
     })
   }, [])
+
+  const solutionsFoot = [
+    // {
+    //   name: "Help",
+    //   href: "##",
+    //   icon: LifebuoyIcon,
+    // },
+    {
+      name: "Çıxış",
+      href: "##",
+      icon: ArrowRightOnRectangleIcon,
+      onClick: (e: any) => {
+        e.preventDefault()
+        dispatch(logout())
+        navigate('/')
+      }
+    },
+  ];
 
   return (
     <div className={`nc-AccountPage ${className}`} data-nc-id="AccountPage">
@@ -78,7 +101,7 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
             {/*    />*/}
             {/*  </div>*/}
             {/*</div>*/}
-            <div className="flex-grow mt-10 md:mt-0 md:pl-16 max-w-3xl space-y-6">
+            <div className="flex-grow mt-0 lg:mt-8 md:mt-0 md:pl-16 max-w-3xl space-y-6">
               <div>
                 <Label>Ad</Label>
                 <Input className="mt-1.5" defaultValue={list.name} />
@@ -99,6 +122,24 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
               {/*  <Label>About you</Label>*/}
               {/*  <Textarea className="mt-1.5" defaultValue="..." />*/}
               {/*</div>*/}
+              <div className="flex justify-center">
+                {solutionsFoot.map((item, index) => (
+                    <a
+                        key={index}
+                        href={item.href}
+                        onClick={item.onClick}
+                        style={{border:"1px solid white"}}
+                        className="flex items-center p-3 -m-3 transition duration-150 mt-5 ease-in-out rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                    >
+                      <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
+                        <item.icon aria-hidden="true" className="w-6 h-6" />
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-sm font-medium ">{item.name}</p>
+                      </div>
+                    </a>
+                ))}
+              </div>
               {/* <div className="pt-2">
                 <ButtonPrimary>Update info</ButtonPrimary>
               </div> */}

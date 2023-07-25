@@ -92,20 +92,20 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
       password_confirmation: data.password_confirmation
     }).then(res => {
       console.log("res", res.data);
-
       localStorage.setItem('access_token', res.data.data.access_token)
       localStorage.setItem('user', JSON.stringify(res.data.data.user))
       dispatch(login(res.data.data.user))
       navigate('/')
 
     }).catch((err: IErrorResponse) => {
-      console.log("login error", err.response.data.error)
-      setErrorMessage(err.response.data.error)
+      console.log("login error", err.response.data.message)
+      setErrorMessage(err.response.data.message ?? 'Xəta baş verdi')
+      setIsLoading(false)
     }).finally(() => {
       setIsLoading(false)
     })
   }
-
+  console.log("errorMessage",errorMessage)
   return (
     <div className={`nc-PageSignUp  ${className}`} data-nc-id="PageSignUp">
       <Helmet>
