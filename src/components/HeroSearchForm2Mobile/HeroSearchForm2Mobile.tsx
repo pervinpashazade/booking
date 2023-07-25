@@ -13,6 +13,7 @@ import axios from "axios";
 import { apiUrl } from "config";
 import { ICityProps, ISearchRoomParams } from "data/types";
 import { useSearchParams } from "react-router-dom";
+import ProStaySearchForm from "./(stay-search-form)/ProStaySearchForm";
 
 const HeroSearchForm2Mobile = () => {
 
@@ -42,7 +43,8 @@ const HeroSearchForm2Mobile = () => {
 
   const handleSearch = () => {
 
-    // console.log("searchProps", searchProps);
+    console.log("searchProps", searchParams);
+    return
 
     getData({
       city_id: searchParams.city?.id,
@@ -81,6 +83,16 @@ const HeroSearchForm2Mobile = () => {
 
   }
 
+  const handleResetForm = () => {
+    resetIsShowingDialog();
+    dispatch(changeValue("searchParams", "city", null))
+    urlParams.set("city_id", "")
+    urlParams.set("price_from", "")
+    urlParams.set("price_to", "")
+
+    setUrlParams(urlParams);
+    setShowDialog(false);
+  }
 
 
   const [showModal, setShowModal] = useState(false);
@@ -110,7 +122,7 @@ const HeroSearchForm2Mobile = () => {
             {
               searchParams.city?.id ?
                 searchParams.city.name :
-                "Hansı432432 şəhərə səyahət edirsən?"
+                "Hansı şəhərə səyahət edirsən?"
             }
           </span>
           <span className="block mt-0.5 text-xs font-light text-neutral-500 dark:text-neutral-400 line-clamp-1">
@@ -163,7 +175,8 @@ const HeroSearchForm2Mobile = () => {
                         </button>
                       </div>
                       <Tab.List className="pt-12 flex w-full justify-center font-semibold text-sm sm:text-base text-neutral-500 dark:text-neutral-400 space-x-6 sm:space-x-8">
-                        {["Kirayə", "Turlar"].map(
+                        {/* {["Kirayə", "Turlar"].map( */}
+                        {["Kirayə"].map(
                           (item, index) => (
                             <Tab key={index} as={Fragment}>
                               {({ selected }) => (
@@ -189,7 +202,8 @@ const HeroSearchForm2Mobile = () => {
                         <Tab.Panels className="flex-1 overflow-y-auto hiddenScrollbar py-4">
                           <Tab.Panel>
                             <div className="transition-opacity animate-[myblur_0.4s_ease-in-out]">
-                              <StaySearchForm />
+                              {/* <StaySearchForm /> */}
+                              <ProStaySearchForm />
                             </div>
                           </Tab.Panel>
                           <Tab.Panel>
@@ -203,12 +217,7 @@ const HeroSearchForm2Mobile = () => {
                         <button
                           type="button"
                           className="underline font-semibold flex-shrink-0"
-                          onClick={() => {
-                            setShowDialog(false);
-                            resetIsShowingDialog();
-
-                            dispatch(changeValue("searchParams", "city", null))
-                          }}
+                          onClick={handleResetForm}
                         >
                           Sıfırla
                         </button>

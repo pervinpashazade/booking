@@ -68,9 +68,8 @@ const StayCard: FC<StayCardProps> = ({
                 <Swiper navigation={true} pagination={true} modules={[Pagination,Navigation]} className="mySwiper">
                     {
                         data.images.map(item => {
-                            console.log("item",item)
                             return(
-                                    <SwiperSlide>
+                                    <SwiperSlide key={item.url_full}>
                                         <Link to={`/room/${slug}`} className={`block aspect-w-4 aspect-h-3`}>
                                             <img src={item.url_full}/>
                                         </Link>
