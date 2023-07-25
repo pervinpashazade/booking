@@ -105,7 +105,7 @@ const StayDetailPageContainer: FC<{}> = () => {
                             return(
                                 <SwiperSlide className="flex justify-center align-items-center bg-black">
                                   {/*<Link to={`/room/${slug}`} className={`block aspect-w-4 aspect-h-3`}>*/}
-                                    <img style={{width: "50%", margin: "auto", objectFit: "contain"}} src={item.url_full}/>
+                                    <img className="modalImg" style={{width: "50%", margin: "auto", objectFit: "contain"}} src={item.url_full}/>
                                   {/*</Link>*/}
                                 </SwiperSlide>
 
