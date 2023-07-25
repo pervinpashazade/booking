@@ -9,6 +9,8 @@ import { PathName } from "routers/types";
 import MenuBar from "shared/MenuBar/MenuBar";
 import { useAppSelector } from "store/store";
 import isInViewport from "utils/isInViewport";
+import {PlusIcon} from "@heroicons/react/24/solid";
+import {PlusCircleIcon, PlusSmallIcon} from "@heroicons/react/20/solid";
 
 let WIN_PREV_POSITION = window.pageYOffset;
 
@@ -33,6 +35,12 @@ const FooterNav = () => {
       icon: HomeIcon,
     },
     {
+      name: "Elan yerləşdir",
+      // link: "/account-savelists",
+      link: !isAuth ? "/login?redirect=/account-savelists" : "/new/step/1",
+      icon: PlusIcon,
+    },
+    {
       name: "Bəyəndiklərim",
       // link: "/account-savelists",
       link: !isAuth ? "/login?redirect=/account-savelists" : "/account-savelists",
@@ -43,10 +51,10 @@ const FooterNav = () => {
       link: !isAuth ? "/login" : "/account",
       icon: UserCircleIcon,
     },
-    {
-      name: "Menu",
-      icon: MenuBar,
-    },
+    // {
+    //   name: "Menu",
+    //   icon: MenuBar,
+    // },
   ];
 
   useEffect(() => {

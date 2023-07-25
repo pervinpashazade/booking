@@ -74,14 +74,15 @@ axios.interceptors.response.use(
     //   return Promise.reject(error)
     // }
 
-    return new Promise((resolve) => {
+    return new Promise((resolve,reject) => {
 
       console.log("test func");
 
       const originalRequest = error.config;
 
-      debugger
+      // debugger
       if (error.response.status === 401) {
+        debugger
         const { dispatch } = store;
         const access_token = localStorage.getItem("access_token")
         if (access_token) {
@@ -132,8 +133,10 @@ axios.interceptors.response.use(
 
       //   resolve(response);
       // }
-
-      return Promise.reject(error)
+      // console.log("errorrrrrrrrr",error)
+      // return Promise.reject(error)
+      return reject(error)
+      // return error
     });
   },
 );
