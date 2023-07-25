@@ -129,7 +129,7 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
                         href={item.href}
                         onClick={item.onClick}
                         style={{border:"1px solid white"}}
-                        className="flex items-center p-3 -m-3 transition duration-150 mt-5 ease-in-out rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                        className="flex items-center px-8 py-3 -m-3 transition duration-150 mt-5 ease-in-out rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
                     >
                       <div className="flex items-center justify-center flex-shrink-0 text-neutral-500 dark:text-neutral-300">
                         <item.icon aria-hidden="true" className="w-6 h-6" />

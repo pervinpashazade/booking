@@ -16,6 +16,7 @@ export interface SectionGridFeaturePlacesProps {
   loading?: boolean
   getData?: Function
   totalData: number,
+  per_page: number
 }
 
 const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
@@ -28,12 +29,16 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
   loading = false,
   getData,
   totalData = 0,
+    per_page = 0
 }) => {
 
   const renderCard = (stay: IStayProps) => {
     return <ProStayCard key={stay.id} data={stay} />;
   };
 
+  console.log("salam",Math.ceil(totalData / per_page))
+  console.log("totalData",totalData)
+  console.log("per_page",per_page)
   return (
     <div className="nc-SectionGridFeaturePlaces relative">
       {/*<HeaderFilter*/}
@@ -71,7 +76,8 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
         {/*}*/}
       </div>
       {
-        data.length < totalData &&
+        // data.length < totalData &&
+          Math.ceil(totalData / per_page) !== 1 &&
         <div className="flex mt-16 justify-center items-center">
           <ButtonPrimary
             loading={loading}
