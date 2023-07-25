@@ -47,7 +47,7 @@ const PriceRangeInput: FC<PriceRangeInputProps> = ({
                 className="focus:ring-primary-500 focus:border-primary-500 block w-full pl-7 pr-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
                 value={searchParams.price_from}
                 // onChange={(e) => onChange([Number(e.target.value), rangePrices[1]])}
-                onChange={(e) => dispatch(changeValue("searchParams", "price_from", Number(e.target.value)))}
+                onChange={(e) => dispatch(changeValue("searchParams", "price_from", !isNaN(Number(e.target.value)) ? Number(e.target.value) : searchParams.price_from))}
               />
             </div>
           </div>
@@ -69,7 +69,7 @@ const PriceRangeInput: FC<PriceRangeInputProps> = ({
                 className="focus:ring-primary-500 focus:border-priring-primary-500 block w-full pl-7 pr-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
                 value={searchParams.price_to}
                 // onChange={(e) => onChange([rangePrices[0], Number(e.target.value)])}
-                onChange={(e) => dispatch(changeValue("searchParams", "price_to", Number(e.target.value)))}
+                onChange={(e) => dispatch(changeValue("searchParams", "price_to", !isNaN(Number(e.target.value)) ? Number(e.target.value) : searchParams.price_to))}
 
               />
             </div>
