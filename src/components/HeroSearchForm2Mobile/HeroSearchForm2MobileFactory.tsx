@@ -3,6 +3,7 @@ import HeroSearchForm2Mobile from "./HeroSearchForm2Mobile";
 import HeroSearchForm2RealEstateMobile from "./HeroSearchForm2RealEstateMobile";
 import { PathName } from "routers/types";
 import { useLocation } from "react-router-dom";
+import ProSearchFormMobileWrapper from "./ProSearchFormMobileWrapper";
 
 const PAGES_REAL_ESTATE: PathName[] = [
   "/home-2",
@@ -16,7 +17,8 @@ const HeroSearchForm2MobileFactory = () => {
   //   return <HeroSearchForm2RealEstateMobile />;
   // }
   // return <HeroSearchForm2RealEstateMobile />;
-  return <HeroSearchForm2Mobile />;
+  // return <HeroSearchForm2Mobile />;
+  return <ProSearchFormMobileWrapper />;
 };
 
 export default HeroSearchForm2MobileFactory;

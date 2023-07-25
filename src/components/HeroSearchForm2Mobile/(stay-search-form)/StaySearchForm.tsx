@@ -19,41 +19,41 @@ const StaySearchForm = () => {
     "location" | "propertyType" | "price"
   >("location");
 
-  const [typeOfProperty, setTypeOfProperty] = useState<ClassOfProperties[]>([
-    {
-      name: "Duplex House",
-      description: "Have a place to yourself",
-      checked: true,
-    },
-    {
-      name: "Ferme House",
-      description: "Have your own room and share some common spaces",
-      checked: true,
-    },
-    {
-      name: "Chalet House",
-      description:
-        "Have a private or shared room in a boutique hotel, hostel, and more",
-      checked: true,
-    },
-    {
-      name: "Maison House",
-      description: "Stay in a shared space, like a common room",
-      checked: false,
-    },
-  ]);
+  // const [typeOfProperty, setTypeOfProperty] = useState<ClassOfProperties[]>([
+  //   {
+  //     name: "Duplex House",
+  //     description: "Have a place to yourself",
+  //     checked: true,
+  //   },
+  //   {
+  //     name: "Ferme House",
+  //     description: "Have your own room and share some common spaces",
+  //     checked: true,
+  //   },
+  //   {
+  //     name: "Chalet House",
+  //     description:
+  //       "Have a private or shared room in a boutique hotel, hostel, and more",
+  //     checked: true,
+  //   },
+  //   {
+  //     name: "Maison House",
+  //     description: "Stay in a shared space, like a common room",
+  //     checked: false,
+  //   },
+  // ]);
 
   const [rangePrices, setRangePrices] = useState([10, 5000]);
 
   //
-  // const [locationInputTo, setLocationInputTo] = useState("");
-  const [guestInput, setGuestInput] = useState<GuestsObject>({
-    guestAdults: 0,
-    guestChildren: 0,
-    guestInfants: 0,
-  });
-  const [startDate] = useState<Date | null>(new Date("2023/02/06"));
-  const [endDate] = useState<Date | null>(new Date("2023/02/23"));
+  // // const [locationInputTo, setLocationInputTo] = useState("");
+  // const [guestInput, setGuestInput] = useState<GuestsObject>({
+  //   guestAdults: 0,
+  //   guestChildren: 0,
+  //   guestInfants: 0,
+  // });
+  // const [startDate] = useState<Date | null>(new Date("2023/02/06"));
+  // const [endDate] = useState<Date | null>(new Date("2023/02/23"));
   //
 
   const renderInputLocation = () => {

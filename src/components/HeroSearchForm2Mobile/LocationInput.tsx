@@ -97,7 +97,7 @@ const LocationInput: FC<Props> = ({
               cityList.map(item => <option key={item.id} value={item.id}>{item.name}</option>)
             }
           </Select>
-          <span className="absolute right-2.5 top-1/2 -translate-y-1/2">
+          <span className="absolute right-2.5 top-1/2 -translate-y-1/2 bg-white dark:bg-neutral-900">
             <MagnifyingGlassIcon className="w-5 h-5 text-neutral-700 dark:bg-neutral-900 dark:text-neutral-400" />
           </span>
         </div>

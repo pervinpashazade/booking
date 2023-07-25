@@ -5,8 +5,6 @@ export const Loader = () => {
 
     const preLoader = useAppSelector(store => store.preLoader)
 
-    console.log("preLoader", preLoader);
-
     return (
         <div className={`loader bg-white dark:bg-neutral-900 ${preLoader ? 'flex' : 'hidden'}`}>
             <svg className="car" width="102" height="40" xmlns="http://www.w3.org/2000/svg">

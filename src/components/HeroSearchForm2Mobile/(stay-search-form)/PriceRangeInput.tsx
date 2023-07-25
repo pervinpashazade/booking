@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { manat_icon } from "contains/contants";
 
 export interface PriceRangeInputProps {
-  onChange?: (e: number[]) => void;
+  onChange: (e: number[]) => void;
   defaultValue?: number[];
 }
 
@@ -43,6 +43,7 @@ const PriceRangeInput: FC<PriceRangeInputProps> = ({
                 id="minPrice"
                 className="focus:ring-primary-500 focus:border-primary-500 block w-full pl-7 pr-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
                 value={rangePrices[0]}
+                onChange={(e) => onChange([Number(e.target.value), rangePrices[1]])}
               />
             </div>
           </div>
@@ -63,6 +64,7 @@ const PriceRangeInput: FC<PriceRangeInputProps> = ({
                 id="maxPrice"
                 className="focus:ring-primary-500 focus:border-priring-primary-500 block w-full pl-7 pr-3 sm:text-sm border-neutral-200 rounded-full text-neutral-900"
                 value={rangePrices[1]}
+                onChange={(e) => onChange([rangePrices[0], Number(e.target.value)])}
               />
             </div>
           </div>
