@@ -1,5 +1,5 @@
 import {
-  HeartIcon,
+  HeartIcon, HomeIcon,
   MagnifyingGlassIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
@@ -28,9 +28,9 @@ const FooterNav = () => {
 
   const NAV: NavItem[] = [
     {
-      name: "Axtar",
+      name: "Əsas səhifə",
       link: "/",
-      icon: MagnifyingGlassIcon,
+      icon: HomeIcon,
     },
     {
       name: "Bəyəndiklərim",

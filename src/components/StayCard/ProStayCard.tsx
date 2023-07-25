@@ -153,7 +153,7 @@ const StayCard: FC<StayCardProps> = ({
             </div>
         );
     };
-    console.log("dsadfsa")
+    // console.log("dsadfsa")
     return (
         <div
             className={`nc-StayCard group relative bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-2xl overflow-hidden will-change-transform hover:shadow-xl transition-shadow ${className}`}
