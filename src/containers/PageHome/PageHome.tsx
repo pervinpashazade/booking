@@ -19,7 +19,7 @@ function PageHome() {
 
   const [pagination, setPagination] = useState<IPaginationProps>({
     page: 1,
-    per_page: 15,
+    per_page: 3,
     total: 0
   })
 
@@ -150,7 +150,7 @@ function PageHome() {
             data={list}
             getData={getMoreData}
             totalData={pagination.total}
-            per_page={15}
+            per_page={Number(searchParams.per_page)}
           />
         </div>
       </div>

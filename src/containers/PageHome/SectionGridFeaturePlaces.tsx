@@ -76,8 +76,9 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
         {/*}*/}
       </div>
       {
-        // data.length < totalData &&
+          data.length > 0 &&
           Math.ceil(totalData / per_page) !== 1 &&
+          Math.ceil(totalData / per_page) !== 0 &&
         <div className="flex mt-16 justify-center items-center">
           <ButtonPrimary
             loading={loading}

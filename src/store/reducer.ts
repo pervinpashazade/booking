@@ -70,7 +70,7 @@ export const initialState: initialStateProps = {
     price_from: 10,
     price_to: 5000,
     page: "1",
-    per_page: "15"
+    per_page: "4"
   },
   preLoader: false,
   staticData: {
