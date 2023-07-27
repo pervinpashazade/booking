@@ -39,7 +39,9 @@ const PageAddListing2: FC<PageAddListing2Props> = () => {
                 // @ts-ignore 
                 room.area ?? ""
               }
-              onChange={e => dispatch(changeValue("room", "area", e.target.value))}
+              onChange={e => {
+                dispatch(changeValue("room", "area", isNaN(Number(e.target.value)) ? room.area : e.target.value))
+              }}
             />
           </FormItem>
           <NcInputNumber
