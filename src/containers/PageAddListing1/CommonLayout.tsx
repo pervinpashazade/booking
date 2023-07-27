@@ -73,8 +73,25 @@ const CommonLayout: FC<CommonLayoutProps> = ({
     formData.append("double_bed_count", room.double_bed_count.toString())
     formData.append("bathroom_count", room.bathroom_count.toString())
 
+    // // @ts-ignore
+    // room.images.forEach(item => {
+    //   console.log("item", item)
+    //   // @ts-ignore
+    //   return(formData.append("multiple_images[]", item))
+    // })
+
     // @ts-ignore
-    room.images.forEach(item => formData.append("multiple_images[]", item))
+    room.images.forEach((item:any) => {
+      console.log("item", item)
+      formData.append("multiple_images[]", item)
+    })
+
+    //
+    // for (let i = 0; i < room.images.length; i++) {
+    //   // @ts-ignore
+    //   formData.append("multiple_images", room.images[i]);
+    // };
+
 
     // // static
     formData.append("is_breakfast", "0")
