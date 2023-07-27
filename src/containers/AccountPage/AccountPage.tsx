@@ -79,7 +79,7 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
                 <h2 className="text-3xl font-semibold">Profil</h2>
               </div>
             </div>
-            <div className="item2 col-span-1">
+            <div className="item2 col-span-1 md:hidden">
               <SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800" />
             </div>
           </div>
