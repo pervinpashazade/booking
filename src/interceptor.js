@@ -80,9 +80,7 @@ axios.interceptors.response.use(
 
       const originalRequest = error.config;
 
-      // debugger
       if (error.response.status === 401) {
-        debugger
         const { dispatch } = store;
         const access_token = localStorage.getItem("access_token")
         if (access_token) {
