@@ -10,10 +10,12 @@ import { changeValue, setData } from "store/action";
 import axios from "axios";
 import { apiUrl } from "config";
 import { ISearchRoomParams } from "data/types";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ProStaySearchForm from "./(stay-search-form)/ProStaySearchForm";
 
 const ProSearchFormMobileWrapper = () => {
+
+    const nagivate = useNavigate()
 
     const dispatch = useAppDispatch()
     const searchParams = useAppSelector(store => store.searchParams)
@@ -40,7 +42,7 @@ const ProSearchFormMobileWrapper = () => {
 
     const handleSearch = () => {
 
-        console.log("searchProps", searchParams);
+        // console.log("searchProps", searchParams);
 
         getData({
             city_id: searchParams.city?.id,
@@ -49,31 +51,15 @@ const ProSearchFormMobileWrapper = () => {
         }).then(res => {
             if (res.data.success) {
                 dispatch(changeValue("data", "list", res.data.data.data))
-                // setList(res.data.data.data)
-
-                // setPagination({
-                //   page: res.data.data.current_page,
-                //   per_page: res.data.per_page,
-                //   total: res.data.data.total
-                // })
-
-                // const params = {
-                //   page: res.data.data.current_page,
-                //   per_page: res.data.data.per_page,
-                //   city: cityList.find((x: ICityProps) => x.id === Number(city_id)),
-                //   price_from,
-                //   price_to,
-                // }
-
-                // dispatch(setData("searchParams", params))
+                nagivate(`/?city_id=${searchParams.city?.id ? searchParams.city.id : ""}&price_from=${searchParams.price_from}&price_to=${searchParams.price_to}`)
             }
         })
 
-        urlParams.set("city_id", searchParams.city?.id.toString() ?? "")
-        urlParams.set("price_from", searchParams.price_from?.toString() ?? "")
-        urlParams.set("price_to", searchParams.price_to?.toString() ?? "")
+        // urlParams.set("city_id", searchParams.city?.id.toString() ?? "")
+        // urlParams.set("price_from", searchParams.price_from?.toString() ?? "")
+        // urlParams.set("price_to", searchParams.price_to?.toString() ?? "")
 
-        setUrlParams(urlParams);
+        // setUrlParams(urlParams);
 
         closeModal()
 
@@ -85,9 +71,9 @@ const ProSearchFormMobileWrapper = () => {
         dispatch(changeValue("searchParams", "price_from", ""))
         dispatch(changeValue("searchParams", "price_to", ""))
 
-        urlParams.set("city_id", "")
-        urlParams.set("price_from", "")
-        urlParams.set("price_to", "")
+        // urlParams.set("city_id", "")
+        // urlParams.set("price_from", "")
+        // urlParams.set("price_to", "")
 
         setUrlParams(urlParams);
         setShowDialog(false);

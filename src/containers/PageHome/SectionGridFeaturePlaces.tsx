@@ -29,16 +29,15 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
   loading = false,
   getData,
   totalData = 0,
-    per_page = 0
+  per_page = 0
 }) => {
 
   const renderCard = (stay: IStayProps) => {
     return <ProStayCard key={stay.id} data={stay} />;
   };
 
-  console.log("salam",Math.ceil(totalData / per_page))
-  console.log("totalData",totalData)
-  console.log("per_page",per_page)
+  console.log("data", data)
+  console.log("totalData", totalData)
   return (
     <div className="nc-SectionGridFeaturePlaces relative">
       {/*<HeaderFilter*/}
@@ -51,7 +50,7 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
       <div
         className={`grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${gridClass}`}
       >
-         {data.map((item) => renderCard(item))}
+        {data.map((item) => renderCard(item))}
 
 
         {/*{*/}
@@ -76,17 +75,15 @@ const SectionGridFeaturePlaces: FC<SectionGridFeaturePlacesProps> = ({
         {/*}*/}
       </div>
       {
-          data.length > 0 &&
-          Math.ceil(totalData / per_page) !== 1 &&
-          Math.ceil(totalData / per_page) !== 0 &&
-        <div className="flex mt-16 justify-center items-center">
-          <ButtonPrimary
-            loading={loading}
-            onClick={() => getData && getData()}
-          >
-            Daha çox
-          </ButtonPrimary>
-        </div>
+        data.length !== totalData ?
+          <div className="flex mt-16 justify-center items-center">
+            <ButtonPrimary
+              loading={loading}
+              onClick={() => getData && getData()}
+            >
+              Daha çox
+            </ButtonPrimary>
+          </div> : ""
       }
     </div>
   );

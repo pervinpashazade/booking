@@ -31,6 +31,7 @@ import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import ProBreadcrumb from "components/ProBreadcrumb/ProBreadcrumb";
 
 
 const StayDetailPageContainer: FC<{}> = () => {
@@ -45,82 +46,81 @@ const StayDetailPageContainer: FC<{}> = () => {
 
   let [isOpen, setIsOpen] = useState(false)
 
-  const closeModal=()=> {
+  const closeModal = () => {
     setIsOpen(false)
   }
 
-  const openModal=()=> {
+  const openModal = () => {
     setIsOpen(true)
   }
 
-  const modalGallery =()=>{
-    console.log("data?.images",data?.images)
-    return(
-        <Transition appear show={isOpen} as={Fragment}>
-          <Dialog as="div" className="relative flex align-items-center" style={{zIndex: 999999}} onClose={closeModal}>
-            <Transition.Child
+  const modalGallery = () => {
+    return (
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative flex align-items-center" style={{ zIndex: 999999 }} onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" style={{ opacity: "0.6", backgroundColor: "black" }} />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center text-center">
+              <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
                 leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-            >
-              <div className="fixed inset-0 bg-black bg-opacity-25" style={{opacity:"0.6",backgroundColor:"black"}} />
-            </Transition.Child>
-
-            <div className="fixed inset-0 overflow-y-auto">
-              <div className="flex min-h-full items-center justify-center text-center">
-                <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
-                >
-                  <Dialog.Panel style={{minWidth:"100%",minHeight:"100vh"}} className="w-full max-w-md transform overflow-hidden rounded-2xl p-3 bg-black text-left shadow-xl transition-all">
-                    {/*<Dialog.Title*/}
-                    {/*    as="h3"*/}
-                    {/*    className="text-lg font-medium leading-6 text-gray-900"*/}
-                    {/*>*/}
-                    {/*  <button*/}
-                    {/*      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"*/}
-                    {/*      onClick={closeModal}>*/}
-                    {/*    X</button>*/}
-                    {/*</Dialog.Title>*/}
-                    <div className="relative flex justify-center" style={{height: "95vh", alignItems: "center"}}>
-                      <button
-                          style={{zIndex:9999, color:"white"}}
-                          className="modalClose absolute top-3 right-3 inline-flex justify-center rounded-md border border-transparent bg-neutral-800 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-neutral-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                          onClick={closeModal}>
-                        X</button>
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel style={{ minWidth: "100%", minHeight: "100vh" }} className="w-full max-w-md transform overflow-hidden rounded-2xl p-3 bg-black text-left shadow-xl transition-all">
+                  {/*<Dialog.Title*/}
+                  {/*    as="h3"*/}
+                  {/*    className="text-lg font-medium leading-6 text-gray-900"*/}
+                  {/*>*/}
+                  {/*  <button*/}
+                  {/*      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"*/}
+                  {/*      onClick={closeModal}>*/}
+                  {/*    X</button>*/}
+                  {/*</Dialog.Title>*/}
+                  <div className="relative flex justify-center" style={{ height: "95vh", alignItems: "center" }}>
+                    <button
+                      style={{ zIndex: 9999, color: "white" }}
+                      className="modalClose absolute top-3 right-3 inline-flex justify-center rounded-md border border-transparent bg-neutral-800 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-neutral-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      onClick={closeModal}>
+                      X</button>
+                    {/*@ts-ignore*/}
+                    <Swiper navigation={true} pagination={true} modules={[Pagination, Navigation]} className="mySwiper" style={{ height: "55vh" }}>
                       {/*@ts-ignore*/}
-                      <Swiper navigation={true} pagination={true} modules={[Pagination,Navigation]} className="mySwiper" style={{height:"55vh"}}>
-                        {/*@ts-ignore*/}
-                        {data?.images.map(item => {
-                            console.log("item",item)
-                            return(
-                                <SwiperSlide className="flex justify-center align-items-center bg-black">
-                                  {/*<Link to={`/room/${slug}`} className={`block aspect-w-4 aspect-h-3`}>*/}
-                                    <img className="modalImg" style={{width: "50%", margin: "auto", objectFit: "contain"}} src={item.url_full}/>
-                                  {/*</Link>*/}
-                                </SwiperSlide>
+                      {data?.images.map(item => {
+                        console.log("item", item)
+                        return (
+                          <SwiperSlide className="flex justify-center align-items-center bg-black">
+                            {/*<Link to={`/room/${slug}`} className={`block aspect-w-4 aspect-h-3`}>*/}
+                            <img className="modalImg" style={{ width: "50%", margin: "auto", objectFit: "contain" }} src={item.url_full} />
+                            {/*</Link>*/}
+                          </SwiperSlide>
 
-                                // <SwiperSlide><img src={item.url_full}/></SwiperSlide>
-                            )
-                          })
-                        }
-                      </Swiper>
-                    </div>
-                  </Dialog.Panel>
-                </Transition.Child>
-              </div>
+                          // <SwiperSlide><img src={item.url_full}/></SwiperSlide>
+                        )
+                      })
+                      }
+                    </Swiper>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
             </div>
-          </Dialog>
-        </Transition>
+          </div>
+        </Dialog>
+      </Transition>
     )
   }
 
@@ -730,9 +730,14 @@ const StayDetailPageContainer: FC<{}> = () => {
         <title>{data?.title ? `${data.title} | ${appName}` : appName}</title>
       </Helmet>
 
+      <ProBreadcrumb items={[
+        { title: 'Əsas səhifə', link: '/' },
+        { title: `${data?.title}` },
+      ]} />
+
       {modalGallery()}
       {/*  HEADER */}
-      <header className="rounded-md sm:rounded-xl pt-8">
+      <header className="rounded-md sm:rounded-xl pt-2">
         <div className="relative grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2">
           <div
             className="col-span-2 row-span-3 sm:row-span-2 relative rounded-md sm:rounded-xl overflow-hidden cursor-pointer "

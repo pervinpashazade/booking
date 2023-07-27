@@ -17,20 +17,21 @@ function PageHome() {
 
   const dispatch = useAppDispatch()
 
-  const [pagination, setPagination] = useState<IPaginationProps>({
-    page: 1,
-    per_page: 3,
-    total: 0
-  })
-
   const searchParams = useAppSelector(store => store.searchParams)
   const cityList = useAppSelector(store => store.staticData.cityList)
+
+  // const [pagination, setPagination] = useState<IPaginationProps>({
+  //   page: 1,
+  //   per_page: 1,
+  //   total: 0
+  // })
 
   let [urlParams] = useSearchParams()
 
   const list = useAppSelector(store => store.data.list)
 
   const [loading, setLoading] = useState<boolean>(false)
+  const [totalData, setTotalData] = useState<number>(0)
 
   useEffect(() => {
 
@@ -51,11 +52,13 @@ function PageHome() {
 
         dispatch(changeValue("data", "list", res.data.data.data))
 
-        setPagination({
-          page: res.data.data.current_page,
-          per_page: res.data.per_page,
-          total: res.data.data.total
-        })
+        // setPagination({
+        //   page: res.data.data.current_page,
+        //   per_page: res.data.per_page,
+        //   total: res.data.data.total
+        // })
+
+        setTotalData(res.data.data.total)
 
         const params = {
           page: res.data.data.current_page,
@@ -95,20 +98,23 @@ function PageHome() {
   }
 
   const getMoreData = () => {
-    getData({ page: pagination.page + 1, per_page: pagination.per_page }).then(res => {
+    getData({ page: searchParams.page + 1, per_page: searchParams.per_page }).then(res => {
       if (res.data.success) {
         dispatch(changeValue("data", "list", [...list, ...res.data.data.data]))
+        dispatch(changeValue("searchParams", "page", searchParams.page + 1))
+        setTotalData(res.data.data.total)
+
         // setList(prevState => [
         //   ...prevState,
         //   ...res.data.data.data
         // ])
 
-        setPagination(prevState => {
-          return {
-            ...prevState,
-            page: prevState.page + 1
-          }
-        })
+        // setPagination(prevState => {
+        //   return {
+        //     ...prevState,
+        //     page: prevState.page + 1
+        //   }
+        // })
       }
     })
   }
@@ -119,12 +125,12 @@ function PageHome() {
         dispatch(changeValue("data", "list", res.data.data.data))
         // setList(res.data.data.data)
 
-        setPagination(prevState => {
-          return {
-            ...prevState,
-            total: res.data.data.total
-          }
-        })
+        // setPagination(prevState => {
+        //   return {
+        //     ...prevState,
+        //     total: res.data.data.total
+        //   }
+        // })
       }
     })
   }
@@ -149,7 +155,7 @@ function PageHome() {
             loading={loading}
             data={list}
             getData={getMoreData}
-            totalData={pagination.total}
+            totalData={totalData}
             per_page={Number(searchParams.per_page)}
           />
         </div>
