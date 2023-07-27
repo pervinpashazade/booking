@@ -1,4 +1,4 @@
-import {FC, useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import Label from "components/Label/Label";
 import Avatar from "shared/Avatar/Avatar";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
@@ -14,6 +14,9 @@ import { useNavigate } from "react-router-dom";
 import {ArrowRightOnRectangleIcon} from "@heroicons/react/24/outline";
 import {logout} from "../../store/action";
 import { useAppDispatch } from "../../store/store";
+import SwitchDarkMode from "../../shared/SwitchDarkMode/SwitchDarkMode";
+import Logo from "../../shared/Logo/Logo";
+import HeroSearchForm2MobileFactory from "../../components/HeroSearchForm2Mobile/HeroSearchForm2MobileFactory";
 
 
 export interface AccountPageProps {
@@ -70,7 +73,18 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
       <CommonLayout>
         <div className="space-y-6 sm:space-y-8">
           {/* HEADING */}
-          <h2 className="text-3xl font-semibold">Profil</h2>
+          <div className="grid-container grid grid-cols-5 gap-5">
+            <div className="item1 col-span-4">
+              <div className="flex items-center h-full">
+                <h2 className="text-3xl font-semibold">Profil</h2>
+              </div>
+            </div>
+            <div className="item2 col-span-1">
+              <SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800" />
+            </div>
+          </div>
+
+
           <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
           <div className="flex flex-col md:flex-row">
             {/*<div className="flex-shrink-0 flex items-start">*/}

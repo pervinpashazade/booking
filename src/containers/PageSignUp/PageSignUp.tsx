@@ -111,8 +111,8 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
       <Helmet>
         <title>Qeydiyyat | {appName}</title>
       </Helmet>
-      <div className="container mb-24 lg:mb-32">
-        <h2 className="my-20 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
+      <div className="container mb-10 lg:mb-32">
+        <h2 className="my-10 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
           Qeydiyyat
         </h2>
         <div className="max-w-md mx-auto space-y-6 ">

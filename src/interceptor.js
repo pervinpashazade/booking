@@ -80,9 +80,8 @@ axios.interceptors.response.use(
 
       const originalRequest = error.config;
 
-      // debugger
       if (error.response.status === 401) {
-        debugger
+        // debugger
         const { dispatch } = store;
         const access_token = localStorage.getItem("access_token")
         if (access_token) {
@@ -97,7 +96,8 @@ axios.interceptors.response.use(
           dispatch(logout())
         }
 
-        return Promise.reject(error)
+        // return Promise.reject(error)
+        return reject(error)
 
         // toast.notify(({ onClose }) => (
         //   <div className="alert alert-danger m-3">
