@@ -13,7 +13,7 @@ import ListingCarPage from "containers/ListingCarPage/ListingCarPage";
 import ListingCarMapPage from "containers/ListingCarPage/ListingCarMapPage";
 import CheckOutPage from "containers/CheckOutPage/CheckOutPage";
 import PayPage from "containers/PayPage/PayPage";
-import AuthorPage from "containers/AuthorPage/AuthorPage";
+import ProAuthorPage from "containers/AuthorPage/ProAuthorPage";
 import AccountPage from "containers/AccountPage/AccountPage";
 import AccountPass from "containers/AccountPage/AccountPass";
 import AccountSavelists from "containers/AccountPage/AccountSavelists";
@@ -85,7 +85,7 @@ export const pages: Page[] = [
   { path: "/checkout", component: CheckOutPage },
   { path: "/pay-done", component: PayPage },
   //
-  { path: "/author/:id", component: AuthorPage },
+  { path: "/author/:id", component: ProAuthorPage },
   //
   { path: "/account", component: AccountPage },
   { path: "/account-password", component: AccountPass },

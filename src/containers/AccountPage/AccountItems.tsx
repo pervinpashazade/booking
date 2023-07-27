@@ -17,7 +17,20 @@ import { changeValue, setData } from "store/action";
 
 const AccountItems = () => {
 
-  let [categories] = useState(["Hazırda saytda", "Gözləmədə", "Müddəti bitmiş", "Dərc olunmayan"]);
+  // let [categories] = useState(["Hazırda saytda", "Gözləmədə", "Müddəti bitmiş", "Dərc olunmayan"]);
+  const [categories] = useState([{
+    id: 1,
+    name: "Hazırda saytda"
+  }, {
+    id: 2,
+    name: "Gözləmədə"
+  }, {
+    id: 3,
+    name: "Müddəti bitmiş"
+  }, {
+    id: 4,
+    name: "Dərc olunmayan"
+  }])
 
   const dispatch = useAppDispatch()
   const active_items = useAppSelector(store => store.account.active_items)
@@ -30,7 +43,6 @@ const AccountItems = () => {
         per_page: active_items.pagination.per_page,
       }).then((res: any) => {
         if (res.data.success) {
-          // setList(res.data.data.data)
           dispatch(changeValue("account", "active_items", res.data.data.data, "data"))
           dispatch(changeValue(
             "account",
@@ -94,7 +106,7 @@ const AccountItems = () => {
           <Tab.Group>
             <Tab.List className="flex space-x-1 overflow-x-auto">
               {categories.map((item) => (
-                <Tab key={item} as={Fragment}>
+                <Tab key={item.id} as={Fragment}>
                   {({ selected }) => (
                     <button
                       className={`flex-shrink-0 block !leading-none font-medium px-5 py-2.5 text-sm sm:text-base sm:px-6 sm:py-3 capitalize rounded-full focus:outline-none ${selected
@@ -102,7 +114,7 @@ const AccountItems = () => {
                         : "text-neutral-500 dark:text-neutral-400 dark:hover:text-neutral-100 hover:text-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                         } `}
                     >
-                      {item}
+                      {item.name}
                     </button>
                   )}
                 </Tab>
