@@ -70,7 +70,7 @@ const StayCard: FC<StayCardProps> = ({
                         data.images.map(item => {
                             return(
                                     <SwiperSlide key={item.url_full}>
-                                        <Link to={`/room/${slug}`} className={`block aspect-w-4 aspect-h-3`}>
+                                        <Link to={`/room/${slug}`} className={`block aspect-w-4 aspect-h-3 h-full`}>
                                             <img src={item.url_full}/>
                                         </Link>
                                     </SwiperSlide>
