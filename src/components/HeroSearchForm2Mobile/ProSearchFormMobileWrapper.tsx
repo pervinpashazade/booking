@@ -42,8 +42,6 @@ const ProSearchFormMobileWrapper = () => {
 
     const handleSearch = () => {
 
-        // console.log("searchProps", searchParams);
-
         getData({
             city_id: searchParams.city?.id,
             price_from: searchParams.price_from,
@@ -51,6 +49,7 @@ const ProSearchFormMobileWrapper = () => {
         }).then(res => {
             if (res.data.success) {
                 dispatch(changeValue("data", "list", res.data.data.data))
+                dispatch(changeValue("data", "total_data", res.data.data.total))
                 nagivate(`/?city_id=${searchParams.city?.id ? searchParams.city.id : ""}&price_from=${searchParams.price_from}&price_to=${searchParams.price_to}`)
             }
         })

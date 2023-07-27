@@ -1,11 +1,8 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import StaySearchForm from "./(stay-search-form)/StaySearchForm";
 import ExperiencesSearchForm from "./(experiences-search-form)/ExperiencesSearchForm";
-import axios from "axios";
-import { apiUrl } from "../../config";
-import { ICityProps } from "../../data/types";
 import { useAppSelector } from "store/store";
 
 export type SearchTab = "Kirayə" | "Turlar";
@@ -21,7 +18,6 @@ export interface HeroSearchFormProps {
 const HeroSearchForm: FC<HeroSearchFormProps> = ({
   className = "",
   currentTab = "Kirayə",
-  currentPage,
   getRoomData,
 }) => {
 
