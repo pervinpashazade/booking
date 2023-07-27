@@ -43,7 +43,10 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
     if (files) {
       const selectedFilesArray = Array.from(files);
       // setSelectedFiles(selectedFilesArray);
-      dispatch(changeValue("room", "images", selectedFilesArray))
+      dispatch(changeValue("room", "images", [
+        ...room.images,
+        ...selectedFilesArray
+      ]))
     }
   };
 
@@ -136,7 +139,9 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
                 className="!pl-8 !pr-10"
                 placeholder="0.00"
                 value={room.price ?? ""}
-                onChange={e => dispatch(changeValue("room", "price", e.target.value))}
+                onChange={e => {
+                  dispatch(changeValue("room", "price", isNaN(Number(e.target.value)) ? room.price : e.target.value))
+                }}
               />
               <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                 <span className="text-gray-500">AZN</span>

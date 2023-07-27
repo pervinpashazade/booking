@@ -24,6 +24,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({
   nextBtnText,
   backtHref,
 }) => {
+  const [errorMessage, setErrorMessage] = useState<string>('')
 
   const navigate = useNavigate()
 
@@ -73,8 +74,25 @@ const CommonLayout: FC<CommonLayoutProps> = ({
     formData.append("double_bed_count", room.double_bed_count.toString())
     formData.append("bathroom_count", room.bathroom_count.toString())
 
+    // // @ts-ignore
+    // room.images.forEach(item => {
+    //   console.log("item", item)
+    //   // @ts-ignore
+    //   return(formData.append("multiple_images[]", item))
+    // })
+
     // @ts-ignore
-    room.images.forEach(item => formData.append("multiple_images[]", item))
+    room.images.forEach((item:any) => {
+      console.log("item", item)
+      formData.append("multiple_images[]", item)
+    })
+
+    //
+    // for (let i = 0; i < room.images.length; i++) {
+    //   // @ts-ignore
+    //   formData.append("multiple_images", room.images[i]);
+    // };
+
 
     // // static
     formData.append("is_breakfast", "0")
@@ -91,6 +109,8 @@ const CommonLayout: FC<CommonLayoutProps> = ({
         navigate("/account-items")
       }
     }).catch((err: any) => {
+      setErrorMessage(err.response.data.message)
+      setValidationErrs([])
       console.log("post vendor/announcement err", err);
     })
   }
@@ -114,14 +134,38 @@ const CommonLayout: FC<CommonLayoutProps> = ({
         {/* --------------------- */}
         <div className="listingSection__wrap ">{children}</div>
 
-        {
-          validationErrs.length > 0 &&
-          <div className="my-11">
-            {
-              validationErrs.map((item, index) => <p key={index} className="text-red-600 mb-2">* {item}</p>)
-            }
-          </div>
-        }
+        <div className="space-y-4">
+          {
+              validationErrs.length > 0 &&
+              <div className="space-y-4">
+                {
+                  validationErrs.map((item, index) =>
+                      <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-0" role="alert">
+                        <div className="">
+                          <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
+                               viewBox="0 0 20 20">
+                            <path
+                                d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
+                          </svg>
+                        </div>
+                        <p>{item}</p>
+                      </div>
+                  )
+                }
+              </div>
+          }
+          {
+              errorMessage &&
+              <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1"  role="alert">
+                  <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
+                       viewBox="0 0 20 20">
+                    <path
+                        d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
+                  </svg>
+Ï                <p>{errorMessage}</p>
+              </div>
+          }
+        </div>
 
         {/* --------------------- */}
         <div className="flex justify-end space-x-5">
@@ -140,6 +184,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({
               </ButtonPrimary>
           }
         </div>
+
       </div>
     </div>
   );

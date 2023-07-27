@@ -10,7 +10,7 @@ axios.interceptors.request.use(
     const access_token = localStorage.getItem('access_token');
     if (access_token && config.url.indexOf('auth') === -1) {
       config.headers['Authorization'] = 'Bearer ' + access_token;
-      config.headers['Content-Type'] = 'application/json'
+      // config.headers['Content-Type'] = 'application/json'
     }
     return config;
   }, error => {
