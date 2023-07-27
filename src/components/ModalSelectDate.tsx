@@ -107,7 +107,7 @@ const ModalSelectDate: FC<ModalSelectDateProps> = ({ renderChildren }) => {
                         </div>
                       </div>
                     </div>
-                    <div className="px-4 py-3 bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 flex justify-between">
+                    <div className="px-4 py-4 bg-white dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-700 flex justify-between">
                       <button
                         type="button"
                         className="underline font-semibold flex-shrink-0"
