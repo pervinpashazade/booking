@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import SectionHero from "components/SectionHero/SectionHero";
-import SectionGridFeaturePlaces from "./SectionGridFeaturePlaces";
+import ProSectionGridFeaturePlaces from "./ProSectionGridFeaturePlaces";
 import {
   ICityProps,
   IPaginationProps,
@@ -31,10 +31,11 @@ function PageHome() {
   const list = useAppSelector(store => store.data.list)
 
   const [loading, setLoading] = useState<boolean>(false)
-  const [totalData, setTotalData] = useState<number>(0)
 
   useEffect(() => {
 
+    console.log("aaaaaaa");
+    
     let page = urlParams.get("page") ?? searchParams.page;
     let per_page = urlParams.get("per_page") ?? searchParams.per_page;
     let city_id = urlParams.get("city_id") ?? searchParams.city?.id;
@@ -51,14 +52,7 @@ function PageHome() {
       if (res.data.success) {
 
         dispatch(changeValue("data", "list", res.data.data.data))
-
-        // setPagination({
-        //   page: res.data.data.current_page,
-        //   per_page: res.data.per_page,
-        //   total: res.data.data.total
-        // })
-
-        setTotalData(res.data.data.total)
+        dispatch(changeValue("data", "total_data", res.data.data.total))
 
         const params = {
           page: res.data.data.current_page,
@@ -98,23 +92,15 @@ function PageHome() {
   }
 
   const getMoreData = () => {
-    getData({ page: searchParams.page + 1, per_page: searchParams.per_page }).then(res => {
+    getData({
+      city_id: searchParams.city?.id ,
+      page: searchParams.page + 1,
+      per_page: searchParams.per_page,
+    }).then(res => {
       if (res.data.success) {
         dispatch(changeValue("data", "list", [...list, ...res.data.data.data]))
+        dispatch(changeValue("data", "total_data", res.data.data.total))
         dispatch(changeValue("searchParams", "page", searchParams.page + 1))
-        setTotalData(res.data.data.total)
-
-        // setList(prevState => [
-        //   ...prevState,
-        //   ...res.data.data.data
-        // ])
-
-        // setPagination(prevState => {
-        //   return {
-        //     ...prevState,
-        //     page: prevState.page + 1
-        //   }
-        // })
       }
     })
   }
@@ -123,14 +109,7 @@ function PageHome() {
     getData(params).then(res => {
       if (res.data.success) {
         dispatch(changeValue("data", "list", res.data.data.data))
-        // setList(res.data.data.data)
-
-        // setPagination(prevState => {
-        //   return {
-        //     ...prevState,
-        //     total: res.data.data.total
-        //   }
-        // })
+        dispatch(changeValue("data", "total_data", res.data.data.total))
       }
     })
   }
@@ -151,11 +130,10 @@ function PageHome() {
         {/* SECTION */}
         <div className="relative py-16 !mt-0 lg:!mt-16">
           {/* <BackgroundSection /> */}
-          <SectionGridFeaturePlaces
+          <ProSectionGridFeaturePlaces
             loading={loading}
             data={list}
             getData={getMoreData}
-            totalData={totalData}
             per_page={Number(searchParams.per_page)}
           />
         </div>

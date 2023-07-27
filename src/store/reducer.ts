@@ -5,6 +5,7 @@ interface initialStateProps {
   data: {
     type: DataTypes,
     list: Array<IStayProps | IStayProps>
+    total_data: number
   }
   isAuth: boolean
   user: IUserProps
@@ -41,7 +42,8 @@ function getItemFromLocaleStorage(key: string) {
 export const initialState: initialStateProps = {
   data: {
     type: DataTypes.room,
-    list: []
+    list: [],
+    total_data: 0,
   },
   isAuth: !!localStorage.getItem("access_token"),
   user: getItemFromLocaleStorage("user"),
