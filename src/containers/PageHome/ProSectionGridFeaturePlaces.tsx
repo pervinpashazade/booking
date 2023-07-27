@@ -42,7 +42,7 @@ const ProSectionGridFeaturePlaces: FC<ProSectionGridFeaturePlacesProps> = ({
             </div>
             {
                 data.length !== total_data ?
-                    <div className="flex mt-16 justify-center items-center">
+                    <div className="flex mt-8 md:mt-12 justify-center items-center">
                         <ButtonPrimary
                             loading={loading}
                             onClick={() => getData && getData()}
