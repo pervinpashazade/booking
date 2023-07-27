@@ -150,9 +150,11 @@ const ProSearchFormMobileWrapper = () => {
                                 <Dialog.Panel className="relative h-full overflow-hidden flex-1 flex flex-col justify-between ">
                                     {showDialog && (
                                         <Tab.Group manual>
-                                            <div className="absolute left-4 top-4">
-                                                <button className="" onClick={closeModal}>
-                                                    <XMarkIcon className="w-5 h-5 text-black dark:text-white" />
+                                            <div className="absolute right-4 top-4">
+                                                <button
+                                                    // className="border rounded border-white"
+                                                    onClick={closeModal}>
+                                                    <XMarkIcon className="w-7 h-7 text-black dark:text-white" />
                                                 </button>
                                             </div>
                                             <Tab.List className="pt-12 flex w-full justify-center font-semibold text-sm sm:text-base text-neutral-500 dark:text-neutral-400 space-x-6 sm:space-x-8">
