@@ -32,6 +32,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import ProBreadcrumb from "components/ProBreadcrumb/ProBreadcrumb";
+import {XMarkIcon} from "@heroicons/react/24/solid";
 
 
 const StayDetailPageContainer: FC<{}> = () => {
@@ -96,7 +97,11 @@ const StayDetailPageContainer: FC<{}> = () => {
                       style={{ zIndex: 9999, color: "white" }}
                       className="modalClose absolute top-3 right-3 inline-flex justify-center rounded-md border border-transparent bg-neutral-800 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-neutral-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}>
-                      X</button>
+                      <XMarkIcon className="w-5 h-5 text-black dark:text-white" />
+                    </button>
+
+
+
                     {/*@ts-ignore*/}
                     <Swiper navigation={true} pagination={true} modules={[Pagination, Navigation]} className="mySwiper" style={{ height: "55vh" }}>
                       {/*@ts-ignore*/}
