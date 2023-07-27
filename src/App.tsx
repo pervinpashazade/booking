@@ -32,7 +32,7 @@ function App() {
   }
 
   return (
-    <div className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200 h-[100vh]">
+    <div className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200 min-h-screen">
       <Loader />
       <MyRouter />
     </div>
