@@ -30,14 +30,15 @@ const MainNav1: FC<MainNav1Props> = ({ className = "" }) => {
           // className="lg:hidden max-w-lg !mx-auto md:px-3"
           className="lg:hidden w-full md:px-3"
         >
-          <div className="grid-container grid grid-cols-5 gap-3">
-            <div className="item2 col-span-4">
-              <HeroSearchForm2MobileFactory />
-            </div>
-            <div className="item1 col-span-1">
+          <div className="grid-container grid grid-cols-5 gap-5">
+            <div className="item1 col-span-2">
               <div className="flex justify-center items-center h-full">
-                <SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800" />
+                {/*<SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800" />*/}
+                <Logo />
               </div>
+            </div>
+            <div className="item2 col-span-3">
+              <HeroSearchForm2MobileFactory />
             </div>
           </div>
           
