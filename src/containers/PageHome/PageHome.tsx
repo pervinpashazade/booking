@@ -128,7 +128,7 @@ function PageHome() {
         <SectionHero className="pt-0 lg:pt-6" getRoomData={filteredData} />
 
         {/* SECTION */}
-        <div className="relative py-16 !mt-0 lg:!mt-16">
+        <div className="relative pt-12 !mt-0 lg:!mt-0">
           {/* <BackgroundSection /> */}
           <ProSectionGridFeaturePlaces
             loading={loading}

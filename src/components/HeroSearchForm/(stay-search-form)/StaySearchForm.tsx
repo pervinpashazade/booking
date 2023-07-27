@@ -43,7 +43,7 @@ const StaySearchForm: FC<{
     }
 
     return (
-      <form className="w-full relative mt-8 flex rounded-full shadow-xl dark:shadow-2xl bg-white dark:bg-neutral-800 ">
+      <form className="w-full relative mt-1 flex rounded-full shadow-xl dark:shadow-2xl bg-white dark:bg-neutral-800 ">
         <LocationInput
           cities={cities}
           className="flex-[1.5]"
