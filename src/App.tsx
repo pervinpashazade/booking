@@ -3,7 +3,7 @@ import { Loader } from "components/Loader/Loader";
 import { apiUrl } from "config";
 import React, { useEffect } from "react";
 import MyRouter from "routers/index";
-import { changeValue } from "store/action";
+import { changeValue, login, logout } from "store/action";
 import { useAppDispatch, useAppSelector } from "store/store";
 
 function App() {
@@ -11,6 +11,17 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (localStorage.getItem("access_token")) {
+      axios.get(apiUrl + "user/auth/me").then(res => {
+        if (res.data.success) {
+          console.log("meee", res.data.data);
+          localStorage.setItem('user', JSON.stringify(res.data.data))
+          dispatch(login(res.data.data))
+        }
+      }).catch(err => {
+        dispatch(logout())
+      })
+    }
     getSharedDataList()
   }, [])
 

@@ -61,7 +61,7 @@ const AuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
 
         {/* ---- */}
         <div className="space-y-3 text-center flex flex-col items-center">
-          <h2 className="text-3xl font-semibold">{user.name ?? ""} {user.surname ?? ""}</h2>
+          <h2 className="text-3xl font-semibold">{user?.name ?? ""} {user?.surname ?? ""}</h2>
           {/* <StartRating className="!text-base" /> */}
         </div>
 
@@ -82,7 +82,7 @@ const AuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
 
         {/* ---- */}
         <p className="text-neutral-500 dark:text-neutral-400">
-          {user.email ?? ""}
+          {user?.email ?? ""}
         </p>
 
         {/* ---- */}

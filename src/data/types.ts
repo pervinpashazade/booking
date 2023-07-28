@@ -105,6 +105,8 @@ export interface IUserProps {
   name?: string
   surname?: string
   email?: string
+  phone?: string
+  created_at?: string
 }
 
 export interface IPaginationProps {

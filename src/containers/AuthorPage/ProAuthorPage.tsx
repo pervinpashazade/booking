@@ -1,50 +1,65 @@
-import React, { FC, Fragment, useEffect, useState } from "react";
-import { Tab } from "@headlessui/react";
-import CarCard from "components/CarCard/CarCard";
+import { FC, useEffect, useState } from "react";
 import CommentListing from "components/CommentListing/CommentListing";
-import ExperiencesCard from "components/ExperiencesCard/ExperiencesCard";
-import StartRating from "components/StartRating/StartRating";
-import StayCard from "components/StayCard/StayCard";
-import {
-  DEMO_CAR_LISTINGS,
-  DEMO_EXPERIENCES_LISTINGS,
-  DEMO_STAY_LISTINGS,
-} from "data/listings";
+
 import Avatar from "shared/Avatar/Avatar";
 import ButtonSecondary from "shared/Button/ButtonSecondary";
-import SocialsList from "shared/SocialsList/SocialsList";
 import { Helmet } from "react-helmet";
-import { useAppSelector } from "store/store";
+import { useAppDispatch, useAppSelector } from "store/store";
 import { apiUrl, appName } from "config";
 import axios from "axios";
-import { IStayProps, StayDataType } from "data/types";
+import { IStayProps } from "data/types";
 import ProStayCard from "components/StayCard/ProStayCard";
+import { logout } from "store/action";
+import moment from "moment";
 
 export interface AuthorPageProps {
   className?: string;
 }
 
 const ProAuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
-  let [categories] = useState(["Elanlarım", "Turlar", "Car for rent"]);
+
+  const dispatch = useAppDispatch()
 
   const user = useAppSelector(store => store.user)
 
   const [list, setList] = useState<Array<IStayProps>>([])
 
   useEffect(() => {
+    // if (!user) {
+    //   dispatch(logout())
+    //   return
+    // }
+
+    // axios.get(apiUrl + "vendor/announcement", {
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem("access_token")}`
+    //   },
+    //   params: {
+    //     me: true
+    //   }
+    // }).then(res => {
+    //   if (res.data.success) {
+    //     setList(res.data.data.data)
+    //   }
+    // }).catch(err => {
+    //   console.log("account vendor/announcement error", err);
+    // }).finally(() => {
+
+    // })
+
+    // https://home.ramilhuseynov.com/api/vendor/announcement?page=1&per_page=12&filter[price_from]=10&filter[price_to]=5000
+
     axios.get(apiUrl + "vendor/announcement", {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`
-      },
       params: {
-        me: true
+        author_id: 1,
       }
     }).then(res => {
       if (res.data.success) {
         setList(res.data.data.data)
       }
     }).catch(err => {
-      console.log("account vendor/announcement error", err);
+      console.log("vendor details error", err);
+      // navigate("/")
     }).finally(() => {
 
     })
@@ -61,7 +76,7 @@ const ProAuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
 
         {/* ---- */}
         <div className="space-y-3 text-center flex flex-col items-center">
-          <h2 className="text-3xl font-semibold">{user.name ?? ""} {user.surname ?? ""}</h2>
+          <h2 className="text-3xl font-semibold">{list[0]?.user?.name ?? ""} {list[0]?.user?.surname ?? ""}</h2>
           {/* <StartRating className="!text-base" /> */}
         </div>
 
@@ -82,7 +97,7 @@ const ProAuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
 
         {/* ---- */}
         <p className="text-neutral-500 dark:text-neutral-400">
-          {user.email ?? ""}
+          {list[0]?.user?.email ?? ""}
         </p>
 
         {/* ---- */}
@@ -142,7 +157,27 @@ const ProAuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
               />
             </svg>
             <span className="text-neutral-6000 dark:text-neutral-300">
-              Joined in March 2016
+              Qeydiyyat tarixi {list[0]?.user?.created_at ? moment(list[0].user.created_at).format("DD MMMM YYYY") : ""}
+            </span>
+          </div>
+
+          <div className="flex items-center space-x-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6 text-neutral-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
+              />
+            </svg>
+            <span className="text-neutral-6000 dark:text-neutral-300">
+            {list[0]?.user?.phone ?? ""}
             </span>
           </div>
         </div>

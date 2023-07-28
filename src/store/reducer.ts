@@ -8,7 +8,7 @@ interface initialStateProps {
     total_data: number
   }
   isAuth: boolean
-  user: IUserProps
+  user: IUserProps | null
   room: IStayProps,
   searchParams: {
     city: any,
@@ -46,7 +46,8 @@ export const initialState: initialStateProps = {
     total_data: 0,
   },
   isAuth: !!localStorage.getItem("access_token"),
-  user: getItemFromLocaleStorage("user"),
+  // user: getItemFromLocaleStorage("user"),
+  user: null,
   account: {
     active_items: {
       data: [],
@@ -87,6 +88,24 @@ export default (state = initialState, action: any) => {
       return Object.assign({}, state, {
         isAuth: true,
         user: action.data,
+        account: {
+          active_items: {
+            data: [],
+            pagination: {
+              page: 1,
+              per_page: 10,
+              total: 0,
+            }
+          },
+          wishlist: {
+            data: [],
+            pagination: {
+              page: 1,
+              per_page: 10,
+              total: 0,
+            }
+          }
+        },
       });
 
     case actionTypes.LOGOUT:

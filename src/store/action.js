@@ -33,6 +33,7 @@ export const login = (data) => {
 export const logout = () => {
   return (dispatch) => {
     localStorage.removeItem("access_token")
+    localStorage.removeItem("user")
     dispatch({
       type: actionTypes.LOGOUT,
     });
