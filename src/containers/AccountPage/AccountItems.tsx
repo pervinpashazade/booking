@@ -14,56 +14,41 @@ import { apiUrl, appName } from "../../config";
 import Helmet from "react-helmet"
 import { useAppDispatch, useAppSelector } from "store/store";
 import { changeValue, setData } from "store/action";
+import { status_list } from "store/staticData";
 
 const AccountItems = () => {
-
-  // let [categories] = useState(["Hazırda saytda", "Gözləmədə", "Müddəti bitmiş", "Dərc olunmayan"]);
-  const [categories] = useState([{
-    id: 1,
-    name: "Hazırda saytda"
-  }, {
-    id: 2,
-    name: "Gözləmədə"
-  }, {
-    id: 3,
-    name: "Müddəti bitmiş"
-  }, {
-    id: 4,
-    name: "Dərc olunmayan"
-  }])
 
   const dispatch = useAppDispatch()
   const active_items = useAppSelector(store => store.account.active_items)
   const preLoader = useAppSelector(store => store.preLoader)
 
-  useEffect(() => {
-    if (!active_items.data.length) {
-      getData({
-        page: active_items.pagination.page,
-        per_page: active_items.pagination.per_page,
-      }).then((res: any) => {
-        if (res.data.success) {
-          dispatch(changeValue("account", "active_items", res.data.data.data, "data"))
-          dispatch(changeValue(
-            "account",
-            "active_items",
-            {
-              page: res.data.data.current_page,
-              per_page: res.data.data.per_page,
-              total: res.data.data.total
-            },
-            "pagination"))
-        }
-      }).catch(err => {
-        console.log("account vendor/announcement/ error", err);
-      })
-    }
+  const [activeTab, setActiveTab] = useState(2)
 
-  }, [])
+  useEffect(() => {
+    getData({
+      page: active_items.pagination.page,
+      per_page: active_items.pagination.per_page,
+    }).then((res: any) => {
+      if (res.data.success) {
+        dispatch(changeValue("account", "active_items", res.data.data.data, "data"))
+        dispatch(changeValue(
+          "account",
+          "active_items",
+          {
+            page: res.data.data.current_page,
+            per_page: res.data.data.per_page,
+            total: res.data.data.total
+          },
+          "pagination"))
+      }
+    }).catch(err => {
+      console.log("account page announcement error", err);
+    })
+  }, [activeTab])
 
   const getData = async (params: { page: number, per_page: number }) => {
     dispatch(setData("preLoader", true))
-    return axios.get(apiUrl + "vendor/announcement", {
+    return axios.get(apiUrl + `vendor/announcement?filter[status_id]=${activeTab}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
       },
@@ -101,11 +86,10 @@ const AccountItems = () => {
           <h2 className="text-3xl font-semibold">Elanlarım</h2>
         </div>
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
-
         <div>
           <Tab.Group>
             <Tab.List className="flex space-x-1 overflow-x-auto">
-              {categories.map((item) => (
+              {status_list.map((item) => (
                 <Tab key={item.id} as={Fragment}>
                   {({ selected }) => (
                     <button
@@ -113,6 +97,7 @@ const AccountItems = () => {
                         ? "bg-secondary-900 text-secondary-50 "
                         : "text-neutral-500 dark:text-neutral-400 dark:hover:text-neutral-100 hover:text-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800"
                         } `}
+                        onClick={() => setActiveTab(item.id)}
                     >
                       {item.name}
                     </button>
@@ -141,15 +126,21 @@ const AccountItems = () => {
               </Tab.Panel>
               <Tab.Panel className="mt-8">
                 <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                  {DEMO_EXPERIENCES_LISTINGS.filter((_, i) => i < 8).map(
-                    (stay) => (
-                      <ExperiencesCard key={stay.id} data={stay} />
-                    )
-                  )}
+                  {active_items.data.map((stay) => (
+                    <ProStayCard key={stay.id} data={stay} />
+                  ))}
                 </div>
-                <div className="flex mt-11 justify-center items-center">
-                  <ButtonSecondary>Show me more</ButtonSecondary>
-                </div>
+                {
+                  active_items.data.length < active_items.pagination.total &&
+                  <div className="flex mt-11 justify-center items-center">
+                    <ButtonSecondary
+                      loading={preLoader}
+                      onClick={getMoreData}
+                    >
+                      Daha çox
+                    </ButtonSecondary>
+                  </div>
+                }
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>

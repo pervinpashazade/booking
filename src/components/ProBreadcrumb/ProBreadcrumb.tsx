@@ -2,15 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface IBreadcrumbProps {
+  classnames?: string
   items: Array<{
     title: string
     link?: string
   }>
 }
 
-const ProBreadcrumb: React.FC<IBreadcrumbProps> = ({ items }) => {
+const ProBreadcrumb: React.FC<IBreadcrumbProps> = ({ items, classnames }) => {
   return (
-    <nav className="text-sm md:text-base py-4">
+    <nav className={`text-sm md:text-base py-4 ${classnames}`}>
       <ol className="list-none p-0 flex">
         {items.map((item, index) => (
           <li key={index} className="flex items-center">

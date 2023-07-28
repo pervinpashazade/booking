@@ -8,7 +8,8 @@ import React from "react";
 axios.interceptors.request.use(
   config => {
     const access_token = localStorage.getItem('access_token');
-    if (access_token && config.url.indexOf('auth') === -1) {
+    // if (access_token && config.url.indexOf('auth') === -1) {
+    if (access_token) {
       config.headers['Authorization'] = 'Bearer ' + access_token;
       // config.headers['Content-Type'] = 'application/json'
     }
@@ -74,7 +75,7 @@ axios.interceptors.response.use(
     //   return Promise.reject(error)
     // }
 
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve, reject) => {
 
       console.log("test func");
 
@@ -111,7 +112,7 @@ axios.interceptors.response.use(
         // dispatch(logout());
       }
 
-      
+
 
       // if (error.response.status === 401 &&
       //   error.response.data.status === "fail" &&

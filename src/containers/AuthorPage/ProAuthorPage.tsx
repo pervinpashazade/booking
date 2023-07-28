@@ -11,6 +11,7 @@ import { IStayProps } from "data/types";
 import ProStayCard from "components/StayCard/ProStayCard";
 import { logout } from "store/action";
 import moment from "moment";
+import { useParams } from "react-router-dom";
 
 export interface AuthorPageProps {
   className?: string;
@@ -18,9 +19,7 @@ export interface AuthorPageProps {
 
 const ProAuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
 
-  const dispatch = useAppDispatch()
-
-  const user = useAppSelector(store => store.user)
+  const {id} = useParams()
 
   const [list, setList] = useState<Array<IStayProps>>([])
 
@@ -51,7 +50,7 @@ const ProAuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
 
     axios.get(apiUrl + "vendor/announcement", {
       params: {
-        author_id: 1,
+        author_id: id,
       }
     }).then(res => {
       if (res.data.success) {
@@ -199,9 +198,9 @@ const ProAuthorPage: FC<AuthorPageProps> = ({ className = "" }) => {
               <ProStayCard key={item.id} data={item} />
             ))}
           </div>
-          <div className="flex mt-11 justify-center items-center">
+          {/* <div className="flex mt-11 justify-center items-center">
             <ButtonSecondary>Show me more</ButtonSecondary>
-          </div>
+          </div> */}
         </div>
       </div>
     );

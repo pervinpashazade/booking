@@ -1,5 +1,5 @@
+import { Fragment, useEffect, useState } from "react";
 import { Tab } from "@headlessui/react";
-import CarCard from "components/CarCard/CarCard";
 import ExperiencesCard from "components/ExperiencesCard/ExperiencesCard";
 import ProStayCard from "components/StayCard/ProStayCard";
 import {
@@ -7,10 +7,8 @@ import {
   DEMO_EXPERIENCES_LISTINGS,
   DEMO_STAY_LISTINGS,
 } from "data/listings";
-import React, { Fragment, useEffect, useState } from "react";
 import ButtonSecondary from "shared/Button/ButtonSecondary";
 import CommonLayout from "./CommonLayout";
-import { IPaginationProps, IStayProps } from "../../data/types";
 import axios from "axios";
 import { apiUrl, appName } from "../../config";
 import Helmet from "react-helmet";
@@ -18,7 +16,7 @@ import { useAppDispatch, useAppSelector } from "store/store";
 import { changeValue, setData } from "store/action";
 
 const AccountSavelists = () => {
-  let [categories] = useState(["Kirayə", "Turlar"]);
+  // let [categories] = useState(["Kirayə", "Turlar"]);
 
   const wishlist = useAppSelector(store => store.account.wishlist)
   const preLoader = useAppSelector(store => store.preLoader)
@@ -93,7 +91,7 @@ const AccountSavelists = () => {
 
         <div>
           <Tab.Group>
-            <Tab.List className="flex space-x-1 overflow-x-auto">
+            {/* <Tab.List className="flex space-x-1 overflow-x-auto">
               {categories.map((item) => (
                 <Tab key={item} as={Fragment}>
                   {({ selected }) => (
@@ -108,7 +106,7 @@ const AccountSavelists = () => {
                   )}
                 </Tab>
               ))}
-            </Tab.List>
+            </Tab.List> */}
             <Tab.Panels>
               <Tab.Panel className="mt-8">
                 <div className="grid grid-cols-1 gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

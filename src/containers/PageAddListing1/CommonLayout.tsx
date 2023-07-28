@@ -8,6 +8,7 @@ import { useAppSelector } from "store/store";
 import axios from "axios";
 import { IFormValidationProps, IImageProps } from "data/types";
 import { useNavigate } from "react-router-dom";
+import ProBreadcrumb from "components/ProBreadcrumb/ProBreadcrumb";
 
 export interface CommonLayoutProps {
   index: string;
@@ -82,7 +83,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({
     // })
 
     // @ts-ignore
-    room.images.forEach((item:any) => {
+    room.images.forEach((item: any) => {
       console.log("item", item)
       formData.append("multiple_images[]", item)
     })
@@ -117,12 +118,23 @@ const CommonLayout: FC<CommonLayoutProps> = ({
 
   return (
     <div
-      className={`nc-PageAddListing1 px-4 max-w-3xl mx-auto pb-24 pt-14 sm:py-24 lg:pb-32`}
+      className={`nc-PageAddListing1 px-4 max-w-3xl mx-auto pb-24 pt-14 sm:py-7 lg:pb-32`}
       data-nc-id="PageAddListing1"
     >
       <Helmet>
         <title>Yeni elan | {appName}</title>
       </Helmet>
+
+      <ProBreadcrumb
+        classnames="mb-7"
+        items={[{
+          title: "Əsas səhifə",
+          link: "/",
+        }, {
+          title: "Yeni elan",
+        }]}
+      />
+
       <div className="space-y-11">
         <div>
           <span className="text-4xl font-semibold">{index}</span>{" "}
@@ -136,34 +148,34 @@ const CommonLayout: FC<CommonLayoutProps> = ({
 
         <div className="space-y-4">
           {
-              validationErrs.length > 0 &&
-              <div className="space-y-4">
-                {
-                  validationErrs.map((item, index) =>
-                      <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-0" role="alert">
-                        <div className="">
-                          <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
-                               viewBox="0 0 20 20">
-                            <path
-                                d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
-                          </svg>
-                        </div>
-                        <p>{item}</p>
-                      </div>
-                  )
-                }
-              </div>
+            validationErrs.length > 0 &&
+            <div className="space-y-4">
+              {
+                validationErrs.map((item, index) =>
+                  <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-0" role="alert">
+                    <div className="">
+                      <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20">
+                        <path
+                          d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                      </svg>
+                    </div>
+                    <p>{item}</p>
+                  </div>
+                )
+              }
+            </div>
           }
           {
-              errorMessage &&
-              <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1"  role="alert">
-                  <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
-                       viewBox="0 0 20 20">
-                    <path
-                        d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
-                  </svg>
-Ï                <p>{errorMessage}</p>
-              </div>
+            errorMessage &&
+            <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1" role="alert">
+              <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20">
+                <path
+                  d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+              </svg>
+              Ï                <p>{errorMessage}</p>
+            </div>
           }
         </div>
 
