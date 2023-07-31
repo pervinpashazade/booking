@@ -25,6 +25,7 @@ const SwitchDarkMode: React.FC<SwitchDarkModeProps> = ({ className = "" }) => {
     if (!root) return;
     !root.classList.contains("dark") && root.classList.add("dark");
     localStorage.theme = "dark";
+    document.body.style.backgroundColor = "#101827"
   };
 
   const toLight = () => {
@@ -33,6 +34,7 @@ const SwitchDarkMode: React.FC<SwitchDarkModeProps> = ({ className = "" }) => {
     if (!root) return;
     root.classList.remove("dark");
     localStorage.theme = "light";
+    document.body.style.backgroundColor = "#fff"
   };
 
   function _toogleDarkMode() {
