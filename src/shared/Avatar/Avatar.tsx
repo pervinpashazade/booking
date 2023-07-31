@@ -1,6 +1,8 @@
 import { avatarColors } from "contains/contants";
 import React, { FC } from "react";
-import avatar1 from "images/avatars/user.png";
+// import avatar1 from "images/avatars/user.png";
+import avatarWhite from "images/user1.png";
+import avatarDark from "images/user-square.svg";
 
 export interface AvatarProps {
   containerClassName?: string;
@@ -16,7 +18,7 @@ const Avatar: FC<AvatarProps> = ({
   containerClassName = "ring-1 ring-white dark:ring-neutral-900",
   sizeClass = "h-6 w-6 text-sm",
   radius = "rounded-full",
-  imgUrl = avatar1,
+  imgUrl = avatarWhite,
   userName,
   hasChecked,
   hasCheckedClass = "w-4 h-4 -top-0.5 -right-0.5",
@@ -33,7 +35,7 @@ const Avatar: FC<AvatarProps> = ({
   return (
     <div
       className={`wil-avatar relative flex-shrink-0 inline-flex items-center justify-center text-neutral-100 uppercase font-semibold shadow-inner ${radius} ${sizeClass} ${containerClassName}`}
-      style={{ backgroundColor: url ? undefined : _setBgColor(name) }}
+      style={{ backgroundColor: url ? undefined : _setBgColor(name), width: '45px', height: '45px' }}
     >
       {url && (
         <img
@@ -42,7 +44,7 @@ const Avatar: FC<AvatarProps> = ({
           alt={name}
         />
       )}
-      <span className="wil-avatar__name">{name[0]}</span>
+      {/*<span className="wil-avatar__name">{name[0]}</span>*/}
 
       {hasChecked && (
         <span

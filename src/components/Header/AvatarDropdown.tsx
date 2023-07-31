@@ -61,7 +61,7 @@ export default function AvatarDropdown() {
 
   return (
     <div className="AvatarDropdown">
-      <Popover className="relative">
+      <Popover className="relative flex align-center justify-center">
         {({ open }) => (
           <>
             <Popover.Button
