@@ -63,6 +63,10 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
       setErrorMessage('Soyad daxil edin')
       return
     }
+    if (!data.phone) {
+      setErrorMessage('Telefon daxil edin')
+      return
+    }
     if (!data.email) {
       setErrorMessage('Email daxil edin')
       return
@@ -171,6 +175,17 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
             </label>
             <label className="block">
               <span className="text-neutral-800 dark:text-neutral-200">
+                Telefon
+              </span>
+              <Input
+                type="number"
+                name="phone"
+                placeholder="+994123456789"
+                className="mt-1"
+              />
+            </label>
+            <label className="block">
+              <span className="text-neutral-800 dark:text-neutral-200">
                 Email
               </span>
               <Input
@@ -208,7 +223,7 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
             {/*}*/}
             {
                 errorMessage &&
-                <div className="flex items-center rounded rounded-xl text-red-600 text-sm font-bold px-1 py-1" role="alert">
+                <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-1" role="alert">
                   <div className="py-1">
                     <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
                          viewBox="0 0 20 20">

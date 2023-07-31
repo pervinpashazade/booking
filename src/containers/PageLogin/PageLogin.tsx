@@ -55,7 +55,6 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
       localStorage.setItem('user', JSON.stringify(res.data.data.user))
       dispatch(login(res.data.data.user))
       navigate(redirectUrl ?? "/")
-      // navigate(redirectUrl ? `/${redirectUrl}` : "/")
     }).catch((err: any) => {
       console.log("login error", err.response.data)
       setErrorMessage(err.response.data.message)
