@@ -7,6 +7,7 @@ export interface FormItemProps {
   label?: string;
   desc?: string;
   children?: React.ReactNode;
+  invalid?: boolean,
 }
 
 const FormItem: FC<FormItemProps> = ({
@@ -14,10 +15,11 @@ const FormItem: FC<FormItemProps> = ({
   className = "",
   label,
   desc,
+  invalid,
 }) => {
   return (
     <div className={className}>
-      {label && <Label>{label}</Label>}
+      {label && <Label className={`${invalid ? '!text-red-600' : ''} `}>{label}</Label>}
       <div className="mt-1">{children}</div>
       {desc && (
         <span className="block mt-3 text-xs text-neutral-500 dark:text-neutral-400 ">
