@@ -26,6 +26,7 @@ import { setData as setStoreData } from "store/action";
 import MobileFooterSticky from "../(components)/MobileFooterSticky";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
+import SingleBed from "./../../../images/single-bed-96.png";
 
 // Import Swiper styles
 import 'swiper/css';
@@ -260,7 +261,8 @@ const StayDetailPageContainer: FC<{}> = () => {
             </span>
           </div>
           <div className="flex items-center space-x-3">
-            <i className=" las la-bed text-2xl"></i>
+            {/*<i className=" las la-bed text-2xl"></i>*/}
+            <img src={SingleBed} style={{width: "24px",height: "24px"}}/>
             <span className=" ">
               {data?.single_bed_count} <span className="hidden sm:inline-block">Tək yataq</span>
             </span>
