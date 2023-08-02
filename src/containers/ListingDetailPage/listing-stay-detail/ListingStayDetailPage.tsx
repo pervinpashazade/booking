@@ -288,7 +288,7 @@ const StayDetailPageContainer: FC<{}> = () => {
 
   const renderSection2 = () => {
     return (
-      <div className="listingSection__wrap">
+      <div className="listingSection__wrap" style={{marginBottom: "50px"}}>
         <h2 className="text-2xl font-semibold">Ətraflı məlumat</h2>
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         <div className="text-neutral-6000 dark:text-neutral-300">
