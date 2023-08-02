@@ -262,6 +262,9 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
 
                 </div>
               </div>
+              {
+                room_errors['images'] && <p className="my-4 text-red-600">{room_errors['images']}</p>
+              }
             </div>
           </div>
         </div>
