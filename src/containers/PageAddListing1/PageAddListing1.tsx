@@ -17,6 +17,8 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
 
   const dispatch = useAppDispatch()
   const room = useAppSelector(store => store.room)
+  const room_errors = useAppSelector(store => store.room_errors)
+
   const cityList = useAppSelector(store => store.staticData.cityList)
 
   const [categoryList, setCategoryList] = useState<Array<ICategoryProps>>([])
@@ -92,16 +94,21 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
     >
       <>
         <h2 className="text-2xl font-semibold">Yeni elan</h2>
+        {
+          console.log("room_errors", room_errors)
+        }
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         {/* FORM */}
         <div className="space-y-8">
           {/* ITEM */}
           <FormItem
             label="Məkan növü"
+            invalid={room_errors['category'] ? true : false}
           // desc="Adətən öz brendini və dekorasiyasını müəyyən edən unikal üsluba və ya mövzuya malik olan peşəkar qonaqpərvərlik müəssisələri"
           >
             <Select
               value={room.category?.id}
+              invalid={room_errors['category'] ? true : false}
               onChange={e => dispatch(changeValue("room", "category", categoryList.find(x => x.id === Number(e.target.value))))}
             >
               <option value="" hidden>Seçin</option>
@@ -112,32 +119,46 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
           </FormItem>
           <FormItem
             label="Məkanın adı"
+            invalid={room_errors['title'] ? true : false}
           // desc="Cazibədar ad adətən daxildir: Ev adı + Otaq adı + Seçilmiş əmlak + Turist təyinatı"
           >
             <Input
               value={room.title ?? ""}
+              invalid={room_errors['title'] ? true : false}
               placeholder="Məs.: Dağ mənzərəli A Frame villa"
               onChange={e => dispatch(changeValue("room", "title", e.target.value))}
             />
           </FormItem>
-          <FormItem label="Şəhər">
+          <FormItem
+            label="Şəhər"
+            invalid={room_errors['city'] ? true : false}
+          >
             <Select
               value={room.city?.id}
+              invalid={room_errors['city'] ? true : false}
               onChange={e => dispatch(changeValue("room", "city", cityList.find(x => x.id === Number(e.target.value))))}
             >
+              <option value="" hidden>Seçin</option>
               {
                 cityList.map(item => <option key={item.id} value={item.id}>{item.name}</option>)
               }
             </Select>
           </FormItem>
-          <FormItem label="Küçə">
+          <FormItem
+            label="Küçə"
+            invalid={room_errors['address'] ? true : false}
+          >
             <Input
               value={room.address ?? ""}
               placeholder="..."
+              invalid={room_errors['address'] ? true : false}
               onChange={e => dispatch(changeValue("room", "address", e.target.value))}
             />
           </FormItem>
-          <FormItem label="Qiymət (günlük)">
+          <FormItem
+            label="Qiymət (günlük)"
+            invalid={room_errors['price'] ? true : false}
+          >
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <span className="text-gray-500">{manat_icon}</span>
@@ -146,6 +167,7 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
                 className="!pl-8 !pr-10"
                 placeholder="0.00"
                 value={room.price ?? ""}
+                invalid={room_errors['price'] ? true : false}
                 onChange={e => {
                   dispatch(changeValue("room", "price", isNaN(Number(e.target.value)) ? room.price : e.target.value))
                 }}
@@ -155,24 +177,27 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
               </div>
             </div>
           </FormItem>
-          <FormItem label="Ətraflı məlumat">
+          <FormItem
+            label="Ətraflı məlumat"
+            invalid={room_errors['content'] ? true : false}
+          >
             <Textarea
               placeholder="..."
               rows={14}
               value={room.content ?? ""}
+              invalid={room_errors['content'] ? true : false}
               onChange={e => dispatch(changeValue("room", "content", e.target.value))}
             />
           </FormItem>
 
           <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
-          {/* FORM */}
           <div className="space-y-8">
             {/* ----------------- */}
             <div>
-              <span className="text-lg font-semibold">Şəkillər</span>
+              <span className={`text-lg font-semibold ${room_errors['images'] ? "text-red-600" : ""}`}>Şəkillər</span>
               <div className="mt-5 ">
                 <div
-                  className="mt-1 flex flex-col items-center justify-center px-6 pt-5 pb-6 border-2 border-neutral-300 dark:border-neutral-6000 border-dashed rounded-md"
+                  className={`mt-1 flex flex-col items-center justify-center px-6 pt-5 pb-6 border-2 border-neutral-300 dark:border-neutral-6000 border-dashed rounded-md ${room_errors['images'] ? "!border-red-600" : ""}`}
                   onDrop={handleDrop}
                   onDragOver={handleDragOver}
                   onDragLeave={handleDragLeave}

@@ -10,6 +10,7 @@ interface initialStateProps {
   isAuth: boolean
   user: IUserProps | null
   room: IStayProps,
+  room_errors: { [key: string]: string }
   searchParams: {
     city: any,
     price_from: any,
@@ -68,6 +69,7 @@ export const initialState: initialStateProps = {
   },
   // @ts-ignore
   room: {},
+  room_errors: {},
   searchParams: {
     city: null,
     price_from: 10,
