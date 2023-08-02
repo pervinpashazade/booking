@@ -25,6 +25,7 @@ function App() {
     getSharedDataList()
   }, [])
 
+  // console.log("data")
   const getSharedDataList = () => {
     axios.get(apiUrl + 'shared/cities').then(res => {
       if (res.data.success) {
