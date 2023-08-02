@@ -43,10 +43,17 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
     if (files) {
       const selectedFilesArray = Array.from(files);
       // setSelectedFiles(selectedFilesArray);
-      dispatch(changeValue("room", "images", [
-        ...room.images,
-        ...selectedFilesArray
-      ]))
+      if (room?.images?.length) {
+        dispatch(changeValue("room", "images", [
+          ...room.images,
+          ...selectedFilesArray
+        ]))
+      } else {
+        dispatch(changeValue("room", "images", [
+          ...selectedFilesArray
+        ]))
+      }
+
     }
   };
 
