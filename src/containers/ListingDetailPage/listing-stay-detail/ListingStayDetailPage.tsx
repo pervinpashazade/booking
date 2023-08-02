@@ -258,7 +258,7 @@ const StayDetailPageContainer: FC<{}> = () => {
                 renderChildren={({ openModal }) => (
                     <ButtonPrimary
                         sizeClass="px-5 sm:px-7 py-3 !rounded-2xl"
-                        href={`tel:${data?.phone}`}
+                        href={`tel:${data?.user.phone}`}
                         // onClick={openModal}
                     >
                       Zəng et
@@ -752,7 +752,7 @@ const StayDetailPageContainer: FC<{}> = () => {
         </div> */}
 
         {/* SUBMIT */}
-        <ButtonPrimary href={`tel:055-279-06-34`}>Zəng et</ButtonPrimary>
+        <ButtonPrimary href={`tel:${data?.user.phone}`}>Zəng et</ButtonPrimary>
       </div>
     );
   };

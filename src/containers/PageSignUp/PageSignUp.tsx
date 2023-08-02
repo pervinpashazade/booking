@@ -92,6 +92,7 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
       name: data.name,
       surname: data.surname,
       email: data.email,
+      phone: data.phone,
       password: data.password,
       password_confirmation: data.password_confirmation
     }).then(res => {
