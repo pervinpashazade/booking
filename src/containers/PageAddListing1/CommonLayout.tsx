@@ -102,6 +102,8 @@ const CommonLayout: FC<CommonLayoutProps> = ({
     formData.append("breakfast_fee", "0")
     formData.append("condition", "4")
 
+    dispatch(setData("preLoader", true))
+
     axios.post(apiUrl + 'vendor/announcement', formData, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
@@ -116,6 +118,9 @@ const CommonLayout: FC<CommonLayoutProps> = ({
       setValidationErrs([])
       console.log("post vendor/announcement err", err);
     })
+      .then(() => {
+        dispatch(setData("preLoader", false))
+      })
   }
 
   const handleNext = () => {
