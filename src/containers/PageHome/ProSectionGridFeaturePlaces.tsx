@@ -3,6 +3,7 @@ import { IStayProps, StayDataType } from "data/types";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import ProStayCard from "components/StayCard/ProStayCard";
 import { useAppSelector } from "store/store";
+import rightImgPng from "images/our-features.png";
 
 //
 export interface ProSectionGridFeaturePlacesProps {
@@ -35,11 +36,18 @@ const ProSectionGridFeaturePlaces: FC<ProSectionGridFeaturePlacesProps> = ({
     console.log("totalData", total_data)
     return (
         <div className="nc-SectionGridFeaturePlaces relative">
-            <div
-                className={`grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${gridClass}`}
-            >
-                {data.map((item) => renderCard(item))}
-            </div>
+            {data.length > 0 ?
+                <div className={`grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${gridClass}`}>
+                    {data.map((item) => renderCard(item))}
+                </div> :
+                <div className="grid grid-cols-1 flex flex-wrap justify-center align-content-center align-middle">
+                    <p className="text-md text-center mt-5 mb-14">Sizin sorğunuza uyğun nəticə tapılmadı</p>
+                    <img src={rightImgPng} style={{width: "500px", margin: "0 auto"}}/>
+                </div>
+            }
+
+
+
             {
                 data.length !== total_data ?
                     <div className="flex mt-8 md:mt-12 justify-center items-center">
