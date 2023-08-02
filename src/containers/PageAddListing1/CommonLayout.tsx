@@ -134,7 +134,11 @@ const CommonLayout: FC<CommonLayoutProps> = ({
       if (!room.address) errors["address"] = "Küçə daxil edilməyib"
       if (!room.price) errors["price"] = "Qiymət daxil edilməyib"
       if (!room.content) errors["content"] = "Ətraflı məlumat daxil edilməyib"
-      if (!room.images?.length) errors["images"] = "Şəkillər daxil edilməyib"
+      if (!room.images?.length) {
+        errors["images"] = "Şəkillər daxil edilməyib"
+      } else if (room.images?.length < 5) {
+        errors["images"] = "Ən az 5 şəkil daxil edilməlidir"
+      }
       // if (!room.area) errors["area"] = "Sahə (m2) daxil edilməyib"
       // if (!room.person_count) errors["person_count"] = "Qonaq sayı daxil edilməyib"
       // if (!room.bedroom_count) errors["bedroom_count"] = "Yataq otağı sayı daxil edilməyib"
