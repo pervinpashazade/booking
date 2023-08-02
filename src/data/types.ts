@@ -133,6 +133,7 @@ export interface IStayProps {
   category_id: number,
   category: ICategoryProps,
   area: number,
+  phone: string | number,
   price: number,
   currency: string,
   address: string,

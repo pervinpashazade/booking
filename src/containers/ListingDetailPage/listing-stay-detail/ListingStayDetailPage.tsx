@@ -34,6 +34,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import ProBreadcrumb from "components/ProBreadcrumb/ProBreadcrumb";
 import {XMarkIcon} from "@heroicons/react/24/solid";
+import ModalReserveMobile from "../(components)/ModalReserveMobile";
 
 
 const StayDetailPageContainer: FC<{}> = () => {
@@ -242,6 +243,31 @@ const StayDetailPageContainer: FC<{}> = () => {
             </span>
           </span>
         </div>
+
+        <div className="block lg:hidden inset-x-0 py-2 sm:py-3 z-40">
+          <div className="container flex items-center justify-between">
+            <div className="">
+            <span className="block text-xl font-semibold">
+              {data?.price} {manat_icon}
+              <span className="ml-1 text-sm font-normal text-neutral-500 dark:text-neutral-400">
+                /gün
+              </span>
+            </span>
+            </div>
+            <ModalReserveMobile
+                renderChildren={({ openModal }) => (
+                    <ButtonPrimary
+                        sizeClass="px-5 sm:px-7 py-3 !rounded-2xl"
+                        href={`tel:${data?.phone}`}
+                        // onClick={openModal}
+                    >
+                      Zəng et
+                    </ButtonPrimary>
+                )}
+            />
+          </div>
+        </div>
+
 
         {/* 5 */}
         <div className="w-full border-b border-neutral-100 dark:border-neutral-700" />
@@ -824,7 +850,10 @@ const StayDetailPageContainer: FC<{}> = () => {
       </main>
 
       {/* STICKY FOOTER MOBILE */}
-      <MobileFooterSticky price={data?.price} />
+      {/*<MobileFooterSticky price={data?.price} />*/}
+
+
+
     </div>
   );
 };
