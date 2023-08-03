@@ -181,7 +181,7 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
               <Input
                 type="number"
                 name="phone"
-                placeholder="+994123456789"
+                placeholder="0501234567"
                 className="mt-1"
               />
             </label>
