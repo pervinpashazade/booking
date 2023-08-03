@@ -32,7 +32,7 @@ const ProSectionGridFeaturePlaces: FC<ProSectionGridFeaturePlacesProps> = ({
         return <ProStayCard key={stay.id} data={stay} />;
     };
 
-    console.log("data", data)
+    // console.log("data", data)
     console.log("totalData", total_data)
     return (
         <div className="nc-SectionGridFeaturePlaces relative">
