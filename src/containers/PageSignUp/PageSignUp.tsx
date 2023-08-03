@@ -59,10 +59,10 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
       setErrorMessage('Ad daxil edin')
       return
     }
-    if (!data.surname) {
-      setErrorMessage('Soyad daxil edin')
-      return
-    }
+    // if (!data.surname) {
+    //   setErrorMessage('Soyad daxil edin')
+    //   return
+    // }
     if (!data.phone) {
       setErrorMessage('Telefon daxil edin')
       return
@@ -90,7 +90,7 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
 
     axios.post(apiUrl + 'user/auth/register', {
       name: data.name,
-      surname: data.surname,
+      // surname: data.surname,
       email: data.email,
       phone: data.phone,
       password: data.password,
@@ -163,17 +163,17 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
                 className="mt-1"
               />
             </label>
-            <label className="block">
-              <span className="text-neutral-800 dark:text-neutral-200">
-                Soyad
-              </span>
-              <Input
-                type="text"
-                name="surname"
-                placeholder="Soyad daxil edin"
-                className="mt-1"
-              />
-            </label>
+            {/*<label className="block">*/}
+            {/*  <span className="text-neutral-800 dark:text-neutral-200">*/}
+            {/*    Soyad*/}
+            {/*  </span>*/}
+            {/*  <Input*/}
+            {/*    type="text"*/}
+            {/*    name="surname"*/}
+            {/*    placeholder="Soyad daxil edin"*/}
+            {/*    className="mt-1"*/}
+            {/*  />*/}
+            {/*</label>*/}
             <label className="block">
               <span className="text-neutral-800 dark:text-neutral-200">
                 Telefon
