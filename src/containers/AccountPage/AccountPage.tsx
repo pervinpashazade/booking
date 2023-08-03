@@ -119,15 +119,15 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
                 <Label>Ad</Label>
                 <Input className="mt-1.5" defaultValue={user?.name} />
               </div>
-              <div>
-                <Label>Soyad</Label>
-                <Input className="mt-1.5" defaultValue={user?.surname} />
-              </div>
+              {/*<div>*/}
+              {/*  <Label>Soyad</Label>*/}
+              {/*  <Input className="mt-1.5" defaultValue={user?.surname} />*/}
+              {/*</div>*/}
               {/* ---- */}
               {/* ---- */}
               <div>
-                <Label>Email</Label>
-                <Input className="mt-1.5" defaultValue={user?.email} />
+                <Label>Telefon</Label>
+                <Input readOnly={true} className="mt-1.5" defaultValue={user?.phone} />
               </div>
               {/* ---- */}
               {/* ---- */}

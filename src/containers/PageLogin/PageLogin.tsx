@@ -12,6 +12,7 @@ import { IErrorResponse } from "data/types";
 import { useDispatch } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { login } from "../../store/action";
+import InputMask from "react-input-mask";
 
 export interface PageLoginProps {
   className?: string;
@@ -39,8 +40,12 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
     for (const [key, value] of formData.entries()) {
       data[key] = value
     }
-    if (!data.email) {
-      setErrorMessage('Email daxil edin')
+    // if (!data.email) {
+    //   setErrorMessage('Email daxil edin')
+    //   return
+    // }
+    if (!data.phone) {
+      setErrorMessage('Telefon daxil edin')
       return
     }
     if (!data.password) {
@@ -49,7 +54,11 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
     }
     setIsLoading(true)
     setErrorMessage('')
-    axios.post(apiUrl + 'user/auth/login', data).then(res => {
+    let customPhone = `+994${data.phone.substring(1).replace(new RegExp("-", 'g'), "")}`
+    axios.post(apiUrl + 'user/auth/login', {
+      phone: customPhone,
+      password: data.password,
+    }).then(res => {
       console.log("res", res.data.data);
       localStorage.setItem('access_token', res.data.data.access_token)
       localStorage.setItem('user', JSON.stringify(res.data.data.user))
@@ -79,15 +88,29 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
             method="post"
             onSubmit={handleSubmit}
           >
+            {/*<label className="block">*/}
+            {/*  <span className="text-neutral-800 dark:text-neutral-200">*/}
+            {/*    Email*/}
+            {/*  </span>*/}
+            {/*  <Input*/}
+            {/*    type="email"*/}
+            {/*    name="email"*/}
+            {/*    placeholder="example@example.com"*/}
+            {/*    className="mt-1"*/}
+            {/*  />*/}
+            {/*</label>*/}
             <label className="block">
               <span className="text-neutral-800 dark:text-neutral-200">
-                Email
+                Telefon
               </span>
-              <Input
-                type="email"
-                name="email"
-                placeholder="example@example.com"
-                className="mt-1"
+              <InputMask
+                  name="phone"
+                  type="text"
+                  // value={this.state.phone}
+                  // onChange={(e) => this.handleChange(e, "phone")}
+                  placeholder="Telefon nömrəsi"
+                  className="mt-2 w-100"
+                  mask="099-999-99-99"
               />
             </label>
             <label className="block">

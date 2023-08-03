@@ -11,6 +11,7 @@ import axios from "axios";
 import { IErrorResponse } from "data/types";
 import { useAppDispatch } from "store/store";
 import { login } from "store/action";
+import InputMask from "react-input-mask";
 
 export interface PageSignUpProps {
   className?: string;
@@ -67,10 +68,10 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
       setErrorMessage('Telefon daxil edin')
       return
     }
-    if (!data.email) {
-      setErrorMessage('Email daxil edin')
-      return
-    }
+    // if (!data.email) {
+    //   setErrorMessage('Email daxil edin')
+    //   return
+    // }
     if (!data.password) {
       setErrorMessage('Şifrə daxil edin')
       return
@@ -87,12 +88,12 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
 
     setIsLoading(true)
     setErrorMessage('')
-
+    let customPhone = `+994${data.phone.substring(1).replace(new RegExp("-", 'g'), "")}`
     axios.post(apiUrl + 'user/auth/register', {
       name: data.name,
       // surname: data.surname,
-      email: data.email,
-      phone: data.phone,
+      // email: data.email,
+      phone: customPhone,
       password: data.password,
       password_confirmation: data.password_confirmation
     }).then(res => {
@@ -111,6 +112,7 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
     })
   }
   console.log("errorMessage",errorMessage)
+
   return (
     <div className={`nc-PageSignUp  ${className}`} data-nc-id="PageSignUp">
       <Helmet>
@@ -178,24 +180,34 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
               <span className="text-neutral-800 dark:text-neutral-200">
                 Telefon
               </span>
-              <Input
-                type="number"
-                name="phone"
-                placeholder="0501234567"
-                className="mt-1"
+              {/*<Input*/}
+              {/*  type="number"*/}
+              {/*  name="phone"*/}
+              {/*  placeholder="0501234567"*/}
+              {/*  className="mt-1"*/}
+              {/*/>*/}
+              <InputMask
+                  name="phone"
+                  type="text"
+                  // value={this.state.phone}
+                  // onChange={(e) => this.handleChange(e, "phone")}
+                  placeholder="Telefon nömrəsi"
+                  className="mt-2 w-100"
+                  mask="099-999-99-99"
               />
             </label>
-            <label className="block">
-              <span className="text-neutral-800 dark:text-neutral-200">
-                Email
-              </span>
-              <Input
-                type="email"
-                name="email"
-                placeholder="example@example.com"
-                className="mt-1"
-              />
-            </label>
+
+            {/*<label className="block">*/}
+            {/*  <span className="text-neutral-800 dark:text-neutral-200">*/}
+            {/*    Email*/}
+            {/*  </span>*/}
+            {/*  <Input*/}
+            {/*    type="email"*/}
+            {/*    name="email"*/}
+            {/*    placeholder="example@example.com"*/}
+            {/*    className="mt-1"*/}
+            {/*  />*/}
+            {/*</label>*/}
             <label className="block">
               <span className="flex justify-between items-center text-neutral-800 dark:text-neutral-200">
                 Şifrə
