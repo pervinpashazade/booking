@@ -1,14 +1,17 @@
-import React, { FC, FormEvent, useState } from "react";
+import React, {FC, FormEvent, Fragment, useState} from "react";
 import facebookSvg from "images/Facebook.svg";
 import twitterSvg from "images/Twitter.svg";
 import googleSvg from "images/Google.svg";
 import { Helmet } from "react-helmet";
 import Input from "shared/Input/Input";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { apiUrl, appName } from "config";
 import axios from "axios";
 import { IErrorResponse } from "data/types";
+import {Dialog, Transition} from "@headlessui/react";
+import InputMask from "react-input-mask";
+import {login} from "../../store/action";
 
 export interface PageForgotPassProps {
   className?: string;
@@ -17,16 +20,45 @@ export interface PageForgotPassProps {
 const PageForgotPassword: FC<PageForgotPassProps> = ({ className = "" }) => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [errorMessage, setErrorMessage] = useState<string>('')
+  const [isLoadingVerify, setIsLoadingVerify] = useState<boolean>(false)
+  const [phone, setPhone] = useState<any>("")
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const [errorMessage, setErrorMessage] = useState<string>('')
+  let [isOpen, setIsOpen] = useState(false)
+  const [forgetPasswordToken, setForgetPasswordToken] = useState<any>("")
+  const navigate = useNavigate()
+
+  const closeModal=()=> {
+    setIsOpen(false)
+  }
+
+  const openModal=()=> {
+    setIsOpen(true)
+  }
+
+  const handleSubmit = (e: any) => {
     e.preventDefault();
+    const formData = new FormData(e.target)
+    const data: {
+      [key: string]: string
+    } = {}
+    // @ts-ignore
+    for (const [key, value] of formData.entries()) {
+      data[key] = value
+    }
+    if (!data.phone) {
+      setErrorMessage('Telefon daxil edin')
+      return
+    }
     setIsLoading(true)
     setErrorMessage('')
     axios.post(apiUrl + 'user/auth/forgot-password', {
-      email: "test@gmail.com",
+      phone: data.phone,
     }).then(res => {
       console.log("res", res.data);
+        console.log("modallllll")
+        openModal()
+        setPhone(data.phone)
     }).catch((err: IErrorResponse) => {
       console.log("login error", err.response.data.error)
       setErrorMessage(err.response.data.error)
@@ -35,11 +67,149 @@ const PageForgotPassword: FC<PageForgotPassProps> = ({ className = "" }) => {
     })
   }
 
+
+  const handleSubmitVerify = (e: any) => {
+    e.preventDefault();
+    const formData = new FormData(e.target)
+    const data: {
+      [key: string]: string
+    } = {}
+    // @ts-ignore
+    for (const [key, value] of formData.entries()) {
+      data[key] = value
+    }
+    if (!data.token) {
+      setErrorMessage('Token daxil edin')
+      return
+    }
+    setIsLoadingVerify(true)
+    setErrorMessage('')
+    axios.post(apiUrl + 'user/auth/reset-password', {
+      phone: phone,
+      token: forgetPasswordToken,
+      password: data.password,
+      password_confirmation: data.password_confirmation,
+    }).then(res => {
+      console.log("res", res);
+      if (res.data.success){
+        navigate("/")
+      }
+    }).catch((err: any) => {
+      setErrorMessage(err.response.data.message)
+    }).finally(() => {
+      setIsLoadingVerify(false)
+    })
+  }
+
   return (
     <div className={`nc-PageSignUp  ${className}`} data-nc-id="PageSignUp">
       <Helmet>
         <title>Şifrə bərpası | {appName}</title>
       </Helmet>
+
+
+      <>
+        <Transition appear show={isOpen} as={Fragment}>
+          <Dialog as="div" className="relative z-10" onClose={closeModal}>
+            <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0"
+                enterTo="opacity-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black bg-opacity-25" />
+            </Transition.Child>
+
+            <div className="fixed inset-0 overflow-y-auto">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                >
+                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                    <Dialog.Title
+                        as="h3"
+                        className="text-lg font-medium leading-6 text-gray-900"
+                    >
+                      Token vasitəsilə təsdiqləmə
+                    </Dialog.Title>
+                    <div className="mt-2">
+                      <p className="text-sm text-gray-500">
+                        Zəhmət olmasa, telefon nömrənizə göndərilən tokeni daxil edin.
+                      </p>
+                    </div>
+                    <form method="post" onSubmit={handleSubmitVerify}>
+                      <div className="mt-2">
+                        <Input
+                            type="text"
+                            name="token"
+                            placeholder="token"
+                            required={true}
+                            className="mt-1 bg-white"
+                            style={{background:"white", color:"black"}}
+                            onChange={(e)=>setForgetPasswordToken(e.target.value)}
+                        />
+
+                        <Input
+                            type="text"
+                            name="password"
+                            placeholder="Şifrəni daxil edin"
+                            required={true}
+                            className="mt-1 bg-white"
+                            style={{background:"white", color:"black"}}
+                        />
+                        <Input
+                            type="text"
+                            name="password_confirmation"
+                            placeholder="Təkrar şifrəni daxil edin"
+                            required={true}
+                            className="mt-1 bg-white"
+                            style={{background:"white", color:"black"}}
+                        />
+
+                        {/*<InputMask*/}
+                        {/*    name="code"*/}
+                        {/*    type="text"*/}
+                        {/*    onChange={(e)=>setForgetPasswordToken(e.target.value)}*/}
+                        {/*    placeholder="Kod"*/}
+                        {/*    className="mt-2 w-100"*/}
+                        {/*    mask="9999"*/}
+                        {/*    required*/}
+                        {/*    style={{background:"white", color:"black"}}*/}
+                        {/*/>*/}
+
+
+
+                      </div>
+
+                      <div className="mt-4 flex justify-end">
+                        {/*<button*/}
+                        {/*    type="button"*/}
+                        {/*    className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"*/}
+                        {/*    onClick={closeModal}*/}
+                        {/*>*/}
+                        {/*  Bagla*/}
+                        {/*</button>*/}
+                        <ButtonPrimary type="submit" loading={isLoadingVerify}>Təsdiqlə</ButtonPrimary>
+                      </div>
+                    </form>
+
+                  </Dialog.Panel>
+                </Transition.Child>
+              </div>
+            </div>
+          </Dialog>
+        </Transition>
+      </>
+
       <div className="container mb-10 lg:mb-32">
         <h2 className="my-10 flex items-center text-3xl leading-[115%] md:text-5xl md:leading-[115%] font-semibold text-neutral-900 dark:text-neutral-100 justify-center">
           Şifrə bərpası
@@ -53,12 +223,12 @@ const PageForgotPassword: FC<PageForgotPassProps> = ({ className = "" }) => {
           >
             <label className="block">
               <span className="text-neutral-800 dark:text-neutral-200">
-                Email
+                Telefon
               </span>
               <Input
-                type="email"
-                name="email"
-                placeholder="example@example.com"
+                type="text"
+                name="phone"
+                placeholder="0501234567"
                 className="mt-1"
               />
             </label>
