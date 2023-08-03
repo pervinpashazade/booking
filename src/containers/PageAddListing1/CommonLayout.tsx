@@ -41,9 +41,9 @@ const CommonLayout: FC<CommonLayoutProps> = ({
     const errors: Array<string> = []
 
     if (!room.category) errors.push("Məkan növü daxil edilməyib")
-    if (!room.title) errors.push("Məkan adı daxil edilməyib")
+    // if (!room.title) errors.push("Məkan adı daxil edilməyib")
     if (!room.city) errors.push("Şəhər daxil edilməyib")
-    if (!room.address) errors.push("Küçə daxil edilməyib")
+    // if (!room.address) errors.push("Küçə daxil edilməyib")
     if (!room.price) errors.push("Qiymət daxil edilməyib")
     if (!room.content) errors.push("Ətraflı məlumat daxil edilməyib")
     if (!room.images?.length) errors.push("Şəkillər daxil edilməyib")
@@ -65,7 +65,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({
     const formData = new FormData();
 
     formData.append("category_id", room.category.id.toString())
-    formData.append("title", room.title)
+    // formData.append("title", room.title)
     formData.append("city_id", room.city.id.toString())
     formData.append("address", room.address)
     formData.append("price", room.price.toString())
@@ -129,9 +129,9 @@ const CommonLayout: FC<CommonLayoutProps> = ({
 
     if (index === "1") {
       if (!room.category) errors["category"] = "Məkan növü daxil edilməyib"
-      if (!room.title) errors["title"] = "Məkan adı daxil edilməyib"
+      // if (!room.title) errors["title"] = "Məkan adı daxil edilməyib"
       if (!room.city) errors["city"] = "Şəhər daxil edilməyib"
-      if (!room.address) errors["address"] = "Küçə daxil edilməyib"
+      // if (!room.address) errors["address"] = "Küçə daxil edilməyib"
       if (!room.price) errors["price"] = "Qiymət daxil edilməyib"
       if (!room.content) errors["content"] = "Ətraflı məlumat daxil edilməyib"
       if (!room.images?.length) {

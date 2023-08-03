@@ -72,7 +72,7 @@ export const initialState: initialStateProps = {
   room_errors: {},
   searchParams: {
     city: null,
-    price_from: 10,
+    price_from: 0,
     price_to: 5000,
     page: "1",
     per_page: "12"

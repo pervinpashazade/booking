@@ -117,18 +117,18 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
               }
             </Select>
           </FormItem>
-          <FormItem
-            label="Məkanın adı"
-            invalid={room_errors['title'] ? true : false}
-          // desc="Cazibədar ad adətən daxildir: Ev adı + Otaq adı + Seçilmiş əmlak + Turist təyinatı"
-          >
-            <Input
-              value={room.title ?? ""}
-              invalid={room_errors['title'] ? true : false}
-              placeholder="Məs.: Dağ mənzərəli A Frame villa"
-              onChange={e => dispatch(changeValue("room", "title", e.target.value))}
-            />
-          </FormItem>
+          {/*<FormItem*/}
+          {/*  label="Məkanın adı"*/}
+          {/*  invalid={room_errors['title'] ? true : false}*/}
+          {/*// desc="Cazibədar ad adətən daxildir: Ev adı + Otaq adı + Seçilmiş əmlak + Turist təyinatı"*/}
+          {/*>*/}
+          {/*  <Input*/}
+          {/*    value={room.title ?? ""}*/}
+          {/*    invalid={room_errors['title'] ? true : false}*/}
+          {/*    placeholder="Məs.: Dağ mənzərəli A Frame villa"*/}
+          {/*    onChange={e => dispatch(changeValue("room", "title", e.target.value))}*/}
+          {/*  />*/}
+          {/*</FormItem>*/}
           <FormItem
             label="Şəhər"
             invalid={room_errors['city'] ? true : false}
@@ -144,17 +144,17 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
               }
             </Select>
           </FormItem>
-          <FormItem
-            label="Küçə"
-            invalid={room_errors['address'] ? true : false}
-          >
-            <Input
-              value={room.address ?? ""}
-              placeholder="..."
-              invalid={room_errors['address'] ? true : false}
-              onChange={e => dispatch(changeValue("room", "address", e.target.value))}
-            />
-          </FormItem>
+          {/*<FormItem*/}
+          {/*  label="Küçə"*/}
+          {/*  // invalid={room_errors['address'] ? true : false}*/}
+          {/*>*/}
+          {/*  <Input*/}
+          {/*    value={room.address ?? ""}*/}
+          {/*    placeholder="..."*/}
+          {/*    // invalid={room_errors['address'] ? true : false}*/}
+          {/*    onChange={e => dispatch(changeValue("room", "address", e.target.value))}*/}
+          {/*  />*/}
+          {/*</FormItem>*/}
           <FormItem
             label="Qiymət (günlük)"
             invalid={room_errors['price'] ? true : false}

@@ -22,7 +22,7 @@ const StaySearchForm: FC<{
       // @ts-ignore
     } = useSelector(store => store.searchParams)
 
-    const [rangePrices, setRangePrices] = useState([10, 5000])
+    const [rangePrices, setRangePrices] = useState([0, 5000])
 
     let [urlParams, setUrlParams] = useSearchParams();
 
