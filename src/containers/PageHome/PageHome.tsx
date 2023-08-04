@@ -33,8 +33,6 @@ function PageHome() {
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-
-    console.log("aaaaaaa");
     
     let page = urlParams.get("page") ?? searchParams.page;
     let per_page = urlParams.get("per_page") ?? searchParams.per_page;
