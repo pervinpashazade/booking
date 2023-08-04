@@ -47,6 +47,7 @@ const StayCard: FC<StayCardProps> = ({
         breakfast_fee,
         condition: ConditionTypes,
         title,
+        list_title,
         slug,
         content,
         image,
@@ -102,7 +103,7 @@ const StayCard: FC<StayCardProps> = ({
                             className={` font-medium capitalize ${size === "default" ? "text-lg" : "text-base"
                                 }`}
                         >
-                            <span className="line-clamp-1">{title}</span>
+                            <span className="line-clamp-1">{list_title}</span>
                         </h2>
                     </div>
                     <div className="flex items-center text-neutral-500 dark:text-neutral-400 text-sm space-x-2">

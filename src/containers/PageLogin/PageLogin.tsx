@@ -33,6 +33,8 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
   const [phone, setPhone] = useState<any>("")
   const [code, setCode] = useState<any>("")
   const [errorMessage, setErrorMessage] = useState<string>('')
+  const [errorMessageVerify, setErrorMessagVerify] = useState<string>('')
+
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   let [isOpen, setIsOpen] = useState(false)
@@ -105,12 +107,12 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
       data[key] = value
     }
     if (!data.code) {
-      setErrorMessage('Code daxil edin')
+      setErrorMessagVerify('Code daxil edin')
       return
     }
 
     setIsLoadingVerify(true)
-    setErrorMessage('')
+    setErrorMessagVerify('')
     // let customPhone = `+994${phone.substring(1).replace(new RegExp("-", 'g'), "")}`
     const numberPattern = /\d+/g,
         // @ts-ignore
@@ -138,7 +140,7 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
       }
     }).catch((err: any) => {
       console.log("login error", err.response.data)
-      setErrorMessage(err.response.data.message)
+      setErrorMessagVerify(err.response.data.message)
     }).finally(() => {
       setIsLoadingVerify(false)
     })
@@ -185,16 +187,16 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
                     leaveFrom="opacity-100 scale-100"
                     leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Panel className="w-full dark:bg-neutral-900 max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <Dialog.Title
                         as="h3"
-                        className="text-lg font-medium leading-6 text-gray-900"
+                        className="text-white text-center text-lg font-medium leading-6 text-gray-900"
                     >
                       Whatsapp vasitəsilə təsdiqləmə
                     </Dialog.Title>
                     <div className="mt-2">
-                      <p className="text-sm text-gray-500">
-                        Zəhmət olmasa, telefon nömrənizə göndərilən kodu daxil edin.
+                      <p className="text-white text-sm text-gray-500 mb-5">
+                        Zəhmət olmasa, nömrənizə göndərilən kodu daxil edin.
                       </p>
                     </div>
                     <form method="post" onSubmit={handleSubmitVerify}>
@@ -219,10 +221,22 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
                             className="mt-2 w-100"
                             mask="9999"
                             required
-                            style={{background:"white", color:"black"}}
+                            style={{background:"#111826", color:"white", marginBottom: "20px"}}
                         />
 
-
+                        {
+                            errorMessageVerify &&
+                            <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-1 mt-2" role="alert">
+                              <div className="py-1">
+                                <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
+                                     viewBox="0 0 20 20">
+                                  <path
+                                      d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
+                                </svg>
+                              </div>
+                              <p>{errorMessageVerify}</p>
+                            </div>
+                        }
 
                       </div>
 

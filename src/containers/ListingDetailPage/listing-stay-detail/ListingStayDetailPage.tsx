@@ -218,7 +218,7 @@ const StayDetailPageContainer: FC<{}> = () => {
 
         {/* 2 */}
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
-          {data?.title ?? ""}
+          {data?.show_title ?? ""}
         </h2>
 
         {/* 3 */}
@@ -227,7 +227,16 @@ const StayDetailPageContainer: FC<{}> = () => {
           <span>·</span> */}
           <span>
             <i className="las la-map-marker-alt"></i>
-            <span className="ml-1"> {data?.city?.name ?? ""}, {data?.address ?? ""}</span>
+            <span className="ml-1"> {data?.city?.name ?? ""}</span>
+          </span>
+        </div>
+
+        <div className="flex items-center space-x-4">
+          {/* <StartRating />
+          <span>·</span> */}
+          <span>
+            <i className="las la-place-of-worship"></i>
+            <span className="ml-1">Sahə : {data?.area ?? ""} m²</span>
           </span>
         </div>
 

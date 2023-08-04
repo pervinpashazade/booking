@@ -153,6 +153,8 @@ export interface IStayProps {
   view_count: number,
   double_bed_count: number,
   single_bed_count: number,
+  show_title: string,
+    list_title: string,
 }
 
 export interface StayDataType {

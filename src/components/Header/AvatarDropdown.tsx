@@ -65,7 +65,7 @@ export default function AvatarDropdown() {
         {({ open }) => (
           <>
             <Popover.Button
-              className={`inline-flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+              className={`inline-flex items-center focus:outline-none`}
             >
               <Avatar sizeClass="w-8 h-8 sm:w-9 sm:h-9" />
             </Popover.Button>
