@@ -108,7 +108,7 @@ const PageForgotPassword: FC<PageForgotPassProps> = ({ className = "" }) => {
     }).then(res => {
       console.log("res", res);
       if (res.data.success){
-        navigate("/")
+        navigate("/login")
       }
     }).catch((err: any) => {
       setErrorMessage(err.response.data.message)

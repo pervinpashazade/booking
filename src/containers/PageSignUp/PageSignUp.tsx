@@ -53,7 +53,7 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
   let [isOpen, setIsOpen] = useState(false)
   const [isLoadingVerify, setIsLoadingVerify] = useState<boolean>(false)
   const [code, setCode] = useState<any>("")
-  const [phone, setPhone] = useState<any>("")
+  const [phone, setPhone] = useState<any>(null)
   const [isToken, setToken] = useState<string>("")
   let [urlParams] = useSearchParams()
   let redirectUrl = urlParams.get("redirect");
@@ -121,7 +121,7 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
       password_confirmation: data.password_confirmation
     }).then(res => {
       console.log("res", res.data);
-      // localStorage.setItem('access_token', res.data.data.access_token)
+      localStorage.setItem('access_token', res.data.data.access_token)
       localStorage.setItem('user', JSON.stringify(res.data.data.user))
       // dispatch(login(res.data.data.user))
       // navigate('/login')
@@ -156,12 +156,17 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
     // let customPhone = `+994${phone.substring(1).replace(new RegExp("-", 'g'), "")}`
     const numberPattern = /\d+/g,
         // @ts-ignore
-        num = phone && phone.split(/[ ,\n]+/).map(i => {
+        num = phone ? phone.split(/[ ,\n]+/).map(i => {
           // @ts-ignore
           return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
-        });
+        }) :
+            // @ts-ignore
+            JSON.parse(localStorage.getItem("user")).phone.split(/[ ,\n]+/).map(i => {
+          // @ts-ignore
+          return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
+        })
     // @ts-ignore
-    const customPhone = `+${phone.match(numberPattern).join('')}`;
+    const customPhone = `+${phone ? phone.match(numberPattern).join('') : JSON.parse(localStorage.getItem("user")).phone.match(numberPattern).join('')}`;
     axios.post(apiUrl + 'user/auth/verify', {
       phone: customPhone,
       code: code,
@@ -174,7 +179,6 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
       if (res.data.success){
         console.log("ressssss22222222",res)
         localStorage.setItem('user', JSON.stringify(res.data.data))
-        localStorage.setItem('access_token', isToken)
         navigate(redirectUrl ?? "/")
         dispatch(login(res.data.data))
       }

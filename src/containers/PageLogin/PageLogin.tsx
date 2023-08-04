@@ -130,11 +130,11 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
     }).then(res => {
       // console.log("res", res);
       if (res.data.success){
-        console.log("navigateeeee")
+        console.log("res.data111111",res.data)
         localStorage.setItem('user', JSON.stringify(res.data.data))
         localStorage.setItem('access_token', isToken)
         navigate(redirectUrl ?? "/")
-        dispatch(login(res.data.data.user))
+        dispatch(login(res.data.data))
       }
     }).catch((err: any) => {
       console.log("login error", err.response.data)
