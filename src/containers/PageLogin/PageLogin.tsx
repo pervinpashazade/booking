@@ -113,7 +113,7 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
         Authorization: `Bearer ${isToken}`
       }
     }).then(res => {
-      console.log("res", res);
+      // console.log("res", res);
       if (res.data.success){
         console.log("navigateeeee")
         localStorage.setItem('user', JSON.stringify(res.data.data))
