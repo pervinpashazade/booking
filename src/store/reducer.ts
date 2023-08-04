@@ -46,7 +46,8 @@ export const initialState: initialStateProps = {
     list: [],
     total_data: 0,
   },
-  isAuth: !!localStorage.getItem("access_token"),
+  // @ts-ignore
+  isAuth: !!localStorage.getItem("access_token") && JSON.parse(localStorage.getItem("user"))?.phone_verified,
   // user: getItemFromLocaleStorage("user"),
   user: null,
   account: {
@@ -88,7 +89,7 @@ export default (state = initialState, action: any) => {
   switch (action.type) {
     case actionTypes.LOGIN:
       return Object.assign({}, state, {
-        isAuth: true,
+        isAuth: action.data.phone_verified,
         user: action.data,
         account: {
           active_items: {
