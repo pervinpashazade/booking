@@ -61,7 +61,14 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
     }
     setIsLoading(true)
     setErrorMessage('')
-    let customPhone = `+994${data.phone.substring(1).replace(new RegExp("-", 'g'), "")}`
+    // let customPhone = `+994${data.phone.substring(1).replace(new RegExp("-", 'g'), "")}`
+    const numberPattern = /\d+/g,
+        num = data.phone && data.phone.split(/[ ,\n]+/).map(i => {
+          // @ts-ignore
+          return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
+        });
+    // @ts-ignore
+    const customPhone = `+${data.phone.match(numberPattern).join('')}`;
     axios.post(apiUrl + 'user/auth/login', {
       phone: customPhone,
       password: data.password,
@@ -104,7 +111,15 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
 
     setIsLoadingVerify(true)
     setErrorMessage('')
-    let customPhone = `+994${phone.substring(1).replace(new RegExp("-", 'g'), "")}`
+    // let customPhone = `+994${phone.substring(1).replace(new RegExp("-", 'g'), "")}`
+    const numberPattern = /\d+/g,
+        // @ts-ignore
+        num = phone && phone.split(/[ ,\n]+/).map(i => {
+          // @ts-ignore
+          return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
+        });
+    // @ts-ignore
+    const customPhone = `+${phone.match(numberPattern).join('')}`;
     axios.post(apiUrl + 'user/auth/verify', {
       phone: customPhone,
       code: code,
@@ -198,7 +213,7 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
 
                         <InputMask
                             name="code"
-                            type="text"
+                            type="tel"
                             onChange={(e)=>setCode(e.target.value)}
                             placeholder="Kod"
                             className="mt-2 w-100"
@@ -259,12 +274,12 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
               </span>
               <InputMask
                   name="phone"
-                  type="text"
+                  type="tel"
                   // value={this.state.phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="Telefon nömrəsi"
                   className="mt-2 w-100"
-                  mask="099-999-99-99"
+                  mask="+\9\94 (99) 999-99-99"
               />
             </label>
             <label className="block">

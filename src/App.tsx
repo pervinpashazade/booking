@@ -19,7 +19,7 @@ function App() {
           dispatch(login(res.data.data))
         }
       }).catch(err => {
-        dispatch(logout())
+        // dispatch(logout())
       })
     }
     getSharedDataList()

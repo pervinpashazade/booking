@@ -52,8 +52,16 @@ const PageForgotPassword: FC<PageForgotPassProps> = ({ className = "" }) => {
     }
     setIsLoading(true)
     setErrorMessage('')
+    const numberPattern = /\d+/g,
+        // @ts-ignore
+        num = phone && phone.split(/[ ,\n]+/).map(i => {
+          // @ts-ignore
+          return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
+        });
+    // @ts-ignore
+    const customPhone = `+${phone.match(numberPattern).join('')}`;
     axios.post(apiUrl + 'user/auth/forgot-password', {
-      phone: data.phone,
+      phone: customPhone,
     }).then(res => {
       console.log("res", res.data);
         console.log("modallllll")
@@ -84,8 +92,16 @@ const PageForgotPassword: FC<PageForgotPassProps> = ({ className = "" }) => {
     }
     setIsLoadingVerify(true)
     setErrorMessage('')
+    const numberPattern = /\d+/g,
+        // @ts-ignore
+        num = phone && phone.split(/[ ,\n]+/).map(i => {
+          // @ts-ignore
+          return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
+        });
+    // @ts-ignore
+    const customPhone = `+${phone.match(numberPattern).join('')}`;
     axios.post(apiUrl + 'user/auth/reset-password', {
-      phone: phone,
+      phone: customPhone,
       token: forgetPasswordToken,
       password: data.password,
       password_confirmation: data.password_confirmation,
@@ -225,11 +241,20 @@ const PageForgotPassword: FC<PageForgotPassProps> = ({ className = "" }) => {
               <span className="text-neutral-800 dark:text-neutral-200">
                 Telefon
               </span>
-              <Input
-                type="text"
-                name="phone"
-                placeholder="0501234567"
-                className="mt-1"
+              {/*<Input*/}
+              {/*  type="text"*/}
+              {/*  name="phone"*/}
+              {/*  placeholder="0501234567"*/}
+              {/*  className="mt-1"*/}
+              {/*/>*/}
+              <InputMask
+                  name="phone"
+                  type="tel"
+                  // value={this.state.phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="Telefon nömrəsi"
+                  className="mt-2 w-100"
+                  mask="+\9\94 (99) 999-99-99"
               />
             </label>
             {/*{*/}
