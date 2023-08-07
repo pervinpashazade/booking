@@ -73,3 +73,27 @@
     right: -3px !important;
   }
 }
+
+.bottom-menu a span{
+  display: block;
+  margin-top: -10px;
+}
+
+.bottom-menu a:nth-child(3) {
+  position: relative;
+  top:-20px;
+  z-index: 999;
+   svg{
+     background: #6D67EA;
+     width: 40px;
+     height: 40px;
+     color: #fff;
+     border-radius: 100%;
+   }
+  span{
+    display: block;
+    position: absolute;
+    bottom: -20px;
+    text-wrap: nowrap;
+  }
+}
