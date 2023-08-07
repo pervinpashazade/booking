@@ -34,7 +34,7 @@ const FooterNav = () => {
 
   const NAV: NavItem[] = [
     {
-      name: "Əsas səhifə",
+      name: "Əsas",
       link: "/",
       icon: HomeIcon,
     },
@@ -59,7 +59,7 @@ const FooterNav = () => {
       icon: PlusIcon,
     },
     {
-      name: "Bəyəndiklərim",
+      name: "Seçilmişlər",
       // link: "/account-savelists",
       link: !isAuth ? "/login?redirect=/account-savelists" : "/account-savelists",
       icon: HeartIcon,
