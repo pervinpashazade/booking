@@ -21,22 +21,27 @@ const ProStaySearchForm = () => {
                     : "rounded-xl shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)]"
                     }`}
             >
-                {
-                    !isActive ? (
-                        <button
-                            className={`w-full flex justify-between text-sm font-medium p-4`}
-                            onClick={() => setFieldNameShow("location")}
-                        >
-                            <span className="text-neutral-400">Şəhər</span>
-                            <span>{searchParams.city?.name || "Seçin"}</span>
-                        </button>
-                    ) : (
-                        <LocationInput
-                            defaultValue={searchParams.city?.name}
-                            setFieldNameShow={setFieldNameShow}
-                        />
-                    )
-                }
+                {/*{*/}
+                {/*    !isActive ? (*/}
+                {/*        <button*/}
+                {/*            className={`w-full flex justify-between text-sm font-medium p-4`}*/}
+                {/*            onClick={() => setFieldNameShow("location")}*/}
+                {/*        >*/}
+                {/*            <span className="text-neutral-400">Şəhər</span>*/}
+                {/*            <span>{searchParams.city?.name || "Seçin"}</span>*/}
+                {/*        </button>*/}
+                {/*    ) : (*/}
+                {/*        <LocationInput*/}
+                {/*            defaultValue={searchParams.city?.name}*/}
+                {/*            setFieldNameShow={setFieldNameShow}*/}
+                {/*        />*/}
+                {/*    )*/}
+                {/*}*/}
+
+                <LocationInput
+                    defaultValue={searchParams.city?.name}
+                    setFieldNameShow={setFieldNameShow}
+                />
             </div>
         );
     };
@@ -51,22 +56,26 @@ const ProStaySearchForm = () => {
                     : "rounded-xl shadow-[0px_2px_2px_0px_rgba(0,0,0,0.25)]"
                     }`}
             >
-                {!isActive ? (
-                    <button
-                        className={`w-full flex justify-between text-sm font-medium p-4`}
-                        onClick={() => setFieldNameShow("price")}
-                    >
-                        <span className="text-neutral-400">Qiymət</span>
-                        <span>
-                            {`${rangePrices[0]} ${manat_icon} ~ ${rangePrices[1]} ${manat_icon}`}
-                        </span>
-                    </button>
-                ) : (
-                    <PriceRangeInput
-                        // defaultValue={rangePrices}
-                        // onChange={setRangePrices}
-                    />
-                )}
+                {/*{!isActive ? (*/}
+                {/*    <button*/}
+                {/*        className={`w-full flex justify-between text-sm font-medium p-4`}*/}
+                {/*        onClick={() => setFieldNameShow("price")}*/}
+                {/*    >*/}
+                {/*        <span className="text-neutral-400">Qiymət</span>*/}
+                {/*        <span>*/}
+                {/*            {`${rangePrices[0]} ${manat_icon} ~ ${rangePrices[1]} ${manat_icon}`}*/}
+                {/*        </span>*/}
+                {/*    </button>*/}
+                {/*) : (*/}
+                {/*    <PriceRangeInput*/}
+                {/*        // defaultValue={rangePrices}*/}
+                {/*        // onChange={setRangePrices}*/}
+                {/*    />*/}
+                {/*)}*/}
+                <PriceRangeInput
+                    // defaultValue={rangePrices}
+                    // onChange={setRangePrices}
+                />
             </div>
         );
     };
