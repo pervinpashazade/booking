@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { apiUrl, config } from "./config";
+import { apiUrl } from "./config";
 import { store } from './store/store';
 import { logout } from './store/action';
 // import toast from 'toasted-notes';
-import React from "react";
 
 axios.interceptors.request.use(
   config => {
@@ -79,7 +78,7 @@ axios.interceptors.response.use(
 
       console.log("test func");
 
-      const originalRequest = error.config;
+      // const originalRequest = error.config;
 
       if (error.response.status === 401) {
         // debugger

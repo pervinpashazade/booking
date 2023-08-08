@@ -1,7 +1,6 @@
 import Glide from "@glidejs/glide";
 import useNcId from "hooks/useNcId";
-import React, { FC, useEffect, useMemo } from "react";
-import NcImage from "shared/NcImage/NcImage";
+import { FC, useEffect, useMemo } from "react";
 import NextPrev from "shared/NextPrev/NextPrev";
 import { Link } from "react-router-dom";
 
@@ -54,7 +53,7 @@ const GallerySlider: FC<GallerySliderProps> = ({
   };
 
   const renderSliderGallery = () => {
-    console.log("galleryImgs",galleryImgs)
+    console.log("galleryImgs", galleryImgs)
     return (
       <div className={`${UNIQUE_CLASS} relative group overflow-hidden`}>
         <div className="glide__track" data-glide-el="track">
@@ -63,7 +62,7 @@ const GallerySlider: FC<GallerySliderProps> = ({
               <li key={index} className="glide__slide">
                 <Link to={href} className={`block ${ratioClass}`}>
                   {/*<NcImage src={item} />*/}
-                  <img src={item} className="object-cover w-full h-full" />
+                  <img src={item} className="object-cover w-full h-full" alt="qal.az" />
                 </Link>
               </li>
             ))}

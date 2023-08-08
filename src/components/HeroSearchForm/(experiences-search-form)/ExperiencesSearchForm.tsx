@@ -1,9 +1,8 @@
-import React, { FC } from "react";
-import LocationInput from "../LocationInput";
+import { FC } from "react";
 import GuestsInput from "../GuestsInput";
 import ExperiencesDateSingleInput from "./ExperiencesDateSingleInput";
 
-export interface ExperiencesSearchFormProps {}
+export interface ExperiencesSearchFormProps { }
 
 const ExperiencesSearchForm: FC<ExperiencesSearchFormProps> = () => {
   const renderForm = () => {

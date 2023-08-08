@@ -1,27 +1,26 @@
-import React, { Fragment, useEffect } from "react";
+import React from "react";
 import { Helmet } from "react-helmet";
-import Header3 from "components/Header/Header3";
 import Header from "components/Header/Header";
-import {
-  ShoppingBagIcon as ShoppingCartIcon,
-  Cog8ToothIcon as CogIcon,
-} from "@heroicons/react/24/outline";
-import { Link, useLocation } from "react-router-dom";
-import { Popover, Transition } from "@headlessui/react";
+// import {
+//   ShoppingBagIcon as ShoppingCartIcon,
+//   Cog8ToothIcon as CogIcon,
+// } from "@heroicons/react/24/outline";
+import {  useLocation } from "react-router-dom";
+// import { Popover, Transition } from "@headlessui/react";
 import { PathName } from "routers/types";
 
 export type SiteHeaders = "Header 1" | "Header 2" | "Header 3";
 
-interface HomePageItem {
-  name: string;
-  slug: PathName;
-}
+// interface HomePageItem {
+//   name: string;
+//   slug: PathName;
+// }
 
-let OPTIONS = {
-  root: null,
-  rootMargin: "0px",
-  threshold: 1.0,
-};
+// let OPTIONS = {
+//   root: null,
+//   rootMargin: "0px",
+//   threshold: 1.0,
+// };
 // let OBSERVER: IntersectionObserver | null = null;
 const PAGES_HIDE_HEADER_BORDER: PathName[] = [
   "/home-3",
@@ -33,37 +32,35 @@ const PAGES_HIDE_HEADER_BORDER: PathName[] = [
 const SiteHeader = () => {
   const anchorRef = React.useRef<HTMLDivElement>(null);
 
-  let [headers] = React.useState<SiteHeaders[]>([
-    "Header 1",
-    "Header 2",
-    "Header 3",
-  ]);
+  // let [headers] = React.useState<SiteHeaders[]>([
+  //   "Header 1",
+  //   "Header 2",
+  //   "Header 3",
+  // ]);
 
-  let [homePages] = React.useState<HomePageItem[]>([
-    {
-      name: "Home Main",
-      slug: "/",
-    },
-    {
-      name: "Real Estate",
-      slug: "/home-2",
-    },
-    {
-      name: "Home 2",
-      slug: "/home-3",
-    },
-  ]);
-  const [headerSelected, setHeaderSelected] =
-    React.useState<SiteHeaders>("Header 2");
+  // let [homePages] = React.useState<HomePageItem[]>([
+  //   {
+  //     name: "Home Main",
+  //     slug: "/",
+  //   },
+  //   {
+  //     name: "Real Estate",
+  //     slug: "/home-2",
+  //   },
+  //   {
+  //     name: "Home 2",
+  //     slug: "/home-3",
+  //   },
+  // ]);
 
-  const [isTopOfPage, setIsTopOfPage] = React.useState(window.pageYOffset < 5);
+  const [isTopOfPage] = React.useState(window.pageYOffset < 5);
   const location = useLocation();
 
-  const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
-    entries.forEach((entry) => {
-      setIsTopOfPage(entry.isIntersecting);
-    });
-  };
+  // const intersectionCallback = (entries: IntersectionObserverEntry[]) => {
+  //   entries.forEach((entry) => {
+  //     setIsTopOfPage(entry.isIntersecting);
+  //   });
+  // };
 
   // useEffect(() => {
   //   // if (location.pathname === "/home-2") {
@@ -113,30 +110,30 @@ const SiteHeader = () => {
   //   );
   // };
 
-  const renderRadioHomePages = () => {
-    return (
-      <div className="mt-4">
-        <span className="text-sm font-medium">Home Demos</span>
-        <div className="mt-1.5 flex items-center space-x-2">
-          {homePages.map((home) => {
-            return (
-              <Link
-                key={home.slug}
-                to={home.slug}
-                className={`py-1.5 px-3.5 flex items-center rounded-full font-medium text-xs cursor-pointer select-none ${
-                  location.pathname === home.slug
-                    ? "bg-black text-white shadow-black/10 shadow-lg"
-                    : "border border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500"
-                }`}
-              >
-                {home.name}
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    );
-  };
+  // const renderRadioHomePages = () => {
+  //   return (
+  //     <div className="mt-4">
+  //       <span className="text-sm font-medium">Home Demos</span>
+  //       <div className="mt-1.5 flex items-center space-x-2">
+  //         {homePages.map((home) => {
+  //           return (
+  //             <Link
+  //               key={home.slug}
+  //               to={home.slug}
+  //               className={`py-1.5 px-3.5 flex items-center rounded-full font-medium text-xs cursor-pointer select-none ${
+  //                 location.pathname === home.slug
+  //                   ? "bg-black text-white shadow-black/10 shadow-lg"
+  //                   : "border border-neutral-300 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500"
+  //               }`}
+  //             >
+  //               {home.name}
+  //             </Link>
+  //           );
+  //         })}
+  //       </div>
+  //     </div>
+  //   );
+  // };
 
   // const renderControlSelections = () => {
   //   return (

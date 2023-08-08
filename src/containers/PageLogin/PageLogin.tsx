@@ -1,19 +1,14 @@
-import React, { FC, FormEvent, useEffect, useState, Fragment } from "react";
-import facebookSvg from "images/Facebook.svg";
-import twitterSvg from "images/Twitter.svg";
-import googleSvg from "images/Google.svg";
+import { FC, useState, Fragment } from "react";
 import { Helmet } from "react-helmet";
 import Input from "shared/Input/Input";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import axios from "axios";
 import { apiUrl, appName } from "config";
-import { IErrorResponse } from "data/types";
-import { useDispatch } from "react-redux";
-import { useAppDispatch, useAppSelector } from "../../store/store";
+import { useAppDispatch } from "../../store/store";
 import { login } from "../../store/action";
 import InputMask from "react-input-mask";
-import { Dialog, Tab, Transition } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 
 
 export interface PageLoginProps {
@@ -65,10 +60,10 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
     setErrorMessage('')
     // let customPhone = `+994${data.phone.substring(1).replace(new RegExp("-", 'g'), "")}`
     const numberPattern = /\d+/g,
-        num = data.phone && data.phone.split(/[ ,\n]+/).map(i => {
-          // @ts-ignore
-          return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
-        });
+      num = data.phone && data.phone.split(/[ ,\n]+/).map(i => {
+        // @ts-ignore
+        return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
+      });
     // @ts-ignore
     const customPhone = `+${data.phone.match(numberPattern).join('')}`;
     axios.post(apiUrl + 'user/auth/login', {
@@ -78,12 +73,12 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
       console.log("res", res.data.data.user.phone_verified);
       setToken(res.data.data.access_token)
       localStorage.setItem('user', JSON.stringify(res.data.data.user))
-      if (res.data.data.user.phone_verified){
+      if (res.data.data.user.phone_verified) {
         console.log("navigateeeee")
         localStorage.setItem('access_token', res.data.data.access_token)
         navigate(redirectUrl ?? "/")
         dispatch(login(res.data.data.user))
-      }else {
+      } else {
         console.log("modallllll")
         openModal()
       }
@@ -115,24 +110,24 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
     setErrorMessagVerify('')
     // let customPhone = `+994${phone.substring(1).replace(new RegExp("-", 'g'), "")}`
     const numberPattern = /\d+/g,
+      // @ts-ignore
+      num = phone && phone.split(/[ ,\n]+/).map(i => {
         // @ts-ignore
-        num = phone && phone.split(/[ ,\n]+/).map(i => {
-          // @ts-ignore
-          return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
-        });
+        return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
+      });
     // @ts-ignore
     const customPhone = `+${phone.match(numberPattern).join('')}`;
     axios.post(apiUrl + 'user/auth/verify', {
       phone: customPhone,
       code: code,
-    },{
+    }, {
       headers: {
         Authorization: `Bearer ${isToken}`
       }
     }).then(res => {
       // console.log("res", res);
-      if (res.data.success){
-        console.log("res.data111111",res.data)
+      if (res.data.success) {
+        console.log("res.data111111", res.data)
         localStorage.setItem('user', JSON.stringify(res.data.data))
         localStorage.setItem('access_token', isToken)
         navigate(redirectUrl ?? "/")
@@ -147,11 +142,11 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
   }
 
 
-  const closeModal=()=> {
+  const closeModal = () => {
     setIsOpen(false)
   }
 
-  const openModal=()=> {
+  const openModal = () => {
     setIsOpen(true)
   }
 
@@ -165,13 +160,13 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
         <Transition appear show={isOpen} as={Fragment}>
           <Dialog as="div" className="relative z-10" onClose={closeModal}>
             <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
             >
               <div className="fixed inset-0 bg-black bg-opacity-25" />
             </Transition.Child>
@@ -179,18 +174,18 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
             <div className="fixed inset-0 overflow-y-auto">
               <div className="flex min-h-full items-center justify-center p-4 text-center">
                 <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel className="w-full dark:bg-neutral-900 max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <Dialog.Title
-                        as="h3"
-                        className="text-white text-center text-lg font-medium leading-6 text-gray-900"
+                      as="h3"
+                      className="text-white text-center text-lg font-medium leading-6 text-gray-900"
                     >
                       Whatsapp vasitəsilə təsdiqləmə
                     </Dialog.Title>
@@ -214,28 +209,28 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
                         {/*/>*/}
 
                         <InputMask
-                            name="code"
-                            type="tel"
-                            onChange={(e)=>setCode(e.target.value)}
-                            placeholder="Kod"
-                            className="mt-2 w-100"
-                            mask="9999"
-                            required
-                            style={{background:"#111826", color:"white", marginBottom: "20px"}}
+                          name="code"
+                          type="tel"
+                          onChange={(e) => setCode(e.target.value)}
+                          placeholder="Kod"
+                          className="mt-2 w-100"
+                          mask="9999"
+                          required
+                          style={{ background: "#111826", color: "white", marginBottom: "20px" }}
                         />
 
                         {
-                            errorMessageVerify &&
-                            <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-1 mt-2" role="alert">
-                              <div className="py-1">
-                                <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 20 20">
-                                  <path
-                                      d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
-                                </svg>
-                              </div>
-                              <p>{errorMessageVerify}</p>
+                          errorMessageVerify &&
+                          <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-1 mt-2" role="alert">
+                            <div className="py-1">
+                              <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path
+                                  d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                              </svg>
                             </div>
+                            <p>{errorMessageVerify}</p>
+                          </div>
                         }
 
                       </div>
@@ -287,13 +282,13 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
                 Telefon
               </span>
               <InputMask
-                  name="phone"
-                  type="tel"
-                  // value={this.state.phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Telefon nömrəsi"
-                  className="mt-2 w-100"
-                  mask="+\9\94 (99) 999-99-99"
+                name="phone"
+                type="tel"
+                // value={this.state.phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Telefon nömrəsi"
+                className="mt-2 w-100"
+                mask="+\9\94 (99) 999-99-99"
               />
             </label>
             <label className="block">

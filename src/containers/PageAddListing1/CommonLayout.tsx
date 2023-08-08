@@ -36,7 +36,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({
   const [validationErrs, setValidationErrs] = useState<Array<string>>([])
 
   const handleSubmit = () => {
-    console.log("room data", room);
+    // console.log("room data", room);
 
     const errors: Array<string> = []
 
@@ -77,25 +77,11 @@ const CommonLayout: FC<CommonLayoutProps> = ({
     formData.append("double_bed_count", room.double_bed_count.toString())
     formData.append("bathroom_count", room.bathroom_count.toString())
 
-    // // @ts-ignore
-    // room.images.forEach(item => {
-    //   console.log("item", item)
-    //   // @ts-ignore
-    //   return(formData.append("multiple_images[]", item))
-    // })
-
     // @ts-ignore
     room.images.forEach((item: any) => {
       console.log("item", item)
       formData.append("multiple_images[]", item)
     })
-
-    //
-    // for (let i = 0; i < room.images.length; i++) {
-    //   // @ts-ignore
-    //   formData.append("multiple_images", room.images[i]);
-    // };
-
 
     // // static
     formData.append("is_breakfast", "0")
@@ -104,13 +90,9 @@ const CommonLayout: FC<CommonLayoutProps> = ({
 
     dispatch(setData("preLoader", true))
 
-    axios.post(apiUrl + 'vendor/announcement', formData, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("access_token")}`
-      }
-    }).then(res => {
+    axios.post(apiUrl + 'vendor/announcement', formData).then(res => {
       if (res.data.success) {
-        console.log("res.data.data", res.data.data);
+        dispatch(setData({}))
         navigate("/account-items")
       }
     }).catch((err: any) => {

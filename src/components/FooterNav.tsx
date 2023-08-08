@@ -7,7 +7,6 @@ import { Link, useLocation } from "react-router-dom";
 import { PathName } from "routers/types";
 // import MenuBar from "shared/MenuBar/MenuBar";
 import { useAppDispatch, useAppSelector } from "store/store";
-import isInViewport from "utils/isInViewport";
 import { PlusIcon } from "@heroicons/react/24/solid";
 // import { PlusCircleIcon, PlusSmallIcon } from "@heroicons/react/20/solid";
 import { MoonIcon } from "@heroicons/react/24/solid";

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { manat_icon } from "contains/contants";
 import { useAppDispatch, useAppSelector } from "store/store";
 import { changeValue } from "store/action";

@@ -1,7 +1,7 @@
 "use client";
 
-import { ClockIcon, MapPinIcon } from "@heroicons/react/24/outline";
-import React, { useState, useRef, useEffect, FC } from "react";
+import { MapPinIcon } from "@heroicons/react/24/outline";
+import { useState, useRef, useEffect, FC } from "react";
 import ClearDataButton from "./ClearDataButton";
 import { ICityProps } from "../../data/types";
 import { changeValue } from "store/action";
@@ -22,7 +22,7 @@ const LocationInput: FC<LocationInputProps> = ({
   placeHolder = "Şəhər",
   desc = "Şəhər seçin",
   className = "nc-flex-1.5",
-  divHideVerticalLineClass = "left-10 -right-0.5",
+  // divHideVerticalLineClass = "left-10 -right-0.5",
   cities = [],
   city,
   dispatch
@@ -140,7 +140,7 @@ const LocationInput: FC<LocationInputProps> = ({
         </div>
         <div className="flex-grow">
           <input
-              style={{caretColor: "transparent"}}
+            style={{ caretColor: "transparent" }}
             className={`block w-full bg-transparent border-none focus:ring-0 p-0 focus:outline-none focus:placeholder-neutral-300 xl:text-lg font-semibold placeholder-neutral-800 dark:placeholder-neutral-200 truncate`}
             placeholder={placeHolder}
             value={city?.name ?? ""}

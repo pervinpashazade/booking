@@ -1,46 +1,39 @@
-import React, {FC, FormEvent, Fragment, useState, useEffect} from "react";
-import facebookSvg from "images/Facebook.svg";
-import twitterSvg from "images/Twitter.svg";
-import googleSvg from "images/Google.svg";
+import { FC, Fragment, useState, useEffect } from "react";
 import { Helmet } from "react-helmet";
 import Input from "shared/Input/Input";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import ButtonSecondary from "shared/Button/ButtonSecondary";
-import ButtonThird from "shared/Button/ButtonThird";
-import ButtonCircle from "shared/Button/ButtonCircle";
-import Button from "shared/Button/Button";
 
-
-import {Link, useNavigate, useSearchParams} from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { apiUrl, appName } from "config";
 import axios from "axios";
 import { IErrorResponse } from "data/types";
 import { useAppDispatch } from "store/store";
 import { login } from "store/action";
 import InputMask from "react-input-mask";
-import {Dialog, Transition} from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 
 export interface PageSignUpProps {
   className?: string;
 }
 
-const loginSocials = [
-  {
-    name: "Continue with Facebook",
-    href: "#",
-    icon: facebookSvg,
-  },
-  {
-    name: "Continue with Twitter",
-    href: "#",
-    icon: twitterSvg,
-  },
-  {
-    name: "Continue with Google",
-    href: "#",
-    icon: googleSvg,
-  },
-];
+// const loginSocials = [
+//   {
+//     name: "Continue with Facebook",
+//     href: "#",
+//     icon: facebookSvg,
+//   },
+//   {
+//     name: "Continue with Twitter",
+//     href: "#",
+//     icon: twitterSvg,
+//   },
+//   {
+//     name: "Continue with Google",
+//     href: "#",
+//     icon: googleSvg,
+//   },
+// ];
 
 const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
 
@@ -105,10 +98,10 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
     setErrorMessage('')
     // let customPhone = `+9${data.phone.substring(1).replace(new RegExp("-", 'g'), "").replace(new RegExp(" ", 'g'), "")}`
     const numberPattern = /\d+/g,
-        num = data.phone && data.phone.split(/[ ,\n]+/).map(i => {
-          // @ts-ignore
-          return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
-        });
+      num = data.phone && data.phone.split(/[ ,\n]+/).map(i => {
+        // @ts-ignore
+        return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
+      });
     // @ts-ignore
     const phone = `+${data.phone.match(numberPattern).join('')}`;
 
@@ -155,13 +148,13 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
     setErrorMessagVerify('')
     // let customPhone = `+994${phone.substring(1).replace(new RegExp("-", 'g'), "")}`
     const numberPattern = /\d+/g,
+      // @ts-ignore
+      num = phone ? phone.split(/[ ,\n]+/).map(i => {
         // @ts-ignore
-        num = phone ? phone.split(/[ ,\n]+/).map(i => {
-          // @ts-ignore
-          return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
-        }) :
-            // @ts-ignore
-            JSON.parse(localStorage.getItem("user")).phone.split(/[ ,\n]+/).map(i => {
+        return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
+      }) :
+        // @ts-ignore
+        JSON.parse(localStorage.getItem("user")).phone.split(/[ ,\n]+/).map(i => {
           // @ts-ignore
           return i.match(numberPattern).join('').slice(0, 3) === "994" ? i.match(numberPattern).join('') : "994" + i.match(numberPattern).join('')
         })
@@ -170,14 +163,14 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
     axios.post(apiUrl + 'user/auth/verify', {
       phone: customPhone,
       code: code,
-    },{
+    }, {
       headers: {
         Authorization: `Bearer ${isToken}`
       }
     }).then(res => {
       // console.log("res", res);
-      if (res.data.success){
-        console.log("ressssss22222222",res)
+      if (res.data.success) {
+        console.log("ressssss22222222", res)
         localStorage.setItem('user', JSON.stringify(res.data.data))
         navigate(redirectUrl ?? "/")
         dispatch(login(res.data.data))
@@ -193,16 +186,16 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
   useEffect(() => {
     // @ts-ignore
     let user = JSON.parse(localStorage.getItem("user"))
-    if (user && !user.phone_verified){
+    if (user && !user.phone_verified) {
       openModal()
     }
   }, [])
 
-  const closeModal=()=> {
+  const closeModal = () => {
     setIsOpen(false)
   }
 
-  const openModal=()=> {
+  const openModal = () => {
     setIsOpen(true)
   }
 
@@ -217,13 +210,13 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
         <Transition appear show={isOpen} as={Fragment}>
           <Dialog as="div" className="relative z-10" onClose={closeModal}>
             <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
             >
               <div className="fixed inset-0 bg-black bg-opacity-25" />
             </Transition.Child>
@@ -231,18 +224,18 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
             <div className="fixed inset-0 overflow-y-auto">
               <div className="flex min-h-full items-center justify-center p-4 text-center">
                 <Transition.Child
-                    as={Fragment}
-                    enter="ease-out duration-300"
-                    enterFrom="opacity-0 scale-95"
-                    enterTo="opacity-100 scale-100"
-                    leave="ease-in duration-200"
-                    leaveFrom="opacity-100 scale-100"
-                    leaveTo="opacity-0 scale-95"
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
                 >
                   <Dialog.Panel className="w-full dark:bg-neutral-900 text-neutral-900 max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
                     <Dialog.Title
-                        as="h3"
-                        className="text-white text-center text-lg font-medium leading-6 text-gray-900"
+                      as="h3"
+                      className="text-white text-center text-lg font-medium leading-6 text-gray-900"
                     >
                       Whatsapp vasitəsilə təsdiqləmə
                     </Dialog.Title>
@@ -266,28 +259,28 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
                         {/*/>*/}
 
                         <InputMask
-                            name="code"
-                            type="tel"
-                            onChange={(e)=>setCode(e.target.value)}
-                            placeholder="Kod"
-                            className="mt-2 w-100"
-                            mask="9999"
-                            required
-                            style={{background:"#111826", color:"white", marginBottom: "20px"}}
+                          name="code"
+                          type="tel"
+                          onChange={(e) => setCode(e.target.value)}
+                          placeholder="Kod"
+                          className="mt-2 w-100"
+                          mask="9999"
+                          required
+                          style={{ background: "#111826", color: "white", marginBottom: "20px" }}
                         />
 
                         {
-                            errorMessageVerify &&
-                            <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-1 mt-2" role="alert">
-                              <div className="py-1">
-                                <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 20 20">
-                                  <path
-                                      d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
-                                </svg>
-                              </div>
-                              <p>{errorMessageVerify}</p>
+                          errorMessageVerify &&
+                          <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-1 mt-2" role="alert">
+                            <div className="py-1">
+                              <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20">
+                                <path
+                                  d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                              </svg>
                             </div>
+                            <p>{errorMessageVerify}</p>
+                          </div>
                         }
 
 
@@ -295,7 +288,7 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
 
                       <div className="mt-4 flex justify-between">
 
-                        <ButtonSecondary onClick={()=>{closeModal(); localStorage.removeItem("user")}} type="button" loading={isLoadingVerify}>Çıxış</ButtonSecondary>
+                        <ButtonSecondary onClick={() => { closeModal(); localStorage.removeItem("user") }} type="button" loading={isLoadingVerify}>Çıxış</ButtonSecondary>
 
                         <ButtonPrimary type="submit" loading={isLoadingVerify}>Təsdiqlə</ButtonPrimary>
                       </div>
@@ -378,15 +371,15 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
               {/*  className="mt-1"*/}
               {/*/>*/}
               <InputMask
-                  name="phone"
-                  type="tel"
-                  // value={this.state.phone}
-                  // onChange={(e) => this.handleChange(e, "phone")}
-                  onChange={(e) => setPhone(e.target.value)}
-                  placeholder="Telefon nömrəsi"
-                  className="mt-2 w-100"
-                  // mask="099-999-99-99"
-                  mask="+\9\94 (99) 999-99-99"
+                name="phone"
+                type="tel"
+                // value={this.state.phone}
+                // onChange={(e) => this.handleChange(e, "phone")}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Telefon nömrəsi"
+                className="mt-2 w-100"
+                // mask="099-999-99-99"
+                mask="+\9\94 (99) 999-99-99"
               />
             </label>
 
@@ -428,17 +421,17 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
             {/*  <p className="text-red-600">{errorMessage}</p>*/}
             {/*}*/}
             {
-                errorMessage &&
-                <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-1" role="alert">
-                  <div className="py-1">
-                    <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
-                         viewBox="0 0 20 20">
-                      <path
-                          d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/>
-                    </svg>
-                  </div>
-                  <p>{errorMessage}</p>
+              errorMessage &&
+              <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-1" role="alert">
+                <div className="py-1">
+                  <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20">
+                    <path
+                      d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                  </svg>
                 </div>
+                <p>{errorMessage}</p>
+              </div>
             }
             <ButtonPrimary type="submit" loading={isLoading}>Davam et</ButtonPrimary>
           </form>

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import LocationInput from "../LocationInput";
 import PriceRangeInput from "./PriceRangeInput";
-import { manat_icon } from "contains/contants";
 import { useAppSelector } from "store/store";
 
 const ProStaySearchForm = () => {
@@ -10,7 +9,7 @@ const ProStaySearchForm = () => {
 
     const [fieldNameShow, setFieldNameShow] = useState<"location" | "propertyType" | "price">("location");
 
-    const [rangePrices, setRangePrices] = useState([searchParams.price_from, searchParams.price_to]);
+    // const [rangePrices, setRangePrices] = useState([searchParams.price_from, searchParams.price_to]);
 
     const renderInputLocation = () => {
         const isActive = fieldNameShow === "location";
