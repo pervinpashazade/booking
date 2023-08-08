@@ -1,23 +1,16 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Label from "components/Label/Label";
-import Avatar from "shared/Avatar/Avatar";
 import ButtonPrimary from "shared/Button/ButtonPrimary";
 import Input from "shared/Input/Input";
-import Select from "shared/Select/Select";
-import Textarea from "shared/Textarea/Textarea";
 import CommonLayout from "./CommonLayout";
 import { Helmet } from "react-helmet";
 import { apiUrl, appName } from "config";
-import { IUserProps } from "../../data/types";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
 import { logout } from "../../store/action";
 import { useAppDispatch, useAppSelector } from "../../store/store";
-import SwitchDarkMode from "../../shared/SwitchDarkMode/SwitchDarkMode";
-import Logo from "../../shared/Logo/Logo";
-import HeroSearchForm2MobileFactory from "../../components/HeroSearchForm2Mobile/HeroSearchForm2MobileFactory";
-
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export interface AccountPageProps {
   className?: string;
@@ -30,22 +23,16 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
 
   const user = useAppSelector(store => store.user)
 
-  // useEffect(() => {
-  //   axios.get(apiUrl + "user/auth/me", {
-  //     headers: {
-  //       Authorization: `Bearer ${localStorage.getItem("access_token")}`
-  //     },
-  //   }).then(res => {
-  //     if (res.data.success) {
-  //       setList(res.data.data)
-  //     }
-  //   }).catch(err => {
-  //     console.log("account vendor/announcement error", err);
-  //     navigate("/")
-  //   }).finally(() => {
-
-  //   })
-  // }, [])
+  const [oldPassword, setOldPassword] = useState("")
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [validationErrors, setValidationErrors] = useState({
+    oldPassword: "",
+    password: "",
+    confirmPassword: "",
+    response: "",
+  })
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const solutionsFoot = [
     // {
@@ -65,6 +52,44 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
     },
   ];
 
+  const handleChangePassword = () => {
+    const errors = {
+      oldPassword: "",
+      password: "",
+      confirmPassword: "",
+      response: "",
+    }
+    if (!oldPassword) {
+      errors.oldPassword = "Hazırki şifrə daxil edilməyib"
+    }
+    if (!password) {
+      errors.password = "Şifrə daxil edilməyib"
+    }
+    if (!confirmPassword) {
+      errors.confirmPassword = "Şifrə təsdiqi daxil edilməyib"
+    }
+    if (password && confirmPassword && password !== confirmPassword) {
+      errors.confirmPassword = "Şifrə təsdiqi eyni deyil"
+    }
+
+    setValidationErrors(errors)
+
+    if (Object.values(errors).filter(x => x).length) return
+    setIsLoading(true)
+    axios.post(`${apiUrl}user/auth/change-password`, {
+      old_password: oldPassword,
+      password,
+      password_confirmation: confirmPassword,
+    }).then(res => {
+      toast.success(res.data.message)
+      setOldPassword("")
+      setPassword("")
+      setConfirmPassword("")
+    }).catch(err => {
+      setValidationErrors(prevState => ({ ...prevState, response: err.response?.data?.message }))
+    }).finally(() => setIsLoading(false))
+  }
+
   return (
     <div className={`nc-AccountPage ${className}`} data-nc-id="AccountPage">
       <Helmet>
@@ -79,11 +104,7 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
                 <h2 className="text-3xl font-semibold">Profil</h2>
               </div>
             </div>
-            <div className="item2 col-span-1 md:hidden">
-              <SwitchDarkMode className="bg-neutral-100 dark:bg-neutral-800" />
-            </div>
           </div>
-
 
           <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
           <div className="flex flex-col md:flex-row">
@@ -117,7 +138,7 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
             <div className="flex-grow mt-0 lg:mt-8 md:mt-0 md:pl-16 max-w-3xl space-y-6">
               <div>
                 <Label>Ad</Label>
-                <Input className="mt-1.5" defaultValue={user?.name} />
+                <Input readOnly className="mt-1.5" defaultValue={user?.name} />
               </div>
               {/*<div>*/}
               {/*  <Label>Soyad</Label>*/}
@@ -135,6 +156,109 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
               {/*  <Label>About you</Label>*/}
               {/*  <Textarea className="mt-1.5" defaultValue="..." />*/}
               {/*</div>*/}
+
+              {/* <div className="pt-2">
+                <ButtonPrimary>Update info</ButtonPrimary>
+              </div> */}
+
+              <div className="space-y-6 sm:space-y-8">
+                {/* HEADING */}
+                {/* <h2 className="text-3xl font-semibold">Şifrəni dəyiş</h2> */}
+                <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
+                <div className=" space-y-6">
+                  <div>
+                    <Label>Hazırki şifrə</Label>
+                    <Input
+                      type="password"
+                      invalid={validationErrors.oldPassword ? true : false}
+                      className="mt-1.5"
+                      value={oldPassword}
+                      onChange={e => setOldPassword(e.target.value)}
+                    />
+                    {
+                      validationErrors.oldPassword &&
+                      <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-1 mt-2" role="alert">
+                        <div className="py-1">
+                          <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20">
+                            <path
+                              d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                          </svg>
+                        </div>
+                        <p>{validationErrors.oldPassword}</p>
+                      </div>
+                    }
+                  </div>
+                  <div>
+                    <Label>Yeni şifrə</Label>
+                    <Input
+                      type="password"
+                      invalid={validationErrors.password ? true : false}
+                      className="mt-1.5"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                    />
+                    {
+                      validationErrors.password &&
+                      <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-1 mt-2" role="alert">
+                        <div className="py-1">
+                          <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20">
+                            <path
+                              d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                          </svg>
+                        </div>
+                        <p>{validationErrors.password}</p>
+                      </div>
+                    }
+                  </div>
+                  <div>
+                    <Label>Yeni şifrə yenidən</Label>
+                    <Input
+                      type="password"
+                      invalid={validationErrors.confirmPassword ? true : false}
+                      className="mt-1.5"
+                      value={confirmPassword}
+                      onChange={e => setConfirmPassword(e.target.value)}
+                    />
+                    {
+                      validationErrors.confirmPassword &&
+                      <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-1 mt-2" role="alert">
+                        <div className="py-1">
+                          <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20">
+                            <path
+                              d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                          </svg>
+                        </div>
+                        <p>{validationErrors.confirmPassword}</p>
+                      </div>
+                    }
+                  </div>
+                  {
+                    validationErrors.response &&
+                    <div className="flex items-center rounded-xl text-red-600 text-sm font-bold px-1 py-1 mt-2" role="alert">
+                      <div className="py-1">
+                        <svg className="fill-current h-6 w-6 mr-4" xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20">
+                          <path
+                            d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                        </svg>
+                      </div>
+                      <p>{validationErrors.response}</p>
+                    </div>
+                  }
+                  <div className="pt-2">
+                    <ButtonPrimary
+                      loading={isLoading}
+                      onClick={handleChangePassword}
+                    >
+                      Şifrəni dəyiş
+                    </ButtonPrimary>
+                  </div>
+                </div>
+              </div>
+
               <div className="flex justify-center">
                 {solutionsFoot.map((item, index) => (
                   <a
@@ -153,9 +277,6 @@ const AccountPage: FC<AccountPageProps> = ({ className = "" }) => {
                   </a>
                 ))}
               </div>
-              {/* <div className="pt-2">
-                <ButtonPrimary>Update info</ButtonPrimary>
-              </div> */}
             </div>
           </div>
         </div>
