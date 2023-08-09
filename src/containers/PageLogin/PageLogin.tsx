@@ -70,7 +70,7 @@ const PageLogin: FC<PageLoginProps> = ({ className = "" }) => {
       phone: customPhone,
       password: data.password,
     }).then(res => {
-      console.log("res", res.data.data.user.phone_verified);
+      // console.log("res", res.data.data.user.phone_verified);
       setToken(res.data.data.access_token)
       localStorage.setItem('user', JSON.stringify(res.data.data.user))
       if (res.data.data.user.phone_verified) {

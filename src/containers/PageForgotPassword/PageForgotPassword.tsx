@@ -150,45 +150,49 @@ const PageForgotPassword: FC<PageForgotPassProps> = ({ className = "" }) => {
                     leaveFrom="opacity-100 scale-100"
                     leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Panel className="w-full text-black dark:bg-neutral-900 max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <Dialog.Title
                         as="h3"
-                        className="text-lg font-medium leading-6 text-gray-900"
+                        className="dark:text-white text-center text-lg font-medium leading-6 text-gray-900 mb-4"
                     >
                       Token vasitəsilə təsdiqləmə
                     </Dialog.Title>
-                    <div className="mt-2">
-                      <p className="text-sm text-gray-500">
+                    <div className="mt-2 mb-6">
+                      <p className="dark:text-white text-sm text-gray-500">
                         Zəhmət olmasa, telefon nömrənizə göndərilən tokeni daxil edin.
                       </p>
                     </div>
                     <form method="post" onSubmit={handleSubmitVerify}>
                       <div className="mt-2">
+                        <label style={{fontSize: "14px"}} className="mt-2 w-100 dark:text-white dark:bg-neutral-900">Whatsapp-dan gələn təstiq kodunu qeyd edin</label>
                         <Input
                             type="text"
                             name="token"
-                            placeholder="token"
+                            placeholder="Təstiq kodu"
                             required={true}
-                            className="mt-1 bg-white"
-                            style={{background:"white", color:"black"}}
+                            className="mt-2 w-100 dark:bg-neutral-900"
+                            style={{ marginBottom: "20px" }}
                             onChange={(e)=>setForgetPasswordToken(e.target.value)}
                         />
 
+                        <label style={{fontSize: "14px"}} className="mt-2 w-100 dark:text-white dark:bg-neutral-900">Şifrə</label>
                         <Input
                             type="text"
                             name="password"
                             placeholder="Şifrəni daxil edin"
                             required={true}
-                            className="mt-1 bg-white"
-                            style={{background:"white", color:"black"}}
+                            className="mt-2 w-100  dark:bg-neutral-900"
+                            style={{ marginBottom: "20px" }}
                         />
+
+                        <label style={{fontSize: "14px"}} className="mt-2 w-100 dark:text-white dark:bg-neutral-900">Təkrar şifrə</label>
                         <Input
                             type="text"
                             name="password_confirmation"
                             placeholder="Təkrar şifrəni daxil edin"
                             required={true}
-                            className="mt-1 bg-white"
-                            style={{background:"white", color:"black"}}
+                            className="mt-2 w-100  dark:bg-neutral-900"
+                            style={{ marginBottom: "20px" }}
                         />
 
                         {/*<InputMask*/}
