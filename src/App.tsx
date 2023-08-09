@@ -1,10 +1,12 @@
+import { useEffect } from "react";
 import axios from "axios";
 import { Loader } from "components/Loader/Loader";
 import { apiUrl } from "config";
-import React, { useEffect } from "react";
 import MyRouter from "routers/index";
-import { changeValue, login, logout } from "store/action";
-import { useAppDispatch, useAppSelector } from "store/store";
+import { changeValue, login } from "store/action";
+import { useAppDispatch } from "store/store";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
@@ -55,6 +57,18 @@ function App() {
   return (
     <div className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200 min-h-screen">
       <Loader />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme={localStorage.theme === "dark" ? "dark" : "light"}
+      />
       <MyRouter />
     </div>
   );

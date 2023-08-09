@@ -50,7 +50,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
             >
               Bəyəndiklərim
             </NavLink>
-            <NavLink
+            {/* <NavLink
               to="/account-password"
               className={({ isActive }) =>
                 `block py-5 md:py-8 border-b-2 flex-shrink-0 ${!isActive ? "border-transparent" : "border-primary-500"
@@ -58,7 +58,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({ children }) => {
               }
             >
               Şifrəni dəyiş
-            </NavLink>
+            </NavLink> */}
           </div>
         </div>
       </div>

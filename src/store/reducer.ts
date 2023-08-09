@@ -35,10 +35,10 @@ interface initialStateProps {
   },
 }
 
-function getItemFromLocaleStorage(key: string) {
-  const userStr = localStorage.getItem(key)!;
-  return JSON.parse(userStr);
-}
+// function getItemFromLocaleStorage(key: string) {
+//   const userStr = localStorage.getItem(key)!;
+//   return JSON.parse(userStr);
+// }
 
 export const initialState: initialStateProps = {
   data: {

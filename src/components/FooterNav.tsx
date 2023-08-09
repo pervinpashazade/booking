@@ -1,25 +1,27 @@
 import {
   HeartIcon, HomeIcon,
-  MagnifyingGlassIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
-import React, {useEffect, useRef, useState} from "react";
+import { useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { PathName } from "routers/types";
-import MenuBar from "shared/MenuBar/MenuBar";
-import { useAppSelector } from "store/store";
-import isInViewport from "utils/isInViewport";
-import {PlusIcon} from "@heroicons/react/24/solid";
-import {PlusCircleIcon, PlusSmallIcon} from "@heroicons/react/20/solid";
+// import MenuBar from "shared/MenuBar/MenuBar";
+import { useAppDispatch, useAppSelector } from "store/store";
+import { PlusIcon } from "@heroicons/react/24/solid";
+// import { PlusCircleIcon, PlusSmallIcon } from "@heroicons/react/20/solid";
 import { MoonIcon } from "@heroicons/react/24/solid";
 import { SunIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
+import { changeValue, setData } from "store/action";
+import { apiUrl } from "config";
 
-let WIN_PREV_POSITION = window.pageYOffset;
+// let WIN_PREV_POSITION = window.pageYOffset;
 
 interface NavItem {
   name: string;
   link?: PathName | string;
   icon: any;
+  onClick?: Function
 }
 
 const FooterNav = () => {
@@ -31,24 +33,27 @@ const FooterNav = () => {
   const location = useLocation();
 
   const isAuth = useAppSelector(store => store.isAuth)
+  const { per_page } = useAppSelector(store => store.searchParams)
+  const dispatch = useAppDispatch()
 
   const NAV: NavItem[] = [
     {
       name: "Əsas",
       link: "/",
       icon: HomeIcon,
+      onClick: () => getData()
     },
     {
       name: "Dizayn",
       icon: <span
-          onClick={_toogleDarkMode}
-          className={``}
+        onClick={_toogleDarkMode}
+        className={``}
       >
         <span className="sr-only">Enable dark mode</span>
         {isDarkMode ? (
-            <MoonIcon className="w-7 h-7" aria-hidden="true" />
+          <MoonIcon className="w-7 h-7" aria-hidden="true" />
         ) : (
-            <SunIcon className="w-7 h-7" aria-hidden="true" />
+          <SunIcon className="w-7 h-7" aria-hidden="true" />
         )}
       </span>
     },
@@ -79,37 +84,36 @@ const FooterNav = () => {
   //   window.addEventListener("scroll", handleEvent);
   // }, []);
 
-  const handleEvent = () => {
-    window.requestAnimationFrame(showHideHeaderMenu);
-  };
+  // const handleEvent = () => {
+  //   window.requestAnimationFrame(showHideHeaderMenu);
+  // };
 
-  const showHideHeaderMenu = () => {
-    let currentScrollPos = window.pageYOffset;
-    if (!containerRef.current) return;
+  // const showHideHeaderMenu = () => {
+  //   let currentScrollPos = window.pageYOffset;
+  //   if (!containerRef.current) return;
 
-    // SHOW _ HIDE MAIN MENU
-    if (currentScrollPos > WIN_PREV_POSITION) {
-      if (
-        isInViewport(containerRef.current) &&
-        currentScrollPos - WIN_PREV_POSITION < 80
-      ) {
-        return;
-      }
+  //   // SHOW _ HIDE MAIN MENU
+  //   if (currentScrollPos > WIN_PREV_POSITION) {
+  //     if (
+  //       isInViewport(containerRef.current) &&
+  //       currentScrollPos - WIN_PREV_POSITION < 80
+  //     ) {
+  //       return;
+  //     }
 
-      containerRef.current.classList.add("FooterNav--hide");
-    } else {
-      if (
-        !isInViewport(containerRef.current) &&
-        WIN_PREV_POSITION - currentScrollPos < 80
-      ) {
-        return;
-      }
-      containerRef.current.classList.remove("FooterNav--hide");
-    }
+  //     containerRef.current.classList.add("FooterNav--hide");
+  //   } else {
+  //     if (
+  //       !isInViewport(containerRef.current) &&
+  //       WIN_PREV_POSITION - currentScrollPos < 80
+  //     ) {
+  //       return;
+  //     }
+  //     containerRef.current.classList.remove("FooterNav--hide");
+  //   }
 
-    WIN_PREV_POSITION = currentScrollPos;
-  };
-
+  //   WIN_PREV_POSITION = currentScrollPos;
+  // };
 
   const toDark = () => {
     setIsDarkMode(true);
@@ -137,6 +141,36 @@ const FooterNav = () => {
     }
   }
 
+  const getData = () => {
+    dispatch(setData("preLoader", true))
+    axios.get(apiUrl + "vendor/announcement", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      },
+      params: {
+        "page": 1,
+        "per_page": per_page,
+        "filter[city_id]": "",
+        "filter[price_from]": "",
+        "filter[price_to]": "",
+      }
+    })
+      .then(res => {
+        dispatch(changeValue("data", "list", res.data.data.data))
+        dispatch(changeValue("data", "total_data", res.data.data.total))
+        dispatch(setData("searchParams", {
+          page: 1,
+          per_page: 12,
+          city: null,
+          price_from: 0,
+          price_to: 5000
+        }))
+      })
+      .finally(() => {
+        dispatch(setData("preLoader", false))
+      })
+  }
+
   return (
     <div
       ref={containerRef}
@@ -151,6 +185,8 @@ const FooterNav = () => {
               <Link
                 key={index}
                 to={item.link}
+                // @ts-ignore
+                onClick={item.onClick && item.onClick}
                 className={`flex flex-col items-center justify-between text-neutral-500 dark:text-neutral-300/90 ${active ? "text-neutral-900 dark:text-neutral-100" : ""
                   }`}
               >

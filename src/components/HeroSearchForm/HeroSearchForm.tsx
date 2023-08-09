@@ -24,7 +24,7 @@ const HeroSearchForm: FC<HeroSearchFormProps> = ({
   const cities = useAppSelector(store => store.staticData.cityList)
 
   // const tabs: SearchTab[] = ["Kirayə", "Turlar"];
-  const tabs: SearchTab[] = ["Kirayə"];
+  // const tabs: SearchTab[] = ["Kirayə"];
   const [tabActive, setTabActive] = useState<SearchTab>(currentTab);
 
   // const renderTab = () => {

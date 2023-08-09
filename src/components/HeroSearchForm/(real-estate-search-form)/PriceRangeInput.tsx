@@ -1,9 +1,6 @@
-import React, { Fragment, useState, FC } from "react";
+import { Fragment, FC } from "react";
 import { Popover, Transition } from "@headlessui/react";
-import Slider from "rc-slider";
-import ButtonSubmit from "../ButtonSubmit";
 import { CreditCardIcon } from "@heroicons/react/24/outline";
-import convertNumbThousand from "utils/convertNumbThousand";
 import { manat_icon } from "contains/contants";
 
 export interface PriceRangeInputProps {

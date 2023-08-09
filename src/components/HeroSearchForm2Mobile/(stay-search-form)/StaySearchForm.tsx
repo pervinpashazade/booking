@@ -1,14 +1,8 @@
-import React, { useState } from "react";
-import GuestsInput from "../GuestsInput";
+import { useState } from "react";
 import LocationInput from "../LocationInput";
-import DatesRangeInput from "../DatesRangeInput";
-import { ClassOfProperties, GuestsObject } from "components/HeroSearchForm/type";
-import converSelectedDateToString from "utils/converSelectedDateToString";
-import convertNumbThousand from "utils/convertNumbThousand";
 import PriceRangeInput from "./PriceRangeInput";
 import { manat_icon } from "contains/contants";
 import { useAppSelector } from "store/store";
-import PropertyTypeSelect from "components/HeroSearchForm/(real-estate-search-form)/PropertyTypeSelect";
 
 const StaySearchForm = () => {
 
@@ -215,8 +209,8 @@ const StaySearchForm = () => {
           </button>
         ) : (
           <PriceRangeInput
-            // defaultValue={rangePrices}
-            // onChange={setRangePrices}
+          // defaultValue={rangePrices}
+          // onChange={setRangePrices}
           />
         )}
       </div>

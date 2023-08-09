@@ -2,7 +2,7 @@ import { avatarColors } from "contains/contants";
 import React, { FC } from "react";
 // import avatar1 from "images/avatars/user.png";
 import avatarWhite from "images/user1.png";
-import avatarDark from "images/user-square.svg";
+// import avatarDark from "images/user-square.svg";
 
 export interface AvatarProps {
   containerClassName?: string;
