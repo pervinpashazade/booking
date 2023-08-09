@@ -102,3 +102,17 @@
     text-wrap: nowrap;
   }
 }
+
+
+.progressBar div>div{
+  background: #111826 !important;
+  height: 20px !important;
+}
+.progressBar div>div>div{
+  height: 20px !important;
+  background: #4F46E5 !important;
+}
+
+.progressBar div>div>div>span{
+  font-size: 13px !important;
+}

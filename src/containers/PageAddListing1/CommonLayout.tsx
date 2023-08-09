@@ -9,6 +9,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ProBreadcrumb from "components/ProBreadcrumb/ProBreadcrumb";
 import { setData } from "store/action";
+import ProgressBar from "@ramonak/react-progress-bar";
 
 export interface CommonLayoutProps {
   index: string;
@@ -34,9 +35,10 @@ const CommonLayout: FC<CommonLayoutProps> = ({
   const room = useAppSelector(store => store.room)
 
   const [validationErrs, setValidationErrs] = useState<Array<string>>([])
-
+  const [progress, setProgress] = useState(0);
+  const [progressShow, setProgressShow] = useState(false);
   const handleSubmit = () => {
-    console.log("room data", room);
+    // console.log("room data", room);
 
     const errors: Array<string> = []
 
@@ -86,7 +88,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({
 
     // @ts-ignore
     room.images.forEach((item: any) => {
-      console.log("item", item)
+      // console.log("item", item)
       formData.append("multiple_images[]", item)
     })
 
@@ -102,26 +104,38 @@ const CommonLayout: FC<CommonLayoutProps> = ({
     formData.append("breakfast_fee", "0")
     formData.append("condition", "4")
 
-    dispatch(setData("preLoader", true))
-
+    // dispatch(setData("preLoader", true))
+    setProgressShow(true)
     axios.post(apiUrl + 'vendor/announcement', formData, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`
-      }
+      },
+      onUploadProgress: (progressEvent) => {
+        // @ts-ignore
+        let progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+        setProgress(progress);
+      },
     }).then(res => {
       if (res.data.success) {
         console.log("res.data.data", res.data.data);
-        navigate("/account-items")
+        // debugger
+        if (progress === Number(100) || progress === Number(0)) {
+          // debugger
+          navigate("/account-items")
+        }
       }
     }).catch((err: any) => {
+      setProgressShow(false)
       setErrorMessage(err.response.data.message)
       setValidationErrs([])
       console.log("post vendor/announcement err", err);
     })
       .then(() => {
+        setProgressShow(false)
         dispatch(setData("preLoader", false))
       })
   }
+  console.log("progress", progress);
 
   const handleNext = () => {
 
@@ -158,7 +172,6 @@ const CommonLayout: FC<CommonLayoutProps> = ({
       <Helmet>
         <title>Yeni elan | {appName}</title>
       </Helmet>
-
       <ProBreadcrumb
         classnames="mb-7"
         items={[{
@@ -212,7 +225,10 @@ const CommonLayout: FC<CommonLayoutProps> = ({
             </div>
           }
         </div>
-
+        <div className="progressBar">
+          {/*<ProgressBar completed={60} />*/}
+          {progressShow && <ProgressBar completed={progress} />}
+        </div>
         {/* --------------------- */}
         <div className="flex justify-end space-x-5">
           {

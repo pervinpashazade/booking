@@ -9,12 +9,21 @@ import { useAppDispatch, useAppSelector } from "store/store";
 function App() {
 
   const dispatch = useAppDispatch();
+  // const BigNumber = require('bignumber.js');
+  //
+  // const num1 = new BigNumber('1634139415244749444');
+  // const num2 = new BigNumber('000');
+  //
+  // const result = num1.plus(num2);
+  //
+  // console.log("wwww",result.c[1]);
 
+  console.log("")
   useEffect(() => {
     if (localStorage.getItem("access_token")) {
       axios.get(apiUrl + "user/auth/me").then(res => {
         if (res.data.success) {
-          console.log("meee", res.data.data);
+          // console.log("meee", res.data.data);
           localStorage.setItem('user', JSON.stringify(res.data.data))
           dispatch(login(res.data.data))
         }

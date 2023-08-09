@@ -33,7 +33,7 @@ const ProSectionGridFeaturePlaces: FC<ProSectionGridFeaturePlacesProps> = ({
     };
 
     // console.log("data", data)
-    console.log("totalData", total_data)
+    // console.log("totalData", total_data)
     return (
         <div className="nc-SectionGridFeaturePlaces relative">
             {data.length > 0 ?

@@ -94,9 +94,6 @@ const PageAddListing1: FC<PageAddListing1Props> = () => {
     >
       <>
         <h2 className="text-2xl font-semibold">Yeni elan</h2>
-        {
-          console.log("room_errors", room_errors)
-        }
         <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
         {/* FORM */}
         <div className="space-y-8">
