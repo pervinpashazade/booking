@@ -232,16 +232,16 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <Dialog.Panel className="w-full dark:bg-neutral-900 text-neutral-900 max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
+                  <Dialog.Panel className="w-full text-black dark:bg-neutral-900 max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                     <Dialog.Title
                       as="h3"
-                      className="text-white text-center text-lg font-medium leading-6 text-gray-900"
+                      className="dark:text-white text-center text-lg font-medium leading-6 text-gray-900"
                     >
                       Whatsapp vasitəsilə təsdiqləmə
                     </Dialog.Title>
                     <div className="mt-2">
-                      <p className="text-white text-sm text-gray-500 mb-5">
-                        Zəhmət olmasa, nömrənizə göndərilən kodu daxil edin.
+                      <p className="dark:text-white text-sm text-gray-500 mb-5">
+                        Zəhmət olmasa, nömrənizə göndərilən təstiq kodunu daxil edin.
                       </p>
                     </div>
                     <form method="post" onSubmit={handleSubmitVerify}>
@@ -263,10 +263,10 @@ const PageSignUp: FC<PageSignUpProps> = ({ className = "" }) => {
                           type="tel"
                           onChange={(e) => setCode(e.target.value)}
                           placeholder="Kod"
-                          className="mt-2 w-100"
+                          className="mt-2 w-100  dark:bg-neutral-900"
                           mask="9999"
                           required
-                          style={{ background: "#111826", color: "white", marginBottom: "20px" }}
+                          style={{ marginBottom: "20px" }}
                         />
 
                         {
