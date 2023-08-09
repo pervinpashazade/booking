@@ -38,7 +38,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({
   const [progress, setProgress] = useState(0);
   const [progressShow, setProgressShow] = useState(false);
   const handleSubmit = () => {
-    // console.log("room data", room);
+    console.log("room data", room);
 
     const errors: Array<string> = []
 
