@@ -7,6 +7,7 @@ import { changeValue, login } from "store/action";
 import { useAppDispatch } from "store/store";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import App2 from "./App2";
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
 
   return (
     <div className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200 min-h-screen">
+      {/*<App2 />*/}
       <Loader />
       <ToastContainer
         position="top-right"

@@ -114,6 +114,7 @@ const CommonLayout: FC<CommonLayoutProps> = ({
         // @ts-ignore
         let progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
         setProgress(progress);
+        console.log("progressEvent",progressEvent)
       },
     }).then(res => {
       if (res.data.success) {
